@@ -1,5 +1,5 @@
 @import './common';
-
-* {
-    box-sizing: border-box;
-  }
+@import './partials/home-header';
+@import './partials/main';
+@import './partials/footer';
+@import './partials/up-btn';
