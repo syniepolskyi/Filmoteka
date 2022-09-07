@@ -62,9 +62,9 @@ a {
   padding-right: 20px;
 }
 
-@media screen and (min-width: 480px) {
+@media screen and (min-width: 320px) {
   .container {
-    width: 480px;
+    width: 320px;
   }
 }
 
@@ -72,12 +72,12 @@ a {
   .container {
     width: 768px;
     padding-left: 32px;
-  padding-right: 32px;
+    padding-right: 32px;
   }
 }
 
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 1280px) {
   .container {
-    width: 1200px;
+    width: 1280px;
   }
 }
