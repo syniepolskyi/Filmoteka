@@ -15,6 +15,7 @@
   "author": "DreamTeam GoIT#2",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.27.2",
     "basiclightbox": "^5.0.4",
     "handlebars": "^4.7.7",
     "handlebars-helpers": "^0.9.8",
