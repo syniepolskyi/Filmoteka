@@ -1,0 +1,1 @@
+{"mappings":"oeAAAA,EAAA","sources":["src/js/library.js"],"sourcesContent":["import { Notify } from 'notiflix/build/notiflix-notify-aio'\nimport \"notiflix/dist/notiflix-3.2.5.min.css\"\n"],"names":["parcelRequire"],"version":3,"file":"library.510bf858.js.map"}
