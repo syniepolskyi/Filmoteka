@@ -1,6 +1,19 @@
 # Filmoteka
 GoIT Project
 
+## Налаштування і використання
+
+```
+node -v
+> v14.18.3
+npm -v
+> 8.5.5
+npm i
+npm start
+```
+
+Потрібен веб-браузер з підтримкою ES6
+
 ## Структура файлів partials
 - `main.html` - список фільмів (без пагінації)
 - `pagination.html` - пагінація
