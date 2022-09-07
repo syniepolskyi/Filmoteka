@@ -2,30 +2,80 @@
   background-repeat: no-repeat;
   background-position: center;
   background-color: $header-bgc;
-  // background-image: url(./img/header-320.png);
+  background-image: url(/src/images/mobile/main-background-mobile.jpg);
   background-size: cover;
   /* opacity: 0.9; */
 }
-//   @media screen and (min-width: 768px) {
-//     .header {
-//     //   background-image: url(./img/header_768.png);
-//     }
-//   }
+@media (min-device-pixel-ratio: 2),
+  (-webkit-min-device-pixel-ratio: 2),
+  (min-resolution: 192dpi),
+  (min-resolution: 2dppx) {
+  .header {
+    background-image: url(/src/images/mobile/main-background-mobile@2x.jpg);
+  }
+}
 
-//   @media screen and (min-width: 1280px){
-//       .header {
-//         //   background-image: url(./img/header_1280.png);
-//         }
-//   }
+@media screen and (min-device-pixel-ratio: 3),
+  screen and (min-resolution: 288dpi),
+  screen and (min-resolution: 3dppx) {
+  .header {
+    background-image: url(/src/images/mobile/main-background-mobile@3x.jpg);
+  }
+}
+
+/*Tablet фон*/
+@media screen and (min-width: 768px) {
+  .header {
+    background-image: url(/src/images/tablet/main-background-tablet.jpg);
+  }
+
+  @media (min-device-pixel-ratio: 2),
+    (-webkit-min-device-pixel-ratio: 2),
+    (min-resolution: 192dpi),
+    (min-resolution: 2dppx) {
+    .header {
+      background-image: url(/src/images/tablet/main-background-tablet@2x.jpg);
+    }
+  }
+  @media screen and (min-device-pixel-ratio: 3),
+    screen and (min-resolution: 288dpi),
+    screen and (min-resolution: 3dppx) {
+    .header {
+      background-image: url(/src/images/tablet/main-background-tablet@3x.jpg);
+    }
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .header {
+    background-image: url(/src/images/desktop/main-background-desktop.jpg);
+  }
+
+  @media (min-device-pixel-ratio: 2),
+  (-webkit-min-device-pixel-ratio: 2),
+  (min-resolution: 192dpi),
+  (min-resolution: 2dppx) {
+  .header {
+    background-image: url(/src/images/desktop/main-background-desktop@2x.jpg);
+  }
+}
+@media screen and (min-device-pixel-ratio: 3),
+  screen and (min-resolution: 288dpi),
+  screen and (min-resolution: 3dppx) {
+  .header {
+    background-image: url(/src/images/desktop/main-background-desktop@3x.jpg);
+  }
+}
+}
 
 .header__section {
   padding-top: 40px;
   padding-bottom: 44px;
 }
 
-.header__logo{
-    stroke: $white-text; 
-    fill: none; 
+.header__logo {
+  stroke: $white-text;
+  fill: none;
 }
 
 .site-nav {
@@ -109,7 +159,6 @@
   .header__form-search {
     width: 394px;
   }
-
 }
 
 .header__form-input:focus-within {
@@ -130,8 +179,9 @@
 .header__error {
   margin-top: 16px;
   color: $error-text;
-  /* opacity: 0; */
+  opacity: 0;
 }
+
 .header__list-link--accent::after {
   content: '';
   position: absolute;
@@ -167,7 +217,7 @@
   background: none;
   border: none;
   stroke: $white-text;
-   fill: none;
+  fill: none;
 
   top: 50%;
   left: 102%;
