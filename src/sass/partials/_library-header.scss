@@ -144,24 +144,79 @@
 }
 
 .library__btns {
-  display: flex;
-  justify-content: space-between;
-}
-.library__button {
   margin-top: 62px;
+  margin-bottom: 62px;
+  margin-right: -20px;
+
+  display: flex;
+  justify-content: center;
+}
+
+.library__button {
+  display: inline-block;
   width: 130px;
   height: 44px;
   border: 1px solid $white-text;
   border-radius: 5px;
   background: none;
 
+  margin-right: 20px;
+}
+
+.button--accent {
+  background-color: $orange-btn;
+  border-color: $orange-btn;
+}
+
+.library__button-text {
+  display: block;
+  text-align: center;
   font-size: 12px;
   color: $white-text;
   line-height: 1.33;
   font-weight: 500;
+
+  padding-top: 14px;
+  padding-bottom: 12px;
+  padding-left: 36px;
+  padding-right: 36px;
 }
 
-.button--accent{
-    background-color: $orange-btn;
-    border-color: $orange-btn;
+@media screen and (min-width: 768px) {
+  .library__btns {
+    margin-top: 40px;
+    margin-bottom: 60px;
+
+    margin-right: -32px;
+  }
+  .library__button {
+    width: 152px;
+    height: 44px;
+
+    margin-right: 32px;
+  }
+
+  .library__button-text {
+ 
+    padding:13px, 46px;
+  }
 }
+
+@media screen and (min-width: 1280px) {
+    .library__btns {
+      
+  
+      margin-right: -16px;
+    }
+    .library__button {
+      width: 148px;
+      height: 42px;
+  
+      margin-right: 16px;
+    }
+
+    .library__button-text {
+ 
+        padding:12px, 41px;
+      }
+  }
