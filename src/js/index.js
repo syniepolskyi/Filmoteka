@@ -1,2 +1,8 @@
-import { Notify } from 'notiflix/build/notiflix-notify-aio'
-import "notiflix/dist/notiflix-3.2.5.min.css"
+import './constants/refs'
+import './api/moviedb/getTrending'
+import './api/moviedb/searchMovies'
+import './queue'
+import './watched'
+import './modalCard'
+import './modalAbout'
+import './upToTop'
