@@ -1,0 +1,1 @@
+{"mappings":"AACYA,SAASC,cAAc","sources":["src/js/constants/refs.js"],"sourcesContent":["export const refs = {\r\n  mainList: document.querySelector(\".s-main-film-list\")\r\n}\r\n"],"names":["document","querySelector"],"version":3,"file":"index.5fff64f6.js.map"}
