@@ -1,0 +1,1 @@
+import './api/moviedb/getMoviesDetails'

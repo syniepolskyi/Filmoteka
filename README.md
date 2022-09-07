@@ -23,3 +23,18 @@ npm start
 - `footer.html` - футер
 - `up_btn.html` - кнопка для переходу на початок сторінки
 - `about-modal.html` - модалка з інфою про учасників проjекту
+
+## Структура файлів js
+- `constants/refs.js` - всі статичні DOM об'єкти
+- `constants/moviedb.js` - константи для роботи з API themoviedb.org, <-- API_KEY тут
+- `api/moviedb/getGenres.js` - логіка для отримання жанрів фільмів
+- `api/moviedb/getTrending.js` - логіка для отримання списку фільмів у трендах
+- `api/moviedb/searchMovies.js` - логіка для отримання списку фільмів з пошукового рядку
+- `api/moviedb/getMoviesDetails.js` - логіка для отримання інформації про фільм 
+- `api/firebase/api.js` - основні функції API Firebase
+- `index.js` - лістенери і логіка головної сторінки
+- `library.js` - лістенери і логіка бібліотеки
+- `queue.js` - зберігання доданих фільмів у черги
+- `watched.js` - зберігання доданих переглянутих фільмів
+- `modalCard.js` - логіка роботи модалки з інформацією про фільм
+- `modalAbout.js` - логіка роботи модалки з інформацією про учасників
