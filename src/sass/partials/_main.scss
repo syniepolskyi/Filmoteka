@@ -1,1 +1,49 @@
+.films-section {
+  padding-top: 20px;
+  padding-bottom: 40px;
 
+  @media screen and (min-width: 768px) {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+}
+
+.film-list {
+  margin-bottom: 40px;
+
+  @media screen and (min-width: 768px) {
+    margin-top: -32px;
+    margin-bottom: 60px;
+    margin-left: -32px;
+
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  @media screen and (min-width: 1280px) {
+    margin-left: -16px;
+  }
+}
+
+.film-list_item {
+  @media screen and (min-width: 768px) {
+    margin-top: 32px;
+    margin-left: 32px;
+
+    flex-basis: calc((100% - 64px) / 2);
+  }
+  
+  @media screen and (min-width: 1280px) {
+    margin-left: 16px;
+
+    flex-basis: calc((100% - 48px) / 3);
+  }
+}
+
+.film-list_item:not(:last-child) {
+  margin-bottom: 20px;
+
+  @media screen and (min-width: 768px) {
+    margin-bottom: 0;
+  }
+}
