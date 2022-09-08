@@ -186,6 +186,7 @@
 
 .header__form-icon {
   display: inline-flex;
+
 }
 
 .header__error {
@@ -236,6 +237,7 @@
   display: inline-flex;
   background: none;
   border: none;
+
   stroke: $white-text;
   fill: none;
 
@@ -269,5 +271,17 @@
 
 .icon-autorization:hover {
   fill: $orange-hover;
+  stroke: $orange-hover;
+}
+
+.header__form-input:hover {
+  border-bottom-color: $orange-hover;
+}
+
+.header__form-input:hover.header__form-input::placeholder {
+  color: $orange-hover;
+}
+
+.header__form-input:hover~.header__search {
   stroke: $orange-hover;
 }
