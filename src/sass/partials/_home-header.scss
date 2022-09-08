@@ -77,6 +77,9 @@
 .header__logo {
   stroke: $white-text;
   fill: none;
+
+  transition: stroke 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
 }
 
 .header__icon {
@@ -117,6 +120,9 @@
   line-height: 1.17;
   padding-top: 2px;
   padding-bottom: 2px;
+
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
 }
 
 .header__form {
@@ -211,6 +217,8 @@
 
 .header__logo-text {
   display: none;
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
 }
 @media screen and (min-width: 768px) {
   .header__logo {
@@ -248,6 +256,9 @@
 .icon-autorization {
   fill: white;
   stroke: white;
+
+  transition: stroke fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
 }
 
 /*Ховери*/
