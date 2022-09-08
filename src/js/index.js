@@ -1,4 +1,4 @@
-// import './constants/refs';
+import './constants/refs';
 import './api/moviedb/getTrending';
 import './api/moviedb/searchMovies';
 import './queue';
@@ -6,6 +6,7 @@ import './watched';
 import './modalCard';
 import './modalAbout';
 import './upToTop';
+
 import { getTrending } from './api/moviedb/getTrending';
 import { getGenres } from './api/moviedb/getGenres';
 import { changeGenresIdtoName } from './api/moviedb/changeGenresIdtoName';
@@ -29,3 +30,4 @@ async function renderTrendingMovies(page) {
 }
 
 renderTrendingMovies();
+
