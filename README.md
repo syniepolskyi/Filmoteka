@@ -26,6 +26,8 @@ npm start
 
 ## Структура файлів js
 - `constants/refs.js` - всі статичні DOM об'єкти
+- `constants/dynamicRefs.js` - всі динамічні DOM об'єкти (по суті функція)
+- `constants/storage.js` - збережені ID для watched та queue
 - `constants/moviedb.js` - константи для роботи з API themoviedb.org, <-- API_KEY тут
 - `api/moviedb/getGenres.js` - логіка для отримання жанрів фільмів
 - `api/moviedb/getTrending.js` - логіка для отримання списку фільмів у трендах
