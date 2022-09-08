@@ -1,3 +1,3 @@
 export const refs = {
-  mainList: document.querySelector(".s-main-film-list")
+  mainList: document.querySelector(".js-main-film-list")
 }

@@ -4,6 +4,7 @@
   "description": "",
   "homepage": "https://syniepolskyi.github.io/Filmoteka",
   "scripts": {
+    "open": "parcel src/*.html --open",
     "start": "parcel src/*.html",
     "build": "parcel build src/*.html --public-url /Filmoteka/"
   },
