@@ -1,9 +1,13 @@
-import './api/moviedb/getMoviesDetails';
+// import './api/moviedb/getMoviesDetails';
 // import modalInputTpl from '../templates/modal-card.hbs';
 
 // const modal = document.querySelector('[data-backdrop]');
 
-// export default function showModal() {
+// export default function openModalCard() {
+//   document.body.classList.add('show-modal-card');
+
+//   console.log('Show Modal', this);
+
 //   // шаблонні дані data треба замінити на дані з бекенду
 //   const data = {
 //     adult: false,
@@ -78,5 +82,31 @@ import './api/moviedb/getMoviesDetails';
 
 //   const html = modalInputTpl(data);
 //   modal.innerHTML = html;
-//   modal.style.display = 'block';
+
+//   // const openModalEl = document.querySelectorAll('[data-modal-open]');
+//   const closeModalBtnEl = document.querySelector('[data-modal-close]');
+//   const backdropEl = document.querySelector('[data-backdrop]');
+
+//   // openModalEl.forEach(card => card.addEventListener('click', penModalCard));
+//   closeModalBtnEl.addEventListener('click', onCloseModalCard);
+//   backdropEl.addEventListener('click', onBackdropClick);
+
+//   window.addEventListener('keydown', onEscKyePressExit);
+// }
+
+// function onCloseModalCard() {
+//   document.body.classList.remove('show-modal-card');
+//   window.addEventListener('keydown', onEscKyePressExit);
+// }
+
+// function onBackdropClick(event) {
+//   if (event.target === event.currentTarget) {
+//     onCloseModalCard();
+//   }
+// }
+
+// function onEscKyePressExit(event) {
+//   if (event.code === 'Escape') {
+//     onCloseModalCard();
+//   }
 // }
