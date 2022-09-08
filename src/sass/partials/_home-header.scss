@@ -26,6 +26,7 @@
 /*Tablet фон*/
 @media screen and (min-width: 768px) {
   .header {
+    min-height: 216px;
     background-image: url(/src/images/tablet/main-background-tablet.png);
   }
 
@@ -45,7 +46,7 @@
     }
   }
 }
-
+/*Desctop фон*/
 @media screen and (min-width: 1280px) {
   .header {
     background-image: url(/src/images/desktop/main-background-desktop.png);
@@ -74,8 +75,13 @@
 }
 
 .header__logo {
+  transition: stroke 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.header__icon {
   stroke: $white-text;
   fill: none;
+  display: block;
 }
 
 .site-nav {
@@ -86,7 +92,7 @@
 
 .header__list {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
 
   font-style: 500;
   font-size: 12px;
@@ -112,6 +118,8 @@
   line-height: 1.17;
   padding-top: 2px;
   padding-bottom: 2px;
+
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .header__form {
@@ -127,16 +135,19 @@
 }
 .header__form-input {
   font-size: 14px;
-  width: 280px;
+  max-width: 280px;
+  width: 100%;
   height: 20px;
   background: none;
   border: none;
   border-bottom: 0.5px solid $white-text;
+
+  caret-color: $white-text;
 }
 
 @media screen and (min-width: 768px) {
   .header__form-input {
-    width: 336px;
+    max-width: 336px;
   }
   .header__form-search {
     width: 336px;
@@ -147,6 +158,7 @@
 
   .header__error {
     font-size: 14px;
+    line-height: 1.14;
     margin-top: 20px;
     text-align: center;
   }
@@ -154,7 +166,7 @@
 
 @media screen and (min-width: 1280px) {
   .header__form-input {
-    width: 394px;
+    max-width: 394px;
   }
   .header__form-search {
     width: 394px;
@@ -193,7 +205,7 @@
   content: '';
   position: absolute;
   left: 50%;
-  bottom: -2px;
+  bottom: -1px;
   transform: translate(-50%, 0%);
   background-color: $error-text;
   width: 100%;
@@ -202,6 +214,7 @@
 
 .header__logo-text {
   display: none;
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 @media screen and (min-width: 768px) {
   .header__logo {
@@ -234,4 +247,27 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.icon-autorization {
+  fill: white;
+  stroke: white;
+
+  transition: stroke fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/*Ховери*/
+.header__logo:hover .header__icon {
+  stroke: $orange-hover;
+}
+.header__logo:hover .header__logo-text {
+  color: $orange-hover;
+}
+.header__list-link:hover {
+  color: $orange-hover;
+}
+
+.icon-autorization:hover {
+  fill: $orange-hover;
+  stroke: $orange-hover;
 }
