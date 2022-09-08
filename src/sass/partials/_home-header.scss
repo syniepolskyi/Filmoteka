@@ -1,0 +1,230 @@
+.header {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: $header-bgc;
+  background-image: url(/src/images/mobile/main-background-mobile.jpg);
+  background-size: cover;
+  /* opacity: 0.9; */
+}
+@media (min-device-pixel-ratio: 2),
+  (-webkit-min-device-pixel-ratio: 2),
+  (min-resolution: 192dpi),
+  (min-resolution: 2dppx) {
+  .header {
+    background-image: url(/src/images/mobile/main-background-mobile@2x.jpg);
+  }
+}
+
+@media screen and (min-device-pixel-ratio: 3),
+  screen and (min-resolution: 288dpi),
+  screen and (min-resolution: 3dppx) {
+  .header {
+    background-image: url(/src/images/mobile/main-background-mobile@3x.jpg);
+  }
+}
+
+/*Tablet фон*/
+@media screen and (min-width: 768px) {
+  .header {
+    background-image: url(/src/images/tablet/main-background-tablet.jpg);
+  }
+
+  @media (min-device-pixel-ratio: 2),
+    (-webkit-min-device-pixel-ratio: 2),
+    (min-resolution: 192dpi),
+    (min-resolution: 2dppx) {
+    .header {
+      background-image: url(/src/images/tablet/main-background-tablet@2x.jpg);
+    }
+  }
+  @media screen and (min-device-pixel-ratio: 3),
+    screen and (min-resolution: 288dpi),
+    screen and (min-resolution: 3dppx) {
+    .header {
+      background-image: url(/src/images/tablet/main-background-tablet@3x.jpg);
+    }
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .header {
+    background-image: url(/src/images/desktop/main-background-desktop.jpg);
+  }
+
+  @media (min-device-pixel-ratio: 2),
+  (-webkit-min-device-pixel-ratio: 2),
+  (min-resolution: 192dpi),
+  (min-resolution: 2dppx) {
+  .header {
+    background-image: url(/src/images/desktop/main-background-desktop@2x.jpg);
+  }
+}
+@media screen and (min-device-pixel-ratio: 3),
+  screen and (min-resolution: 288dpi),
+  screen and (min-resolution: 3dppx) {
+  .header {
+    background-image: url(/src/images/desktop/main-background-desktop@3x.jpg);
+  }
+}
+}
+
+.header__section {
+  padding-top: 40px;
+  padding-bottom: 44px;
+}
+
+.header__logo {
+  stroke: $white-text;
+  fill: none;
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header__list {
+  display: flex;
+  justify-content: space-between;
+
+  font-style: 500;
+  font-size: 12px;
+  line-height: 1;
+}
+
+.header__list {
+  color: $white-text;
+}
+
+.header__list-item {
+  position: relative;
+  margin-right: 40px;
+}
+
+.header__list-item:last-child {
+  margin-right: 0px;
+}
+.header__list-link {
+  color: $white-text;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.17;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.header__form {
+  margin-top: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header__form-search {
+  position: relative;
+  width: 280px;
+}
+.header__form-input {
+  font-size: 14px;
+  width: 280px;
+  height: 20px;
+  background: none;
+  border: none;
+  border-bottom: 0.5px solid $white-text;
+}
+
+@media screen and (min-width: 768px) {
+  .header__form-input {
+    width: 336px;
+  }
+  .header__form-search {
+    width: 336px;
+  }
+  .header__form {
+    margin-top: 40px;
+  }
+
+  .header__error {
+    font-size: 14px;
+    margin-top: 20px;
+    text-align: center;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .header__form-input {
+    width: 394px;
+  }
+  .header__form-search {
+    width: 394px;
+  }
+}
+
+.header__form-input:focus-within {
+  outline: none;
+}
+.header__form-input:not(:placeholder-shown) {
+  color: $white-text;
+}
+
+.header__form-input::placeholder {
+  color: $white-text;
+}
+
+.header__form-icon {
+  display: inline-flex;
+}
+
+.header__error {
+  margin-top: 16px;
+  color: $error-text;
+  opacity: 0;
+}
+
+.header__list-link--accent::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -2px;
+  transform: translate(-50%, 0%);
+  background-color: $error-text;
+  width: 100%;
+  height: 3px;
+}
+
+.header__logo-text {
+  display: none;
+}
+@media screen and (min-width: 768px) {
+  .header__logo {
+    display: flex;
+    align-items: center;
+  }
+  .header__logo-text {
+    display: inline-block;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 1.17;
+    color: $white-text;
+    margin-left: 10px;
+  }
+}
+
+.header__search {
+  position: absolute;
+  display: inline-flex;
+  background: none;
+  border: none;
+  stroke: $white-text;
+  fill: none;
+
+  top: 50%;
+  left: 102%;
+  transform: translate(-100%, -50%);
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
