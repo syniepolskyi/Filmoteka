@@ -184,7 +184,18 @@
 }
 
 .library__button {
-  display: inline-block;
+    display: block;
+  text-align: center;
+  font-size: 12px;
+  color: $white-text;
+  line-height: 1.33;
+  font-weight: 500;
+
+  padding-top: 14px;
+  padding-bottom: 12px;
+  padding-left: 36px;
+  padding-right: 36px;
+
   width: 130px;
   height: 44px;
   border: 1px solid $white-text;
@@ -200,19 +211,6 @@
   border-color: $orange-btn;
 }
 
-.library__button-text {
-  display: block;
-  text-align: center;
-  font-size: 12px;
-  color: $white-text;
-  line-height: 1.33;
-  font-weight: 500;
-
-  padding-top: 14px;
-  padding-bottom: 12px;
-  padding-left: 36px;
-  padding-right: 36px;
-}
 
 @media screen and (min-width: 768px) {
   .library__btns {
@@ -222,13 +220,10 @@
   .library__button {
     width: 152px;
     height: 44px;
-
+    padding: 13px, 46px;
     margin-right: 32px;
   }
 
-  .library__button-text {
-    padding: 13px, 46px;
-  }
 }
 
 @media screen and (min-width: 1280px) {
@@ -240,11 +235,10 @@
     width: 148px;
     height: 42px;
     margin-right: 16px;
-  }
-
-  .library__button-text {
     padding: 12px 41px;
   }
+
+
 }
 /*Ховери*/
 .header__logo:hover .header__icon {

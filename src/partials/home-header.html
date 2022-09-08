@@ -1,54 +1,51 @@
 <header class="header">
-    <div class="container header__section">
-      <nav class="site-nav">
-        <a href="./index.html" class="header__logo">
-          <svg class="header__icon" width="24" height="24">
-            <use href="/src/images/sprite.svg#header-logo"></use>
-          </svg>
-          <span class="header__logo-text">Filmoteka
-          </span>
-        </a>
-        <ul class="header__list">
-          <li class="header__list-item">
-            <a
-              href="./index.html"
-              class="header__list-link header__list-link--accent"
-              >HOME</a
-            >
-          </li>
-          <li class="header__list-item">
-            <a href="./library.html" class="header__list-link"> MY LIBRARY </a>
-          </li>
-          <li class="header__list-item">
-            <a href="./index.html" class="header__list-link">
-          <svg class="header__icon icon-autorization" width="24" height="24">
-            <use href="/src/images/sprite.svg#icon-autorization"></use>
-          </svg>
-          </li>
-        </ul>
-      </nav>
+  <div class="container header__section">
+    <nav class="site-nav">
+      <a href="./index.html" class="header__logo">
+        <svg class="header__icon" width="24" height="24">
+          <use href="/src/images/sprite.svg#header-logo"></use>
+        </svg>
+        <span class="header__logo-text">Filmoteka </span>
+      </a>
+      <ul class="header__list">
+        <li class="header__list-item">
+          <a
+            href="./index.html"
+            class="header__list-link header__list-link--accent"
+            >HOME</a
+          >
+        </li>
+        <li class="header__list-item">
+          <a href="./library.html" class="header__list-link"> MY LIBRARY </a>
+        </li>
+        <li class="header__list-item">
+          <a href="./index.html" class="header__list-link">
+            <svg class="header__icon icon-autorization" width="24" height="24">
+              <use href="/src/images/sprite.svg#icon-autorization"></use></svg
+          ></a>
+        </li>
+      </ul>
+    </nav>
 
-      <form action="submit" class="header__form">
-          <div class="header__form-search">
+    <form action="submit" class="header__form">
+      <div class="header__form-search">
         <input
           type="text"
           name="serch_film"
-          id=""
           autofocus
           placeholder="Movie search"
-          class="header__form-input"
+          class="header__form-input js-input"
         />
         <button type="submit" class="header__search">
-          <svg class="header__form-icon" width='12' height='12'>
-              <use href="/src/images/sprite.svg#header-search"></use>
-            </svg>
-
+          <svg class="header__form-icon" width="12" height="12">
+            <use href="/src/images/sprite.svg#header-search"></use>
+          </svg>
         </button>
       </div>
-      </form>
+    </form>
 
-      <p class="header__error">
-        Search result not successful. Enter the correct movie name and
-      </p>
-    </div>
-  </header>
+    <p class="header__error">
+      Search result not successful. Enter the correct movie name and
+    </p>
+  </div>
+</header>
