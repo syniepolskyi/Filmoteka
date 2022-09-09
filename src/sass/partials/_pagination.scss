@@ -29,6 +29,7 @@
 
   &-active {
     background-color: $orange-btn;
+    cursor: default;
     &:hover {
       background-color: $orange-btn;
     }
@@ -51,6 +52,13 @@
     background-position: center;
     &:hover {
       background-color: $pagination-arrows-btn-bgc;
+    }
+  }
+
+  &-dots {
+    cursor: default;
+    &:hover {
+      background-color: $main-bgc;
     }
   }
 }

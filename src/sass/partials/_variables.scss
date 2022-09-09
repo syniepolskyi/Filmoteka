@@ -1,19 +1,21 @@
 // Text colors
-$white-text: #FFFFFF;
+$white-text: #ffffff;
 $black-text: #000000;
-$orange-text: #FF6B08;
-$error-text: #FF001B;
+$orange-text: #ff6b08;
+$error-text: #ff001b;
 $footer-text: #545454;
 // Modal keywords color:
-$modal-key-text: #8C8C8C;
+$modal-key-text: #8c8c8c;
 
 // Background colors
-$main-bgc: #FFFFFF;
+$main-bgc: #ffffff;
 $header-bgc: rgba(0, 0, 0, 0.56);
-$footer-bgc: #F7F7F7;
+$footer-bgc: #f7f7f7;
 
 // Button colors
-$orange-btn:#FF6B01;
+$orange-btn: #ff6b01;
+$pagination-btn-bgc: #f7f7f7;
+$pagination-arrows-btn-bgc: #d7d7d7;
 // Shadow of active orange btns on Library page header:
 $active-btn-shadow: rgba(255, 107, 1, 0.6);
 
@@ -21,6 +23,4 @@ $active-btn-shadow: rgba(255, 107, 1, 0.6);
 $main-border-radius: 5px;
 
 // Hover
-$orange-hover:rgb(220, 71, 11);
-
-
+$orange-hover: rgb(220, 71, 11);
