@@ -12,6 +12,51 @@ import { searchMovies } from './api/moviedb/searchMovies';
 import createMarkUp from '../templates/film-cards.hbs';
 import { refs } from './constants/refs';
 import Notiflix from 'notiflix';
+
+import {
+  singUp,
+  singIn,
+  logOut,
+  getData,
+  postData,
+  authObserver,
+} from './api/firebase/api';
+
+const email = document.getElementById('email_singUp');
+const password = document.getElementById('password_singUp');
+
+const btnSingUp = document.getElementById('btn_singUp');
+const btnSingIn = document.getElementById('btn_singIn');
+const btnLogOut = document.getElementById('btn_logout');
+
+const btnToPost = document.getElementById('btnToPost');
+const btnToRequest = document.getElementById('btnToRequest');
+
+authObserver();
+
+btnSingUp.addEventListener('click', async e => {
+  e.preventDefault();
+  singUp(email.value, password.value);
+});
+
+btnSingIn.addEventListener('click', e => {
+  e.preventDefault();
+  singIn(email.value, password.value);
+});
+
+btnLogOut.addEventListener('click', () => {
+  logOut();
+});
+
+btnToPost.addEventListener('click', async () => {
+  postData(usersFilms);
+});
+
+btnToRequest.addEventListener('click', async () => {
+  a = await getData();
+  console.log(a);
+});
+
 import openModalCard from './modalCard';
 import { getMoviesDetails } from './api/moviedb/getMoviesDetails';
 
@@ -38,6 +83,7 @@ async function renderTrendingMovies(page) {
 renderTrendingMovies();
 
 
+
 refs.headerForm.addEventListener('submit', renderKeywordSearchMovies);
 
 async function renderKeywordSearchMovies(name) {
@@ -53,6 +99,7 @@ async function renderKeywordSearchMovies(name) {
     } else {
       const resultOfSearching = await searchMovies(nameForSrc, page);
       console.log(resultOfSearching);
+
       if (resultOfSearching.results.length === 0) {
         Notiflix.Notify.warning("Sorry, there is no result. Please try another keyword")
       } else {
@@ -60,6 +107,7 @@ async function renderKeywordSearchMovies(name) {
         changeGenresIdtoName(resultOfSearching.results, genres);
         refs.mainList.innerHTML = createMarkUp(resultOfSearching.results);
       }
+
     }
   } catch (error) {
     // Повідомлення для користувача не виведено (помилка тільки в консолі), бо якщо не завантажується постер, а лише заглушка - спливають по черзі повідомлення error
@@ -76,5 +124,4 @@ function clearPage() {
   page = 1;
   refs.mainList.innerHTML = "";
 }
-
 
