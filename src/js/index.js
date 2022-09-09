@@ -67,9 +67,8 @@ let nameForSrc = '';
 async function renderTrendingMovies(page) {
   try {
     const listOfMovies = await getTrending(page);
-    const _genres = await genres();
-    changeGenresIdtoName(listOfMovies.results, _genres);
-    // console.log(listOfMovies.results);
+
+    await changeGenresIdtoName(listOfMovies.results);
 
     refs.mainList.innerHTML = createMarkUp(listOfMovies.results);
     createPagination(1, 9);
@@ -104,8 +103,7 @@ async function renderKeywordSearchMovies(name) {
           'Sorry, there is no result. Please try another keyword'
         );
       } else {
-        const _genres = await genres();
-        changeGenresIdtoName(resultOfSearching.results, _genres);
+        await changeGenresIdtoName(resultOfSearching.results);
         refs.mainList.innerHTML = createMarkUp(resultOfSearching.results);
       }
     }
