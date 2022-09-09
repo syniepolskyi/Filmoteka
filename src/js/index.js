@@ -12,6 +12,7 @@ import { searchMovies } from './api/moviedb/searchMovies';
 import createMarkUp from '../templates/film-cards.hbs';
 import { refs } from './constants/refs';
 import Notiflix from 'notiflix';
+import { createPagination } from './createPagination';
 
 import {
   singUp,
@@ -60,7 +61,6 @@ btnToRequest.addEventListener('click', async () => {
 import openModalCard from './modalCard';
 import { getMoviesDetails } from './api/moviedb/getMoviesDetails';
 
-
 let page = 1;
 let nameForSrc = '';
 
@@ -72,6 +72,7 @@ async function renderTrendingMovies(page) {
     // console.log(listOfMovies.results);
 
     refs.mainList.innerHTML = createMarkUp(listOfMovies.results);
+    createPagination();
     document
       .querySelectorAll('[data-modal-open]')
       .forEach(card => card.addEventListener('click', onFilmCardClick));
@@ -82,14 +83,12 @@ async function renderTrendingMovies(page) {
 
 renderTrendingMovies();
 
-
-
 refs.headerForm.addEventListener('submit', renderKeywordSearchMovies);
 
 async function renderKeywordSearchMovies(name) {
   try {
     name.preventDefault();
-    clearPage()
+    clearPage();
     nameForSrc = name.target.serch_film.value.trim();
 
     if (!nameForSrc) {
@@ -101,13 +100,14 @@ async function renderKeywordSearchMovies(name) {
       console.log(resultOfSearching);
 
       if (resultOfSearching.results.length === 0) {
-        Notiflix.Notify.warning("Sorry, there is no result. Please try another keyword")
+        Notiflix.Notify.warning(
+          'Sorry, there is no result. Please try another keyword'
+        );
       } else {
         const _genres = await genres();
         changeGenresIdtoName(resultOfSearching.results, _genres);
         refs.mainList.innerHTML = createMarkUp(resultOfSearching.results);
       }
-
     }
   } catch (error) {
     // Повідомлення для користувача не виведено (помилка тільки в консолі), бо якщо не завантажується постер, а лише заглушка - спливають по черзі повідомлення error
@@ -122,6 +122,5 @@ function onFilmCardClick() {
 
 function clearPage() {
   page = 1;
-  refs.mainList.innerHTML = "";
+  refs.mainList.innerHTML = '';
 }
-
