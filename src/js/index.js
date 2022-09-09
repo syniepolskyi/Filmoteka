@@ -12,6 +12,8 @@ import { searchMovies } from './api/moviedb/searchMovies';
 import createMarkUp from '../templates/film-cards.hbs';
 import { refs } from './constants/refs';
 import Notiflix from 'notiflix';
+import openModalCard from './modalCard';
+import { getMoviesDetails } from './api/moviedb/getMoviesDetails';
 
 let page = 1;
 let nameForSrc = '';
@@ -24,6 +26,9 @@ async function renderTrendingMovies(page) {
     // console.log(listOfMovies.results);
 
     refs.mainList.innerHTML = createMarkUp(listOfMovies.results);
+    document
+      .querySelectorAll('[data-modal-open]')
+      .forEach(card => card.addEventListener('click', onFilmCardClick));
   } catch (error) {
     Notiflix.Notify.failure(error);
   }
@@ -35,28 +40,28 @@ const searchForm = document.querySelector('.header__form');
 searchForm.addEventListener('submit', renderKeywordSearchMovies);
 
 async function renderKeywordSearchMovies(name) {
-
   try {
     name.preventDefault();
     nameForSrc = name.target.serch_film.value.trim();
 
     if (!nameForSrc) {
-      Notiflix.Notify.warning("Searching starts after providing data to search.")
-    }
-    else {
+      Notiflix.Notify.warning(
+        'Searching starts after providing data to search.'
+      );
+    } else {
       const resultOfSearching = await searchMovies(nameForSrc, page);
       console.log(resultOfSearching);
       const genres = await getGenres();
       changeGenresIdtoName(resultOfSearching.results, genres);
       refs.mainList.innerHTML = createMarkUp(resultOfSearching.results);
-
     }
-  }
-  catch (error) {
+  } catch (error) {
     // Повідомлення для користувача не виведено (помилка тільки в консолі), бо якщо не завантажується постер, а лише заглушка - спливають по черзі повідомлення error
-  console.log(error.message);
+    console.log(error.message);
   }
 }
 
-
-
+function onFilmCardClick() {
+  const id = this.dataset.action;
+  getMoviesDetails(id).then(movie => openModalCard(movie));
+}

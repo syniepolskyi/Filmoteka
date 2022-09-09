@@ -4,9 +4,9 @@
       class='modal-card__img'
       src='https://image.tmdb.org/t/p/w500{{poster_path}}'
       alt='{{original_title}}'
-      data-id='{{imdb_id}}'
-      width='240'
-      onerror='this.onerror=null;this.src="../images/mobile/poster-modal-plug-mobile.jpg";'
+      data-id='{{id}}'
+      width='100%'
+      onerror='this.onerror=null;this.srcset="{{fallbackImageDesktop}}";'
     />
   </div>
 
@@ -16,13 +16,13 @@
       <div class='thumb-right__text'>Vote / Votes</div>
       <div class='thumb-right__details'><span
           class='thumb-right__details--accent'
-        >{{vote_average}}</span>
+        >{{numberFixed vote_average}}</span>
         /
         {{vote_count}}</div>
     </div>
     <div class='thumb-right__row'>
       <div class='thumb-right__text'>Popularity</div>
-      <div class='thumb-right__details'>{{popularity}}</div>
+      <div class='thumb-right__details'>{{numberFixed popularity}}</div>
     </div>
     <div class='thumb-right__row'>
       <div class='thumb-right__text'>Original Title</div>
@@ -44,7 +44,7 @@
     <button class='modal-card__queue-btn'>Add to queue</button>
     <button class='modal-card__close-btn' data-modal-close>
       <svg class='card-btn-close' width='30px' height='30px'>
-        <use href='./src/images/sprite.svg#card-btn-close'></use>
+        <use href='{{fallbackImageDesktop}}'></use>
       </svg>
     </button>
   </div>

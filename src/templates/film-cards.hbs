@@ -1,12 +1,12 @@
   {{#each this}}
-  <li class='film-card' data-action='{{imdb_id}}' data-modal-open>
+  <li class='film-card' data-action='{{id}}' data-modal-open>
     
       <img
       class="film-card__img"
         src='https://image.tmdb.org/t/p/w500{{poster_path}}'
         alt='{{original_title}} '
         width='100%'
-        data-id='{{imdb_id}}'
+        data-id='{{id}}'
         onerror="this.onerror=null;this.src='https://ik.imagekit.io/tc8jxffbcvf/default-movie-portrait_EmJUj9Tda5wa.jpg?tr=fo-auto,di-';"
       />
       
