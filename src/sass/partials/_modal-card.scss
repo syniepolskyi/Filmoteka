@@ -52,6 +52,19 @@ body.show-modal-card .backdrop__modal-card {
   display: block;
   margin-left: auto;
   margin-right: auto;
+
+  @media screen and (min-width: 320px) {
+    width: 240px;
+    height: 357px;
+  }
+  @media screen and (min-width: 768px) {
+    width: 264px;
+    height: 374px;
+  }
+  @media screen and (min-width: 1024px) {
+    width: auto;
+    height: 478px;
+  }
 }
 
 .thumb-right__row {
@@ -60,4 +73,8 @@ body.show-modal-card .backdrop__modal-card {
 
 .thumb-right__text {
   flex: 0 0 34%;
+}
+
+.card-btn-close {
+  stroke: black;
 }
