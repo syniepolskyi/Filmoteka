@@ -6,7 +6,7 @@ import fallbackImageDesktop from '../images/desktop/poster-modal-plug-desktop.jp
 
 const modal = document.querySelector('[data-backdrop]');
 
-export default function openModalCard(movie) {
+export default function openModalCard(movie, customHtml = '') {
   document.body.classList.add('show-modal-card');
 
   //   console.log('Show Modal', this);
@@ -14,8 +14,14 @@ export default function openModalCard(movie) {
   movie.closeSvg = closeSvg;
   movie.fallbackImageDesktop = fallbackImageDesktop;
 
-  const html = modalInputTpl(movie);
-  modal.innerHTML = html;
+  if(movie && !customHtml){
+    const html = modalInputTpl(movie);
+    modal.innerHTML = html;
+  }
+  
+  if(customHtml){
+    modal.innerHTML = customHtml;
+  }
 
   const closeModalBtnEl = document.querySelector('[data-modal-close]');
   const backdropEl = document.querySelector('[data-backdrop]');
