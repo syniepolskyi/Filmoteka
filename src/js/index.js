@@ -14,6 +14,49 @@ import { searchMovies } from './api/moviedb/searchMovies';
 import createMarkUp from '../templates/film-cards.hbs';
 import { refs } from './constants/refs';
 import Notiflix from 'notiflix';
+import {
+  singUp,
+  singIn,
+  logOut,
+  getData,
+  postData,
+  authObserver,
+} from './api/firebase/api';
+
+const email = document.getElementById('email_singUp');
+const password = document.getElementById('password_singUp');
+
+const btnSingUp = document.getElementById('btn_singUp');
+const btnSingIn = document.getElementById('btn_singIn');
+const btnLogOut = document.getElementById('btn_logout');
+
+const btnToPost = document.getElementById('btnToPost');
+const btnToRequest = document.getElementById('btnToRequest');
+
+authObserver();
+
+btnSingUp.addEventListener('click', async e => {
+  e.preventDefault();
+  singUp(email.value, password.value);
+});
+
+btnSingIn.addEventListener('click', e => {
+  e.preventDefault();
+  singIn(email.value, password.value);
+});
+
+btnLogOut.addEventListener('click', () => {
+  logOut();
+});
+
+btnToPost.addEventListener('click', async () => {
+  postData(usersFilms);
+});
+
+btnToRequest.addEventListener('click', async () => {
+  a = await getData();
+  console.log(a);
+});
 
 let page = 1;
 let nameForSrc = '';
@@ -37,28 +80,23 @@ const searchForm = document.querySelector('.header__form');
 searchForm.addEventListener('submit', renderKeywordSearchMovies);
 
 async function renderKeywordSearchMovies(name) {
-
   try {
     name.preventDefault();
     nameForSrc = name.target.serch_film.value.trim();
 
     if (!nameForSrc) {
-      Notiflix.Notify.warning("Searching starts after providing data to search.")
-    }
-    else {
+      Notiflix.Notify.warning(
+        'Searching starts after providing data to search.'
+      );
+    } else {
       const resultOfSearching = await searchMovies(nameForSrc, page);
       console.log(resultOfSearching);
       const genres = await getGenres();
       changeGenresIdtoName(resultOfSearching.results, genres);
       refs.mainList.innerHTML = createMarkUp(resultOfSearching.results);
-
     }
-  }
-  catch (error) {
+  } catch (error) {
     // Повідомлення для користувача не виведено (помилка тільки в консолі), бо якщо не завантажується постер, а лише заглушка - спливають по черзі повідомлення error
-  console.log(error.message);
+    console.log(error.message);
   }
 }
-
-
-

@@ -16,6 +16,25 @@
   </head>
   <body>
     <include src="./partials/home-header.html"></include>
+    <!-- УБРАТЬ В МОДАЛЬНОЕ ОКНО -->
+    <div style="display: none" id="not-logged-in">
+      <form id="auth-form">
+        <input type="input" id="email_singUp" placeholder="email" />
+        <input type="input" id="password_singUp" placeholder="password" />
+        <div>
+          <button id="btn_singUp" name="btn_singUp">Регистрация</button>
+          <button id="btn_singIn" name="btn_singIn">Авторизация</button>
+        </div>
+      </form>
+    </div>
+    <div style="display: none" id="logged-in">
+      <h3>Logged in now with <span id="user_email"></span></h3>
+
+      <button id="btnToPost">Post</button>
+      <button id="btnToRequest">Request</button>
+      <button id="btn_logout">Log out</button>
+    </div>
+    <!-- УБРАТЬ В МОДАЛЬНОЕ ОКНО -->
     <main>
       <div class="container">
         <section class="films-section">
