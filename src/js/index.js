@@ -72,7 +72,7 @@ async function renderTrendingMovies(page) {
     // console.log(listOfMovies.results);
 
     refs.mainList.innerHTML = createMarkUp(listOfMovies.results);
-    createPagination();
+    createPagination(1, 9);
     document
       .querySelectorAll('[data-modal-open]')
       .forEach(card => card.addEventListener('click', onFilmCardClick));
