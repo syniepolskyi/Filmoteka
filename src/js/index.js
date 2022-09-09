@@ -6,7 +6,7 @@ import './modalAbout';
 import './upToTop';
 
 import { getTrending } from './api/moviedb/getTrending';
-import { getGenres } from './api/moviedb/getGenres';
+import { genres } from './api/moviedb/getGenres';
 import { changeGenresIdtoName } from './api/moviedb/changeGenresIdtoName';
 import { searchMovies } from './api/moviedb/searchMovies';
 import createMarkUp from '../templates/film-cards.hbs';
@@ -67,8 +67,8 @@ let nameForSrc = '';
 async function renderTrendingMovies(page) {
   try {
     const listOfMovies = await getTrending(page);
-    const genres = await getGenres();
-    changeGenresIdtoName(listOfMovies.results, genres);
+    const _genres = await genres();
+    changeGenresIdtoName(listOfMovies.results, _genres);
     // console.log(listOfMovies.results);
 
     refs.mainList.innerHTML = createMarkUp(listOfMovies.results);
@@ -103,8 +103,8 @@ async function renderKeywordSearchMovies(name) {
       if (resultOfSearching.results.length === 0) {
         Notiflix.Notify.warning("Sorry, there is no result. Please try another keyword")
       } else {
-        const genres = await getGenres();
-        changeGenresIdtoName(resultOfSearching.results, genres);
+        const _genres = await genres();
+        changeGenresIdtoName(resultOfSearching.results, _genres);
         refs.mainList.innerHTML = createMarkUp(resultOfSearching.results);
       }
 
