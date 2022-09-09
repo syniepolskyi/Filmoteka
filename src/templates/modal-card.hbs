@@ -22,15 +22,15 @@
     </div>
     <div class='thumb-right__row'>
       <div class='thumb-right__text'>Popularity</div>
-      <div class='thumb-details'>{{popularity}}</div>
+      <div class='thumb-right__details'>{{popularity}}</div>
     </div>
     <div class='thumb-right__row'>
       <div class='thumb-right__text'>Original Title</div>
-      <div class='thumb-details'>{{original_title}}</div>
+      <div class='thumb-right__details'>{{original_title}}</div>
     </div>
     <div class='thumb-right__row'>
       <div class='thumb-right__text'>Genre</div>
-      <div class='thumb-details'>
+      <div class='thumb-right__details'>
         {{#each genres}}
           <span>{{name}}</span>
         {{/each}}
@@ -42,9 +42,9 @@
     </p>
     <button class='modal-card__watched-btn'>Add to watched</button>
     <button class='modal-card__queue-btn'>Add to queue</button>
-    <button class='modal-card__btn' data-modal-close>
+    <button class='modal-card__close-btn' data-modal-close>
       <svg class='card-btn-close' width='30px' height='30px'>
-        <use href='/src/images/sprite.svg#card-btn-close'></use>
+        <use href='./src/images/sprite.svg#card-btn-close'></use>
       </svg>
     </button>
   </div>
