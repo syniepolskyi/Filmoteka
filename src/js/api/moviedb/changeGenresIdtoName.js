@@ -13,10 +13,8 @@ export async function changeGenresIdtoName(movies) {
           return 'Other';
         }
       });
-      element.genre_ids = newArr;
 
-      const d = new Date('July 21, 1983 01:15:00');
-      let year = d.getFullYear();
+      element.genre_ids = newArr;
     });
   } catch (error) {
     console.log(error);
