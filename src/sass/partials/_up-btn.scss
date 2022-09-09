@@ -3,7 +3,7 @@
     top: 65%;
     right: 22%;
     color: blue;
-    background-color: white;
+    background-color: transparent;
     opacity: 1;
     transition: all .4s;
     border-width: 0px;
@@ -11,7 +11,7 @@
     text-decoration: none;
     width: 50px;
     height: 40px;
-
+    display: none;
 }
 .up-btn-images {
     height: 40px;
