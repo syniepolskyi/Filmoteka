@@ -11,10 +11,9 @@ export default function openModalCard(movie, customHtml = '') {
 
   //   console.log('Show Modal', this);
 
-  movie.closeSvg = closeSvg;
-  movie.fallbackImageDesktop = fallbackImageDesktop;
-
   if(movie && !customHtml){
+    movie.closeSvg = closeSvg;
+    movie.fallbackImageDesktop = fallbackImageDesktop;
     const html = modalInputTpl(movie);
     modal.innerHTML = html;
   }
@@ -26,7 +25,9 @@ export default function openModalCard(movie, customHtml = '') {
   const closeModalBtnEl = document.querySelector('[data-modal-close]');
   const backdropEl = document.querySelector('[data-backdrop]');
 
+  if(closeModalBtnEl){
   closeModalBtnEl.addEventListener('click', onCloseModalCard);
+  }
   backdropEl.addEventListener('click', onBackdropClick);
 
   window.addEventListener('keydown', onEscKyePressExit);

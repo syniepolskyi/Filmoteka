@@ -1,7 +1,7 @@
 import './constants/refs';
 import './api/moviedb/getTrending';
 import './api/moviedb/searchMovies';
-import './modalCard';
+import openModalCard from './modalCard';
 import './modalAbout';
 import './upToTop';
 
