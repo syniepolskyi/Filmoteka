@@ -51,11 +51,14 @@ btnLogOut.addEventListener('click', () => {
 });
 
 btnToPost.addEventListener('click', async () => {
-  postData(usersFilms);
+  postData({
+    watched: ['test'],
+    queue: ['test'],
+  });
 });
 
 btnToRequest.addEventListener('click', async () => {
-  a = await getData();
+  const a = await getData();
   console.log(a);
 });
 
