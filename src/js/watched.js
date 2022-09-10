@@ -73,17 +73,18 @@ function renderLibraryMainContent(page) {
   } else {
     renderEmptyLibrary()
 
-  if (!headerWatchedBtn.classList.contains('button--accent')) {
-    headerWatchedBtn.classList.add('button--accent');
-  }
-  if (headerQueueBtn.classList.contains('button--accent')) {
-    headerQueueBtn.classList.remove('button--accent');
-  }
+    if (!headerWatchedBtn.classList.contains('button--accent')) {
+      headerWatchedBtn.classList.add('button--accent');
+    }
+    if (headerQueueBtn.classList.contains('button--accent')) {
+      headerQueueBtn.classList.remove('button--accent');
+    }
 
-  if (localStorageAPI.load(STORAGE)) {
-    renderWatchedMarkup(watchedPage);
-  } else {
-    renderEmptyWatched();
+    if (localStorageAPI.load(STORAGE)) {
+      renderWatchedMarkup(watchedPage);
+    } else {
+      renderEmptyWatched();
+    }
   }
 }
 
@@ -110,6 +111,7 @@ function renderEmptyLibrary() {
     mainList.innerHTML = "Nothing in queue yet";
     return
   }
+}
 
 function renderEmptyWatched() {
   mainList.innerHTML = 'Nothing wathed yet';
