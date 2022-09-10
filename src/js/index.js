@@ -67,18 +67,19 @@ btnToRequest.addEventListener('click', async () => {
 
 import openModalCard from './modalCard';
 import { getMoviesDetails } from './api/moviedb/getMoviesDetails';
+import { async } from '@firebase/util';
 
-let page = 1;
 let nameForSrc = '';
 
 async function renderTrendingMovies(page = 1) {
+  const status = 'trends';
   try {
     const listOfMovies = await getTrending(page);
 
     await changeGenresIdtoName(listOfMovies.results);
 
     refs.mainList.innerHTML = createMarkUp(listOfMovies.results);
-    createPagination(page, listOfMovies.total_pages);
+    createPagination(page, listOfMovies.total_pages, status);
     document
       .querySelectorAll('[data-modal-open]')
       .forEach(card => card.addEventListener('click', onFilmCardClick));
@@ -104,42 +105,37 @@ Handlebars.registerHelper('numberFixed', function (number) {
 refs.headerForm.addEventListener('submit', renderKeywordSearchMovies);
 
 async function renderKeywordSearchMovies(name) {
-  try {
-    name.preventDefault();
-    clearPage();
-    nameForSrc = name.target.serch_film.value.trim();
+  name.preventDefault();
 
-    if (!nameForSrc) {
-      Notiflix.Notify.warning(
-        'Searching starts after providing data to search.'
-      );
-    } else {
-      const resultOfSearching = await searchMovies(nameForSrc, page);
-      console.log(resultOfSearching);
-
-      if (resultOfSearching.results.length === 0) {
-        Notiflix.Notify.warning(
-          'Sorry, there is no result. Please try another keyword'
-        );
-      } else {
-        await changeGenresIdtoName(resultOfSearching.results);
-        refs.mainList.innerHTML = createMarkUp(resultOfSearching.results);
-      }
-    }
-  } catch (error) {
-    // Повідомлення для користувача не виведено (помилка тільки в консолі), бо якщо не завантажується постер, а лише заглушка - спливають по черзі повідомлення error
-    console.log(error.message);
+  nameForSrc = name.target.serch_film.value.trim();
+  if (!nameForSrc) {
+    Notiflix.Notify.warning('Searching starts after providing data to search.');
+    return;
   }
+
+  renderSearchList(nameForSrc);
+}
+
+async function renderSearchList(nameForSrc, page = 1) {
+  const status = 'search';
+  const resultOfSearching = await searchMovies(nameForSrc, page);
+
+  console.log(resultOfSearching.data);
+
+  if (!resultOfSearching.data.results.length) {
+    Notiflix.Notify.warning(
+      'Sorry, there is no result. Please try another keyword'
+    );
+    return;
+  }
+  await changeGenresIdtoName(resultOfSearching.data.results);
+  refs.mainList.innerHTML = createMarkUp(resultOfSearching.data.results);
+  createPagination(page, resultOfSearching.data.total_pages, status);
 }
 
 function onFilmCardClick() {
   const id = this.dataset.action;
   getMoviesDetails(id).then(movie => openModalCard(movie));
-}
-
-function clearPage() {
-  page = 1;
-  refs.mainList.innerHTML = '';
 }
 
 function onPaginationBtnClick(e) {
@@ -148,5 +144,8 @@ function onPaginationBtnClick(e) {
     top: 0,
     left: 0,
   });
-  renderTrendingMovies(Number(e.target.dataset.page));
+  if (e.target.dataset.status == 'trends')
+    renderTrendingMovies(Number(e.target.dataset.page));
+  if (e.target.dataset.status == 'search')
+    renderSearchList(nameForSrc, Number(e.target.dataset.page));
 }
