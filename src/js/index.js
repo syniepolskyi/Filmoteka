@@ -51,8 +51,8 @@ btnLogOut.addEventListener('click', () => {
 
 btnToPost.addEventListener('click', async () => {
   postData({
-    watched: [test],
-    queue: [test],
+    watched: ['test'],
+    queue: ['test'],
   });
 });
 
