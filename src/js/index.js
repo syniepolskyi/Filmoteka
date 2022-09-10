@@ -64,15 +64,14 @@ import { getMoviesDetails } from './api/moviedb/getMoviesDetails';
 let page = 1;
 let nameForSrc = '';
 
-async function renderTrendingMovies(page) {
+async function renderTrendingMovies(page = 1) {
   try {
     const listOfMovies = await getTrending(page);
     const _genres = await genres();
     changeGenresIdtoName(listOfMovies.results, _genres);
-    // console.log(listOfMovies.results);
 
     refs.mainList.innerHTML = createMarkUp(listOfMovies.results);
-    createPagination(1, 9);
+    createPagination(page, listOfMovies.total_pages);
     document
       .querySelectorAll('[data-modal-open]')
       .forEach(card => card.addEventListener('click', onFilmCardClick));
@@ -82,6 +81,7 @@ async function renderTrendingMovies(page) {
 }
 
 renderTrendingMovies();
+refs.paginationBox.addEventListener('click', onPaginationBtnClick);
 
 refs.headerForm.addEventListener('submit', renderKeywordSearchMovies);
 
@@ -123,4 +123,12 @@ function onFilmCardClick() {
 function clearPage() {
   page = 1;
   refs.mainList.innerHTML = '';
+}
+
+function onPaginationBtnClick(e) {
+  window.scrollTo({
+    top: 0,
+    left: 0,
+  });
+  renderTrendingMovies(Number(e.target.dataset.page));
 }
