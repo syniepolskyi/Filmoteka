@@ -42,7 +42,6 @@ export default function openModalCard(movie, customHtml = '') {
 
 function onCloseModalCard() {
   // додає в session storege копію localstorege
-  setSessionStorege();
 
   document.body.classList.remove('show-modal-card');
   window.addEventListener('keydown', onEscKyePressExit);

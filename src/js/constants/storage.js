@@ -28,12 +28,12 @@ function load(key) {
   }
 }
 
-export function setSessionStorege() {
-  const storegeData = localStorage.getItem(STORAGE);
-  sessionStorage.setItem('store', storegeData);
-}
+// export function setSessionStorege() {
+//   const storegeData = localStorage.getItem(STORAGE);
+//   sessionStorage.setItem('store', storegeData);
+// }
 
-export function setToLocalLybraryStorege() {
-  const storegeData = sessionStorage.getItem('store');
-  localStorage.setItem(STORAGE, storegeData);
-}
+// export function setToLocalLybraryStorege() {
+//   const storegeData = sessionStorage.getItem('store');
+//   localStorage.setItem(STORAGE, storegeData);
+// }

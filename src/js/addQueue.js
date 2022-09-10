@@ -6,7 +6,6 @@ import {
   ANON_QUEUE,
   localStorageAPI,
 } from './constants/storage';
-localStorageAPI.save(STORAGE, storage);
 
 export function addQueue(movie) {
   let queBtn = dynRefs().addToQueueBtn;
@@ -18,6 +17,11 @@ export function addQueue(movie) {
 
 function setLocalStorege(movie) {
   const loadStore = localStorageAPI.load(STORAGE);
+  if (!loadStore) {
+    storage[ANON_QUEUE].push(movie.id);
+    localStorageAPI.save(STORAGE, storage);
+    return;
+  }
   loadStore[ANON_QUEUE].push(movie.id);
   localStorageAPI.save(STORAGE, loadStore);
 }

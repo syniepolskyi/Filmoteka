@@ -15,6 +15,7 @@ import Notiflix from 'notiflix';
 import { createPagination } from './createPagination';
 import Handlebars from 'handlebars';
 
+
 import {
   singUp,
   singIn,
@@ -23,6 +24,8 @@ import {
   postData,
   authObserver,
 } from './api/firebase/api';
+
+
 
 const email = document.getElementById('email_singUp');
 const password = document.getElementById('password_singUp');
@@ -87,7 +90,7 @@ async function renderTrendingMovies(page = 1) {
 renderTrendingMovies();
 refs.paginationBox.addEventListener('click', onPaginationBtnClick);
 
-// фіксять рік там рейтинг на картках фільмів 
+// фіксять рік там рейтинг на картках фільмів
 Handlebars.registerHelper('yearFixed', function (number) {
   let today = new Date('2000-07-06');
   let year = today.getFullYear();

@@ -17,6 +17,11 @@ export function addWatched(movie) {
 
 function setLocalStorege(movie) {
   const loadStore = localStorageAPI.load(STORAGE);
+  if (!loadStore) {
+    storage[ANON_WATCHED].push(movie.id);
+    localStorageAPI.save(STORAGE, storage);
+    return;
+  }
   loadStore[ANON_WATCHED].push(movie.id);
   localStorageAPI.save(STORAGE, loadStore);
 }
