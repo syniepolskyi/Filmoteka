@@ -28,5 +28,6 @@ export async function genres() {
   const genresMovie = await getMovieGenres();
   const genresTv = await getTvGenres();
   const genres = genresTv.concat(genresMovie);
+
   return genres;
 }

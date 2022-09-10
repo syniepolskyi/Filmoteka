@@ -1,5 +1,5 @@
   {{#each this}}
-  <li class='film-card film-list__item' data-action='{{imdb_id}}' data-modal-open>
+  <li class='film-card film-list__item' data-action='{{id}}' data-modal-open>
     
       <img
       class="film-card__img"
@@ -13,7 +13,7 @@
     </div>
     <h2 class='film-card__title'>{{original_title}} {{name}}</h2>
     <p class='film-card__discription'>
-      <span class="film-card__genres">{{#each genre_ids}}{{[]}}, {{/each}} {{#each genres}} {{name}}, {{/each}} </span>
+      <span class="film-card__genres">{{#each genre_ids}} {{[]}} {{/each}} {{#each genres}} {{name}} {{/each}} </span>
       |
       <span class="film-card__release-date">{{release_date}}</span>
       <span class="card__vote_average">{{vote_average}}</span>
