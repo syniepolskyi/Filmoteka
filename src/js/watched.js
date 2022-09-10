@@ -15,8 +15,9 @@ import Handlebars from 'handlebars';
 const { headerWatchedBtn, headerQueueBtn, mainList } = refs;
 
 // variables
-const bodyWidth = document.body.clientWidth;
-let watchedPage = 1;
+const ACCENT_BTN_CLASS = "button--accent";
+const perPage = choisePerPage(document.body.clientWidth);
+let libraryQuery = ANON_WATCHED;
 
 // preorders
 // storage[ANON_WATCHED] = [
@@ -40,8 +41,13 @@ headerWatchedBtn.addEventListener('click', onClickWatched);
 headerQueueBtn.addEventListener('click', onClickQueue);
 
 // event listeners functions
-function onClickQueue() {
-  watchedPage = 1;
+function onClickWatched() {
+  accentWatchedBtn();
+  
+  libraryQuery = ANON_WATCHED;
+
+
+  renderLibraryMainContent(1);
 
   if (!headerQueueBtn.classList.contains('button--accent')) {
     headerQueueBtn.classList.add('button--accent');
@@ -49,10 +55,23 @@ function onClickQueue() {
   if (headerWatchedBtn.classList.contains('button--accent')) {
     headerWatchedBtn.classList.remove('button--accent');
   }
+
 }
 
-function onClickWatched() {
-  watchedPage = 1;
+function onClickQueue() {
+  accentQueueBtn();
+
+  libraryQuery = ANON_QUEUE;
+
+  renderLibraryMainContent(1);
+}
+
+// functions helpers
+function renderLibraryMainContent(page) {
+  if (localStorageAPI.load(STORAGE)) {
+    renderLibraryCards(page)
+  } else {
+    renderEmptyLibrary()
 
   if (!headerWatchedBtn.classList.contains('button--accent')) {
     headerWatchedBtn.classList.add('button--accent');
@@ -68,29 +87,42 @@ function onClickWatched() {
   }
 }
 
-// functions helpers
-async function renderWatchedMarkup(page) {
-  const markup = await createWatchedMarkup(page);
+async function renderLibraryCards(page) {
+  const markup = await createLibraryCardsdMarkup(page);
 
   if (markup) {
     mainList.innerHTML = markup;
+    // place for pagination function 
+    const arr = localStorageAPI.load(STORAGE)[libraryQuery];
+    const totalPages = arr.length;
+    // <== renderPagination(page, totalPages) ==>
   } else {
-    renderEmptyWatched();
+    renderEmptyLibrary();
   }
 }
+
+function renderEmptyLibrary() {
+  if (libraryQuery === ANON_WATCHED) {
+    mainList.innerHTML = "Nothing wathed yet";
+    return
+  }
+  if (libraryQuery === ANON_QUEUE) {
+    mainList.innerHTML = "Nothing in queue yet";
+    return
+  }
 
 function renderEmptyWatched() {
   mainList.innerHTML = 'Nothing wathed yet';
 }
 
-async function createWatchedMarkup(page) {
-  const filteredWatchedArr = filterWatchedArr(page);
+async function createLibraryCardsdMarkup(page) {
+  const filteredCardsArr = filterCardsdArr(page);
 
-  if (filteredWatchedArr.length === 0) {
+  if (filteredCardsArr.length === 0) {
     return null;
   }
 
-  const moviePromises = filteredWatchedArr.map(el => {
+  const moviePromises = filteredCardsArr.map(el => {
     const movie = getMoviesDetails(el);
     return movie;
   });
@@ -103,25 +135,43 @@ async function createWatchedMarkup(page) {
   }
 }
 
-function filterWatchedArr(page) {
-  const filterNumber = choiseFilterNumber(bodyWidth);
-  const watchedArr = localStorageAPI.load(STORAGE)[ANON_WATCHED];
+function filterCardsdArr(page) {
+  const cardsArr = localStorageAPI.load(STORAGE)[libraryQuery];
 
-  return watchedArr.filter((value, index) => {
-    if (index >= filterNumber * (page - 1) && index < filterNumber * page) {
+  return cardsArr.filter((value, index) => {
+    if (index >= perPage * (page - 1) && index < perPage * page) {
       return value;
     }
   });
 }
 
-function choiseFilterNumber(screenWidth) {
+function choisePerPage(screenWidth) {
   if (screenWidth >= 1280) {
     return 9;
-  } else if (screenWidth < 768) {
+  }
+  if (screenWidth < 768) {
     return 4;
   }
   return 8;
 }
+
+
+function accentWatchedBtn() {
+  if ( !headerWatchedBtn.classList.contains(ACCENT_BTN_CLASS)) {
+    headerWatchedBtn.classList.add(ACCENT_BTN_CLASS);
+    headerQueueBtn.classList.remove(ACCENT_BTN_CLASS);
+  }
+}
+
+function accentQueueBtn() {
+  if ( !headerQueueBtn.classList.contains(ACCENT_BTN_CLASS)) {
+    headerQueueBtn.classList.add(ACCENT_BTN_CLASS);
+    headerWatchedBtn.classList.remove(ACCENT_BTN_CLASS);
+  }
+}
+
+// exports
+export {renderLibraryMainContent};
 
 // фіксять рік там рейтинг на картках фільмів
 Handlebars.registerHelper('yearFixed', function (number) {
