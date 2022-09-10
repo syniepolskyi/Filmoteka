@@ -38,16 +38,17 @@ export default function openModalCard(movie, customHtml = '') {
   }
   backdropEl.addEventListener('click', onBackdropClick);
 
-  window.addEventListener('keydown', onEscKyePressExit);
+  window.addEventListener('keydown', onEscKeyPressExit);
 }
 
 function onCloseModalCard() {
   // додає в session storege копію localstorege
   document.body.style.overflow = null;
   document.body.classList.remove('show-modal-card');
-  window.addEventListener('keydown', onEscKyePressExit);
+  window.addEventListener('keydown', onEscKeyPressExit);
 
   backdropEl.removeEventListener('click', onBackdropClick);
+  window.removeEventListener('keydown', onEscKeyPressExit);
 }
 
 function onBackdropClick(event) {
@@ -56,7 +57,7 @@ function onBackdropClick(event) {
   }
 }
 
-function onEscKyePressExit(event) {
+function onEscKeyPressExit(event) {
   if (event.code === 'Escape') {
     onCloseModalCard();
   }
