@@ -3,7 +3,10 @@ import modalInputTpl from '../templates/modal-card.hbs';
 import Handlebars from 'handlebars';
 import closeSvg from '../images/sprite.svg';
 import fallbackImageDesktop from '../images/desktop/poster-modal-plug-desktop.jpg';
-
+import { dynRefs } from './constants/dynamicRefs';
+import { addWatched } from './addWatched';
+import { addQueue } from './addQueue';
+import { setSessionStorege } from './constants/storage';
 const modal = document.querySelector('[data-backdrop]');
 
 export default function openModalCard(movie, customHtml = '') {
@@ -11,22 +14,26 @@ export default function openModalCard(movie, customHtml = '') {
 
   //   console.log('Show Modal', this);
 
-  if(movie && !customHtml){
+  if (movie && !customHtml) {
     movie.closeSvg = closeSvg;
     movie.fallbackImageDesktop = fallbackImageDesktop;
     const html = modalInputTpl(movie);
     modal.innerHTML = html;
   }
-  
-  if(customHtml){
+
+  if (customHtml) {
     modal.innerHTML = customHtml;
   }
 
   const closeModalBtnEl = document.querySelector('[data-modal-close]');
   const backdropEl = document.querySelector('[data-backdrop]');
 
-  if(closeModalBtnEl){
-  closeModalBtnEl.addEventListener('click', onCloseModalCard);
+  // додає до local storege id фільмів
+  addWatched(movie);
+  addQueue(movie);
+
+  if (closeModalBtnEl) {
+    closeModalBtnEl.addEventListener('click', onCloseModalCard);
   }
   backdropEl.addEventListener('click', onBackdropClick);
 
@@ -34,6 +41,8 @@ export default function openModalCard(movie, customHtml = '') {
 }
 
 function onCloseModalCard() {
+  // додає в session storege копію localstorege
+
   document.body.classList.remove('show-modal-card');
   window.addEventListener('keydown', onEscKyePressExit);
 }

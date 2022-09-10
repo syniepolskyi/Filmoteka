@@ -6,13 +6,15 @@ import './modalAbout';
 import './upToTop';
 
 import { getTrending } from './api/moviedb/getTrending';
-import { genres } from './api/moviedb/getGenres';
+
 import { changeGenresIdtoName } from './api/moviedb/changeGenresIdtoName';
 import { searchMovies } from './api/moviedb/searchMovies';
 import createMarkUp from '../templates/film-cards.hbs';
 import { refs } from './constants/refs';
 import Notiflix from 'notiflix';
 import { createPagination } from './createPagination';
+import Handlebars from 'handlebars';
+
 
 import {
   singUp,
@@ -22,6 +24,8 @@ import {
   postData,
   authObserver,
 } from './api/firebase/api';
+
+
 
 const email = document.getElementById('email_singUp');
 const password = document.getElementById('password_singUp');
@@ -50,11 +54,14 @@ btnLogOut.addEventListener('click', () => {
 });
 
 btnToPost.addEventListener('click', async () => {
-  postData(usersFilms);
+  postData({
+    watched: ['test'],
+    queue: ['test'],
+  });
 });
 
 btnToRequest.addEventListener('click', async () => {
-  a = await getData();
+  const a = await getData();
   console.log(a);
 });
 
@@ -64,14 +71,14 @@ import { getMoviesDetails } from './api/moviedb/getMoviesDetails';
 let page = 1;
 let nameForSrc = '';
 
-async function renderTrendingMovies(page) {
+async function renderTrendingMovies(page = 1) {
   try {
     const listOfMovies = await getTrending(page);
 
     await changeGenresIdtoName(listOfMovies.results);
 
     refs.mainList.innerHTML = createMarkUp(listOfMovies.results);
-    createPagination(1, 9);
+    createPagination(page, listOfMovies.total_pages);
     document
       .querySelectorAll('[data-modal-open]')
       .forEach(card => card.addEventListener('click', onFilmCardClick));
@@ -81,6 +88,18 @@ async function renderTrendingMovies(page) {
 }
 
 renderTrendingMovies();
+refs.paginationBox.addEventListener('click', onPaginationBtnClick);
+
+// фіксять рік там рейтинг на картках фільмів
+Handlebars.registerHelper('yearFixed', function (number) {
+  let today = new Date('2000-07-06');
+  let year = today.getFullYear();
+  return year;
+});
+
+Handlebars.registerHelper('numberFixed', function (number) {
+  return number.toFixed(1);
+});
 
 refs.headerForm.addEventListener('submit', renderKeywordSearchMovies);
 
@@ -121,4 +140,13 @@ function onFilmCardClick() {
 function clearPage() {
   page = 1;
   refs.mainList.innerHTML = '';
+}
+
+function onPaginationBtnClick(e) {
+  if (!e.target.dataset.page) return;
+  window.scrollTo({
+    top: 0,
+    left: 0,
+  });
+  renderTrendingMovies(Number(e.target.dataset.page));
 }

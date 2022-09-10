@@ -1,8 +1,15 @@
 // imports
-import { getMoviesDetails } from "./api/moviedb/getMoviesDetails";
+import { getMoviesDetails } from './api/moviedb/getMoviesDetails';
 import createMarkUp from '../templates/film-cards.hbs';
-import { refs } from "./constants/refs";
-import { storage, STORAGE, ANON_WATCHED, ANON_QUEUE, localStorageAPI } from "./constants/storage";
+import { refs } from './constants/refs';
+import {
+  storage,
+  STORAGE,
+  ANON_WATCHED,
+  ANON_QUEUE,
+  localStorageAPI,
+} from './constants/storage';
+import Handlebars from 'handlebars';
 
 // references
 const { headerWatchedBtn, headerQueueBtn, mainList } = refs;
@@ -13,17 +20,25 @@ const perPage = choisePerPage(document.body.clientWidth);
 let libraryQuery = ANON_WATCHED;
 
 // preorders
-renderLibraryMainContent(1);
-
-// orders to delete after all done
-storage[ANON_WATCHED] = ["154", "584", "1254", "154", "584", "1254", "154", "584", "1254", "154", "584", "1254"];
-storage[ANON_QUEUE] = ["153", "155", "178", "189", "153", "155", "178", "189", "153", "155", "178", "189"];
-localStorageAPI.save(STORAGE, storage);
+// storage[ANON_WATCHED] = [
+//   '154',
+//   '584',
+//   '1254',
+//   '154',
+//   '584',
+//   '1254',
+//   '154',
+//   '584',
+//   '1254',
+//   '154',
+//   '584',
+//   '1254',
+// ];
+// localStorageAPI.save(STORAGE, storage);
 
 // event listeners
 headerWatchedBtn.addEventListener('click', onClickWatched);
 headerQueueBtn.addEventListener('click', onClickQueue);
-
 
 // event listeners functions
 function onClickWatched() {
@@ -31,7 +46,16 @@ function onClickWatched() {
   
   libraryQuery = ANON_WATCHED;
 
+
   renderLibraryMainContent(1);
+
+  if (!headerQueueBtn.classList.contains('button--accent')) {
+    headerQueueBtn.classList.add('button--accent');
+  }
+  if (headerWatchedBtn.classList.contains('button--accent')) {
+    headerWatchedBtn.classList.remove('button--accent');
+  }
+
 }
 
 function onClickQueue() {
@@ -48,6 +72,18 @@ function renderLibraryMainContent(page) {
     renderLibraryCards(page)
   } else {
     renderEmptyLibrary()
+
+  if (!headerWatchedBtn.classList.contains('button--accent')) {
+    headerWatchedBtn.classList.add('button--accent');
+  }
+  if (headerQueueBtn.classList.contains('button--accent')) {
+    headerQueueBtn.classList.remove('button--accent');
+  }
+
+  if (localStorageAPI.load(STORAGE)) {
+    renderWatchedMarkup(watchedPage);
+  } else {
+    renderEmptyWatched();
   }
 }
 
@@ -74,6 +110,9 @@ function renderEmptyLibrary() {
     mainList.innerHTML = "Nothing in queue yet";
     return
   }
+
+function renderEmptyWatched() {
+  mainList.innerHTML = 'Nothing wathed yet';
 }
 
 async function createLibraryCardsdMarkup(page) {
@@ -86,7 +125,7 @@ async function createLibraryCardsdMarkup(page) {
   const moviePromises = filteredCardsArr.map(el => {
     const movie = getMoviesDetails(el);
     return movie;
-  })
+  });
 
   try {
     const movies = await Promise.all(moviePromises);
@@ -103,7 +142,7 @@ function filterCardsdArr(page) {
     if (index >= perPage * (page - 1) && index < perPage * page) {
       return value;
     }
-  })
+  });
 }
 
 function choisePerPage(screenWidth) {
@@ -115,6 +154,7 @@ function choisePerPage(screenWidth) {
   }
   return 8;
 }
+
 
 function accentWatchedBtn() {
   if ( !headerWatchedBtn.classList.contains(ACCENT_BTN_CLASS)) {
@@ -132,3 +172,14 @@ function accentQueueBtn() {
 
 // exports
 export {renderLibraryMainContent};
+
+// фіксять рік там рейтинг на картках фільмів
+Handlebars.registerHelper('yearFixed', function (number) {
+  let today = new Date('2000-07-06');
+  let year = today.getFullYear();
+  return year;
+});
+
+Handlebars.registerHelper('numberFixed', function (number) {
+  return number.toFixed(1);
+});
