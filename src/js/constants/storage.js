@@ -29,11 +29,11 @@ function load(key) {
 }
 
 export function setSessionStorege() {
-  const lsl = localStorage.getItem(STORAGE);
-  sessionStorage.setItem('store', lsl);
+  const storegeData = localStorage.getItem(STORAGE);
+  sessionStorage.setItem('store', storegeData);
 }
 
 export function setToLocalLybraryStorege() {
-  const lsl = sessionStorage.getItem('store');
-  localStorage.setItem(STORAGE, lsl);
+  const storegeData = sessionStorage.getItem('store');
+  localStorage.setItem(STORAGE, storegeData);
 }

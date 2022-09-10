@@ -18,21 +18,21 @@ const bodyWidth = document.body.clientWidth;
 let watchedPage = 1;
 
 // preorders
-storage[ANON_WATCHED] = [
-  '154',
-  '584',
-  '1254',
-  '154',
-  '584',
-  '1254',
-  '154',
-  '584',
-  '1254',
-  '154',
-  '584',
-  '1254',
-];
-localStorageAPI.save(STORAGE, storage);
+// storage[ANON_WATCHED] = [
+//   '154',
+//   '584',
+//   '1254',
+//   '154',
+//   '584',
+//   '1254',
+//   '154',
+//   '584',
+//   '1254',
+//   '154',
+//   '584',
+//   '1254',
+// ];
+// localStorageAPI.save(STORAGE, storage);
 
 // event listeners
 headerWatchedBtn.addEventListener('click', onClickWatched);

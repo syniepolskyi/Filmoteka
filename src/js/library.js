@@ -4,6 +4,7 @@ import './watched';
 import './modalCard';
 import './modalAbout';
 import './upToTop';
+import { setToLocalLybraryStorege } from './constants/storage';
 
 import {
   singUp,
@@ -13,6 +14,8 @@ import {
   postData,
   authObserver,
 } from './api/firebase/api';
+
+setToLocalLybraryStorege();
 
 const email = document.getElementById('email_singUp');
 const password = document.getElementById('password_singUp');

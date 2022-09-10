@@ -84,6 +84,7 @@ async function renderTrendingMovies(page = 1) {
 renderTrendingMovies();
 refs.paginationBox.addEventListener('click', onPaginationBtnClick);
 
+// фіксять рік там рейтинг на картках фільмів 
 Handlebars.registerHelper('yearFixed', function (number) {
   let today = new Date('2000-07-06');
   let year = today.getFullYear();

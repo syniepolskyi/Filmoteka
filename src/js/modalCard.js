@@ -28,8 +28,9 @@ export default function openModalCard(movie, customHtml = '') {
   const closeModalBtnEl = document.querySelector('[data-modal-close]');
   const backdropEl = document.querySelector('[data-backdrop]');
 
-  // addWatched(movie);
-  // addQueue(movie);
+  // додає до local storege id фільмів
+  addWatched(movie);
+  addQueue(movie);
 
   if (closeModalBtnEl) {
     closeModalBtnEl.addEventListener('click', onCloseModalCard);
@@ -40,7 +41,8 @@ export default function openModalCard(movie, customHtml = '') {
 }
 
 function onCloseModalCard() {
-  // setSessionStorege();
+  // додає в session storege копію localstorege
+  setSessionStorege();
 
   document.body.classList.remove('show-modal-card');
   window.addEventListener('keydown', onEscKyePressExit);
