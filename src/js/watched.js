@@ -1,8 +1,15 @@
 // imports
-import { getMoviesDetails } from "./api/moviedb/getMoviesDetails";
+import { getMoviesDetails } from './api/moviedb/getMoviesDetails';
 import createMarkUp from '../templates/film-cards.hbs';
-import { refs } from "./constants/refs";
-import { storage, STORAGE, ANON_WATCHED, ANON_QUEUE, localStorageAPI } from "./constants/storage";
+import { refs } from './constants/refs';
+import {
+  storage,
+  STORAGE,
+  ANON_WATCHED,
+  ANON_QUEUE,
+  localStorageAPI,
+} from './constants/storage';
+import Handlebars from 'handlebars';
 
 // references
 const { headerWatchedBtn, headerQueueBtn, mainList } = refs;
@@ -12,39 +19,52 @@ const bodyWidth = document.body.clientWidth;
 let watchedPage = 1;
 
 // preorders
-storage[ANON_WATCHED] = ["154", "584", "1254", "154", "584", "1254", "154", "584", "1254", "154", "584", "1254"];
-localStorageAPI.save(STORAGE, storage);
+// storage[ANON_WATCHED] = [
+//   '154',
+//   '584',
+//   '1254',
+//   '154',
+//   '584',
+//   '1254',
+//   '154',
+//   '584',
+//   '1254',
+//   '154',
+//   '584',
+//   '1254',
+// ];
+// localStorageAPI.save(STORAGE, storage);
 
 // event listeners
-headerWatchedBtn.addEventListener('click', onClickWatched)
-headerQueueBtn.addEventListener('click', onClickQueue)
+headerWatchedBtn.addEventListener('click', onClickWatched);
+headerQueueBtn.addEventListener('click', onClickQueue);
 
 // event listeners functions
 function onClickQueue() {
   watchedPage = 1;
 
-  if ( !headerQueueBtn.classList.contains("button--accent")) {
-    headerQueueBtn.classList.add("button--accent");
+  if (!headerQueueBtn.classList.contains('button--accent')) {
+    headerQueueBtn.classList.add('button--accent');
   }
-  if ( headerWatchedBtn.classList.contains("button--accent")) {
-    headerWatchedBtn.classList.remove("button--accent");
+  if (headerWatchedBtn.classList.contains('button--accent')) {
+    headerWatchedBtn.classList.remove('button--accent');
   }
 }
 
 function onClickWatched() {
   watchedPage = 1;
 
-  if ( !headerWatchedBtn.classList.contains("button--accent")) {
-    headerWatchedBtn.classList.add("button--accent");
+  if (!headerWatchedBtn.classList.contains('button--accent')) {
+    headerWatchedBtn.classList.add('button--accent');
   }
-  if ( headerQueueBtn.classList.contains("button--accent")) {
-    headerQueueBtn.classList.remove("button--accent");
+  if (headerQueueBtn.classList.contains('button--accent')) {
+    headerQueueBtn.classList.remove('button--accent');
   }
-  
+
   if (localStorageAPI.load(STORAGE)) {
-    renderWatchedMarkup(watchedPage)
+    renderWatchedMarkup(watchedPage);
   } else {
-    renderEmptyWatched()
+    renderEmptyWatched();
   }
 }
 
@@ -60,7 +80,7 @@ async function renderWatchedMarkup(page) {
 }
 
 function renderEmptyWatched() {
-  mainList.innerHTML = "Nothing wathed yet";
+  mainList.innerHTML = 'Nothing wathed yet';
 }
 
 async function createWatchedMarkup(page) {
@@ -73,7 +93,7 @@ async function createWatchedMarkup(page) {
   const moviePromises = filteredWatchedArr.map(el => {
     const movie = getMoviesDetails(el);
     return movie;
-  })
+  });
 
   try {
     const movies = await Promise.all(moviePromises);
@@ -91,7 +111,7 @@ function filterWatchedArr(page) {
     if (index >= filterNumber * (page - 1) && index < filterNumber * page) {
       return value;
     }
-  })
+  });
 }
 
 function choiseFilterNumber(screenWidth) {
@@ -102,3 +122,14 @@ function choiseFilterNumber(screenWidth) {
   }
   return 8;
 }
+
+// фіксять рік там рейтинг на картках фільмів
+Handlebars.registerHelper('yearFixed', function (number) {
+  let today = new Date('2000-07-06');
+  let year = today.getFullYear();
+  return year;
+});
+
+Handlebars.registerHelper('numberFixed', function (number) {
+  return number.toFixed(1);
+});
