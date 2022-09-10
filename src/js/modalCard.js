@@ -19,6 +19,7 @@ export default function openModalCard(movie, customHtml = '') {
     movie.fallbackImageDesktop = fallbackImageDesktop;
     const html = modalInputTpl(movie);
     modal.innerHTML = html;
+    document.body.style.overflow = 'hidden';
   }
 
   if (customHtml) {
@@ -42,9 +43,11 @@ export default function openModalCard(movie, customHtml = '') {
 
 function onCloseModalCard() {
   // додає в session storege копію localstorege
-
+  document.body.style.overflow = null;
   document.body.classList.remove('show-modal-card');
   window.addEventListener('keydown', onEscKyePressExit);
+
+  backdropEl.removeEventListener('click', onBackdropClick);
 }
 
 function onBackdropClick(event) {
