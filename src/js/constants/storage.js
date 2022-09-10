@@ -1,29 +1,39 @@
 export const storage = {
-    queue: [],
-    watched: []
-}
-export const ANON_WATCHED = "watched";
-export const ANON_QUEUE = "queue";
-export const STORAGE = "storage";
+  queue: [],
+  watched: [],
+};
+export const ANON_WATCHED = 'watched';
+export const ANON_QUEUE = 'queue';
+export const STORAGE = 'storage';
 export const localStorageAPI = {
-    save,
-    load,
+  save,
+  load,
 };
 
 function save(key, value) {
-    try {
+  try {
     const serializedState = JSON.stringify(value);
     localStorage.setItem(key, serializedState);
   } catch (error) {
-    console.error("Set state error: ", error.message);
+    console.error('Set state error: ', error.message);
   }
 }
 
 function load(key) {
-    try {
+  try {
     const serializedState = localStorage.getItem(key);
     return serializedState === null ? undefined : JSON.parse(serializedState);
   } catch (error) {
-    console.error("Get state error: ", error.message);
+    console.error('Get state error: ', error.message);
   }
+}
+
+export function setSessionStorege() {
+  const lsl = localStorage.getItem(STORAGE);
+  sessionStorage.setItem('store', lsl);
+}
+
+export function setToLocalLybraryStorege() {
+  const lsl = sessionStorage.getItem('store');
+  localStorage.setItem(STORAGE, lsl);
 }

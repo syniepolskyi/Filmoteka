@@ -6,13 +6,14 @@ import './modalAbout';
 import './upToTop';
 
 import { getTrending } from './api/moviedb/getTrending';
-import { genres } from './api/moviedb/getGenres';
+
 import { changeGenresIdtoName } from './api/moviedb/changeGenresIdtoName';
 import { searchMovies } from './api/moviedb/searchMovies';
 import createMarkUp from '../templates/film-cards.hbs';
 import { refs } from './constants/refs';
 import Notiflix from 'notiflix';
 import { createPagination } from './createPagination';
+import Handlebars from 'handlebars';
 
 import {
   singUp,
@@ -82,6 +83,16 @@ async function renderTrendingMovies(page) {
 
 renderTrendingMovies();
 
+Handlebars.registerHelper('yearFixed', function (number) {
+  let today = new Date('2000-07-06');
+  let year = today.getFullYear();
+  return year;
+});
+
+Handlebars.registerHelper('numberFixed', function (number) {
+  return number.toFixed(1);
+});
+
 refs.headerForm.addEventListener('submit', renderKeywordSearchMovies);
 
 async function renderKeywordSearchMovies(name) {
@@ -122,3 +133,5 @@ function clearPage() {
   page = 1;
   refs.mainList.innerHTML = '';
 }
+
+
