@@ -125,6 +125,7 @@ function clearPage() {
 }
 
 function onPaginationBtnClick(e) {
+  if (!e.target.dataset.page) return;
   window.scrollTo({
     top: 0,
     left: 0,
