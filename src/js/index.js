@@ -9,8 +9,6 @@ import './helpers';
 
 import { refs } from './constants/refs';
 
-import Handlebars from 'handlebars';
-
 import { renderTrendingMoviesSetup } from './renderMovieList';
 import { onSearchFormSubmit } from './onSearchFormSubmit';
 import { onPaginationBtnClick } from './pagination/onPaginationBtnClick';

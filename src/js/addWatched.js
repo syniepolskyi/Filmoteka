@@ -12,15 +12,11 @@ const buttonLabelWatchedRemove = 'Remove from watched';
 const buttonLabelQueuedAdd = 'Add to queue';
 const buttonLabelQueueRemove = 'Remove from queue';
 
-let loadStorage = localStorageAPI.load(STORAGE);
-
 const wtchBtn = dynRefs().addToWatchedBtn;
 const queBtn = dynRefs().addToQueueBtn;
 
 export function btnWtcActivity(e) {
-  const idHolder = document
-    .querySelector('.film-list__item')
-    .getAttribute('data-action');
+  const idHolder = e.currentTarget.dataset.id;
 
   let btnCond = e.target.getAttribute('data-btn');
 
@@ -38,12 +34,15 @@ export function btnWtcActivity(e) {
 }
 
 function addWatched(id) {
-  loadStorage = storage;
+  const loadStorage = localStorageAPI.load(STORAGE);
+  console.log(loadStorage)
   loadStorage[ANON_WATCHED].push(id);
   const queBtn = dynRefs().addToQueueBtn;
   const queueArr = loadStorage[ANON_QUEUE];
   const indexOfMovie = queueArr.indexOf(id).toString();
-  queueArr.splice(indexOfMovie, 1);
+  if(indexOfMovie >= 0){
+    queueArr.splice(indexOfMovie, 1);
+  }
   queBtn.setAttribute('data-btn', 'add');
   queBtn.textContent = buttonLabelQueuedAdd;
 
@@ -51,6 +50,7 @@ function addWatched(id) {
 }
 
 function removeFromStorage(id) {
+  const loadStorage = localStorageAPI.load(STORAGE);
   const watchedArr = loadStorage[ANON_WATCHED];
   const indexOfMovie = watchedArr.indexOf(id).toString();
   watchedArr.splice(indexOfMovie, 1);
@@ -59,6 +59,7 @@ function removeFromStorage(id) {
 }
 
 export function checkStorege(id) {
+  const loadStorage = localStorageAPI.load(STORAGE);
   const wtchBtn = dynRefs().addToWatchedBtn;
   const queBtn = dynRefs().addToQueueBtn;
 

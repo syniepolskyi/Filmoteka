@@ -1,6 +1,5 @@
 import './api/moviedb/getMoviesDetails';
 import modalInputTpl from '../templates/modal-card.hbs';
-import Handlebars from 'handlebars';
 import closeSvg from '../images/sprite.svg';
 import fallbackImageDesktop from '../images/desktop/poster-modal-plug-desktop.jpg';
 import { dynRefs } from './constants/dynamicRefs';

@@ -1,3 +1,5 @@
+import Handlebars from 'handlebars';
+
 //для окруклення індексу Popularity в modal-card.hbs
 Handlebars.registerHelper('numberFixed', function (number) {
   return number.toFixed(1);
