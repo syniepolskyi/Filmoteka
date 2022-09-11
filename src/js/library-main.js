@@ -9,7 +9,6 @@ import {
   ANON_QUEUE,
   localStorageAPI,
 } from './constants/storage';
-import Handlebars from 'handlebars';
 
 // references
 const { headerWatchedBtn, headerQueueBtn, mainList } = refs;
@@ -174,14 +173,3 @@ function accentQueueBtn() {
 
 // exports
 export {renderLibraryMainContent};
-
-// фіксять рік там рейтинг на картках фільмів
-Handlebars.registerHelper('yearFixed', function (number) {
-  let today = new Date('2000-07-06');
-  let year = today.getFullYear();
-  return year;
-});
-
-Handlebars.registerHelper('numberFixed', function (number) {
-  return number.toFixed(1);
-});

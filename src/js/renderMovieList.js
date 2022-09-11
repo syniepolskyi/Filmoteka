@@ -3,9 +3,9 @@ import { refs } from './constants/refs';
 import { searchMovies, search } from './api/moviedb/searchMovies';
 import { changeGenresIdtoName } from './api/moviedb/changeGenresIdtoName';
 import createMarkUp from '../templates/film-cards.hbs';
-import { createPagination } from './createPagination';
+import { createPagination } from './pagination/createPagination';
 import { onFilmCardClick } from './onFilmCardClick';
-import { trendsSearchParams, movieSearchParams } from './serchMoviesParam';
+import { trendsSearchParams, movieSearchParams } from './searchMoviesParam';
 
 export async function renderMovieList(page = 1) {
   search.params.params.page = page;

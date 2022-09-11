@@ -1,4 +1,4 @@
-import { renderMovieList } from './renderMovieList';
+import { renderMovieList } from '../renderMovieList';
 
 export function onPaginationBtnClick(e) {
   if (!e.target.dataset.page) return;
