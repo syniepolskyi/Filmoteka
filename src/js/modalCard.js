@@ -19,6 +19,7 @@ export default function openModalCard(movie, customHtml = '') {
     movie.fallbackImageDesktop = fallbackImageDesktop;
     const html = modalInputTpl(movie);
     modal.innerHTML = html;
+    document.body.style.overflow = 'hidden';
   }
 
   if (customHtml) {
@@ -37,14 +38,20 @@ export default function openModalCard(movie, customHtml = '') {
   }
   backdropEl.addEventListener('click', onBackdropClick);
 
-  window.addEventListener('keydown', onEscKyePressExit);
+  window.addEventListener('keydown', onEscKeyPressExit);
 }
 
 function onCloseModalCard() {
+  const closeModalBtnEl = document.querySelector('[data-modal-close]');
+  const backdropEl = document.querySelector('[data-backdrop]');
   // додає в session storege копію localstorege
-
+  document.body.style.overflow = null;
   document.body.classList.remove('show-modal-card');
-  window.addEventListener('keydown', onEscKyePressExit);
+  window.addEventListener('keydown', onEscKeyPressExit);
+
+  backdropEl.removeEventListener('click', onBackdropClick);
+  closeModalBtnEl.removeEventListener('click', onCloseModalCard);
+  window.removeEventListener('keydown', onEscKeyPressExit);
 }
 
 function onBackdropClick(event) {
@@ -53,7 +60,7 @@ function onBackdropClick(event) {
   }
 }
 
-function onEscKyePressExit(event) {
+function onEscKeyPressExit(event) {
   if (event.code === 'Escape') {
     onCloseModalCard();
   }
