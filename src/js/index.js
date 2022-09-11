@@ -1,18 +1,18 @@
 import './constants/refs';
 import './api/moviedb/getTrending';
 import './api/moviedb/searchMovies';
-import openModalCard from './modalCard';
+// import openModalCard from './modalCard';
 import './modalAbout';
 import './upToTop';
 
-import { getTrending } from './api/moviedb/getTrending';
+// import { getTrending } from './api/moviedb/getTrending';
 
-import { changeGenresIdtoName } from './api/moviedb/changeGenresIdtoName';
-import { searchMovies } from './api/moviedb/searchMovies';
-import createMarkUp from '../templates/film-cards.hbs';
+// import { changeGenresIdtoName } from './api/moviedb/changeGenresIdtoName';
+// import { searchMovies, search } from './api/moviedb/searchMovies';
+// import createMarkUp from '../templates/film-cards.hbs';
 import { refs } from './constants/refs';
-import Notiflix from 'notiflix';
-import { createPagination } from './createPagination';
+// import Notiflix from 'notiflix';
+// import { createPagination } from './createPagination';
 import Handlebars from 'handlebars';
 
 import {
@@ -62,29 +62,31 @@ btnToRequest.addEventListener('click', async () => {
   console.log(a);
 });
 
-import openModalCard from './modalCard';
-import { getMoviesDetails } from './api/moviedb/getMoviesDetails';
+// import openModalCard from './modalCard';
+// import { getMoviesDetails } from './api/moviedb/getMoviesDetails';
 import { async } from '@firebase/util';
-import { trendsSearchParams, movieSearchParams } from './serchMoviesParam';
 
-let searchMovieParams = null;
+import { renderTrendingMoviesSetup } from './renderMovieList';
+import { onSearchFormSubmit } from './onSearchFormSubmit';
+// import { trendsSearchParams, movieSearchParams } from './serchMoviesParam';
+import { onPaginationBtnClick } from './onPaginationBtnClick';
 
-async function renderTrendingMovies(page = 1) {
-  searchMovieParams = trendsSearchParams;
-  searchMovieParams.params.page = page;
+// async function renderTrendingMoviesSetup(page = 1) {
+//   search.params = trendsSearchParams;
+//   search.params.params.page = page;
 
-  renderMovieList(page);
-}
+//   renderMovieList(page);
+// }
 
-async function renderSearchList(nameForSrc, page = 1) {
-  searchMovieParams = movieSearchParams;
-  searchMovieParams.params.page = page;
-  searchMovieParams.params.query = nameForSrc;
+// async function renderSearchListSetup(nameForSrc, page = 1) {
+//   search.params = movieSearchParams;
+//   search.params.params.page = page;
+//   search.params.params.query = nameForSrc;
 
-  renderMovieList(page);
-}
+//   renderMovieList(page);
+// }
 
-renderTrendingMovies();
+renderTrendingMoviesSetup();
 refs.paginationBox.addEventListener('click', onPaginationBtnClick);
 
 // фіксять рік там рейтинг на картках фільмів
@@ -98,50 +100,50 @@ Handlebars.registerHelper('numberFixed', function (number) {
   return number.toFixed(1);
 });
 
-refs.headerForm.addEventListener('submit', renderKeywordSearchMovies);
+refs.headerForm.addEventListener('submit', onSearchFormSubmit);
 
-async function renderKeywordSearchMovies(name) {
-  name.preventDefault();
+// function onSearchFormSubmit(name) {
+//   name.preventDefault();
 
-  nameForSrc = name.target.serch_film.value.trim();
-  if (!nameForSrc) {
-    Notiflix.Notify.warning('Searching starts after providing data to search.');
-    return;
-  }
+//   const nameForSrc = name.target.serch_film.value.trim();
+//   if (!nameForSrc) {
+//     Notiflix.Notify.warning('Searching starts after providing data to search.');
+//     return;
+//   }
 
-  renderSearchList(nameForSrc);
-}
+//   renderSearchListSetup(nameForSrc);
+// }
 
-function onFilmCardClick() {
-  const id = this.dataset.action;
-  getMoviesDetails(id).then(movie => openModalCard(movie));
-}
+// function onFilmCardClick() {
+//   const id = this.dataset.action;
+//   getMoviesDetails(id).then(movie => openModalCard(movie));
+// }
 
-async function renderMovieList(page = 1) {
-  searchMovieParams.params.page = page;
-  const listOfMovies = await searchMovies(searchMovieParams);
+// async function renderMovieList(page = 1) {
+//   search.params.params.page = page;
+//   const listOfMovies = await searchMovies(search.params);
 
-  if (!listOfMovies?.data?.results?.length) {
-    Notiflix.Notify.warning(
-      'Sorry, there is no result. Please try another keyword'
-    );
-    return;
-  }
+//   if (!listOfMovies?.data?.results?.length) {
+//     Notiflix.Notify.warning(
+//       'Sorry, there is no result. Please try another keyword'
+//     );
+//     return;
+//   }
 
-  await changeGenresIdtoName(listOfMovies.data.results);
+//   await changeGenresIdtoName(listOfMovies.data.results);
 
-  refs.mainList.innerHTML = createMarkUp(listOfMovies.data.results);
-  createPagination(page, listOfMovies.data.total_pages);
-  document
-    .querySelectorAll('[data-modal-open]')
-    .forEach(card => card.addEventListener('click', onFilmCardClick));
-}
+//   refs.mainList.innerHTML = createMarkUp(listOfMovies.data.results);
+//   createPagination(page, listOfMovies.data.total_pages);
+//   document
+//     .querySelectorAll('[data-modal-open]')
+//     .forEach(card => card.addEventListener('click', onFilmCardClick));
+// }
 
-function onPaginationBtnClick(e) {
-  if (!e.target.dataset.page) return;
-  window.scrollTo({
-    top: 0,
-    left: 0,
-  });
-  renderMovieList(Number(e.target.dataset.page));
-}
+// function onPaginationBtnClick(e) {
+//   if (!e.target.dataset.page) return;
+//   window.scrollTo({
+//     top: 0,
+//     left: 0,
+//   });
+//   renderMovieList(Number(e.target.dataset.page));
+// }
