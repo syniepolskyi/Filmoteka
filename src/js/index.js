@@ -3,8 +3,11 @@ import './api/moviedb/getTrending';
 import './api/moviedb/searchMovies';
 import './modalAbout';
 import './features/upToTop/upToTop';
+import './features/theme-switcher/theme-switcher';
 import './features/trend-slider/slider-trends';
 import './features/auth/auth';
+
+
 
 import { refs } from './constants/refs';
 

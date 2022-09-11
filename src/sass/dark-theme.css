@@ -1,12 +1,5 @@
 /* Стиль кнопки (перемикача)*/
 .change_theme {
-    margin-top: 5px;
-    text-align: center;
-    cursor: pointer;
-  
-  
-    text-align: center;
-    background: none;
     border: 1px solid white;
     border-radius: 5px;
     box-shadow: 1px 4px 6px 0px rgb(0 0 0 / 16%);
@@ -21,5 +14,5 @@
   }
   
   body{
-      background-color: #222222 !important;
+      background-color: #222222;
   }
