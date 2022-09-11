@@ -4,6 +4,7 @@ import './api/moviedb/searchMovies';
 import openModalCard from './modalCard';
 import './modalAbout';
 import './upToTop';
+import './slider-trends';
 
 import { getTrending } from './api/moviedb/getTrending';
 
@@ -15,7 +16,6 @@ import Notiflix from 'notiflix';
 import { createPagination } from './createPagination';
 import Handlebars from 'handlebars';
 
-
 import {
   singUp,
   singIn,
@@ -24,8 +24,6 @@ import {
   postData,
   authObserver,
 } from './api/firebase/api';
-
-
 
 const email = document.getElementById('email_singUp');
 const password = document.getElementById('password_singUp');
@@ -68,24 +66,23 @@ btnToRequest.addEventListener('click', async () => {
 import openModalCard from './modalCard';
 import { getMoviesDetails } from './api/moviedb/getMoviesDetails';
 import { async } from '@firebase/util';
+import { trendsSearchParams, movieSearchParams } from './serchMoviesParam';
 
-let nameForSrc = '';
+let searchMovieParams = null;
 
 async function renderTrendingMovies(page = 1) {
-  const status = 'trends';
-  try {
-    const listOfMovies = await getTrending(page);
+  searchMovieParams = trendsSearchParams;
+  searchMovieParams.params.page = page;
 
-    await changeGenresIdtoName(listOfMovies.results);
+  renderMovieList(page);
+}
 
-    refs.mainList.innerHTML = createMarkUp(listOfMovies.results);
-    createPagination(page, listOfMovies.total_pages, status);
-    document
-      .querySelectorAll('[data-modal-open]')
-      .forEach(card => card.addEventListener('click', onFilmCardClick));
-  } catch (error) {
-    Notiflix.Notify.failure(error);
-  }
+async function renderSearchList(nameForSrc, page = 1) {
+  searchMovieParams = movieSearchParams;
+  searchMovieParams.params.page = page;
+  searchMovieParams.params.query = nameForSrc;
+
+  renderMovieList(page);
 }
 
 renderTrendingMovies();
@@ -116,26 +113,29 @@ async function renderKeywordSearchMovies(name) {
   renderSearchList(nameForSrc);
 }
 
-async function renderSearchList(nameForSrc, page = 1) {
-  const status = 'search';
-  const resultOfSearching = await searchMovies(nameForSrc, page);
+function onFilmCardClick() {
+  const id = this.dataset.action;
+  getMoviesDetails(id).then(movie => openModalCard(movie));
+}
 
-  console.log(resultOfSearching.data);
+async function renderMovieList(page = 1) {
+  searchMovieParams.params.page = page;
+  const listOfMovies = await searchMovies(searchMovieParams);
 
-  if (!resultOfSearching.data.results.length) {
+  if (!listOfMovies?.data?.results?.length) {
     Notiflix.Notify.warning(
       'Sorry, there is no result. Please try another keyword'
     );
     return;
   }
-  await changeGenresIdtoName(resultOfSearching.data.results);
-  refs.mainList.innerHTML = createMarkUp(resultOfSearching.data.results);
-  createPagination(page, resultOfSearching.data.total_pages, status);
-}
 
-function onFilmCardClick() {
-  const id = this.dataset.action;
-  getMoviesDetails(id).then(movie => openModalCard(movie));
+  await changeGenresIdtoName(listOfMovies.data.results);
+
+  refs.mainList.innerHTML = createMarkUp(listOfMovies.data.results);
+  createPagination(page, listOfMovies.data.total_pages);
+  document
+    .querySelectorAll('[data-modal-open]')
+    .forEach(card => card.addEventListener('click', onFilmCardClick));
 }
 
 function onPaginationBtnClick(e) {
@@ -144,8 +144,5 @@ function onPaginationBtnClick(e) {
     top: 0,
     left: 0,
   });
-  if (e.target.dataset.status == 'trends')
-    renderTrendingMovies(Number(e.target.dataset.page));
-  if (e.target.dataset.status == 'search')
-    renderSearchList(nameForSrc, Number(e.target.dataset.page));
+  renderMovieList(Number(e.target.dataset.page));
 }

@@ -1,7 +1,10 @@
 import { refs } from './constants/refs';
 
-export function createPagination(page = 1, totalPage = 1, status = 'trends') {
-  if (totalPage === 1) return;
+export function createPagination(page = 1, totalPage = 1) {
+  if (totalPage === 1) {
+    refs.paginationBox.innerHTML = '';
+    return;
+  }
   let paginationMurkup = '';
   let pageWidth = document.documentElement.scrollWidth;
   let dataPage = '';
@@ -9,16 +12,16 @@ export function createPagination(page = 1, totalPage = 1, status = 'trends') {
     page != 1
       ? `<button type="button" class="pagination_button pagination_button-arrow_left" data-page="${
           page - 1
-        }" data-status="${status}""></button>`
+        }""></button>`
       : '';
   let arrowBtnRight =
     page != totalPage
       ? `<button type="button" class="pagination_button pagination_button-arrow_right" data-page="${
           page + 1
-        }" data-status="${status}"></button>`
+        }"></button>`
       : '';
-  let firstBtn = `<button type="button" class="pagination_button" data-page="1" data-status="${status}">1</button>`;
-  let lastBtn = `<button type="button" class="pagination_button" data-page="${totalPage}" data-status="${status}">${totalPage}</button>`;
+  let firstBtn = `<button type="button" class="pagination_button" data-page="1">1</button>`;
+  let lastBtn = `<button type="button" class="pagination_button" data-page="${totalPage}">${totalPage}</button>`;
   let dotsBtn = `<button type="button" class="pagination_button pagination_button-dots">...</button>`;
 
   if (pageWidth < 768) {
@@ -27,11 +30,11 @@ export function createPagination(page = 1, totalPage = 1, status = 'trends') {
     for (let i = page - 2; i <= page + 2; i++) {
       dataPage = i;
       if (i == page) {
-        paginationMurkup += `<button type="button" class="pagination_button pagination_button-active" data-page="${dataPage}" data-status="${status}">${dataPage}</button>`;
+        paginationMurkup += `<button type="button" class="pagination_button pagination_button-active">${dataPage}</button>`;
         continue;
       }
       if (i <= totalPage && i > 0)
-        paginationMurkup += `<button type="button" class="pagination_button" data-page="${dataPage}" data-status="${status}">${dataPage}</button>`;
+        paginationMurkup += `<button type="button" class="pagination_button" data-page="${dataPage}">${dataPage}</button>`;
     }
     paginationMurkup += arrowBtnRight;
   }
@@ -42,10 +45,10 @@ export function createPagination(page = 1, totalPage = 1, status = 'trends') {
       for (let i = 1; i <= totalPage; i++) {
         dataPage = i;
         if (i == page) {
-          paginationMurkup += `<button type="button" class="pagination_button pagination_button-active" data-page="${dataPage}" data-status="${status}">${dataPage}</button>`;
+          paginationMurkup += `<button type="button" class="pagination_button pagination_button-active">${dataPage}</button>`;
           continue;
         }
-        paginationMurkup += `<button type="button" class="pagination_button" data-page="${dataPage}" data-status="${status}">${dataPage}</button>`;
+        paginationMurkup += `<button type="button" class="pagination_button" data-page="${dataPage}">${dataPage}</button>`;
       }
       paginationMurkup += arrowBtnRight;
     }
@@ -56,10 +59,10 @@ export function createPagination(page = 1, totalPage = 1, status = 'trends') {
         for (let i = 1; i <= 7; i++) {
           dataPage = i;
           if (i == page) {
-            paginationMurkup += `<button type="button" class="pagination_button pagination_button-active" data-page="${dataPage}" data-status="${status}">${dataPage}</button>`;
+            paginationMurkup += `<button type="button" class="pagination_button pagination_button-active">${dataPage}</button>`;
             continue;
           }
-          paginationMurkup += `<button type="button" class="pagination_button" data-page="${dataPage}" data-status="${status}">${dataPage}</button>`;
+          paginationMurkup += `<button type="button" class="pagination_button" data-page="${dataPage}">${dataPage}</button>`;
         }
         paginationMurkup += dotsBtn + lastBtn + arrowBtnRight;
       }
@@ -69,10 +72,10 @@ export function createPagination(page = 1, totalPage = 1, status = 'trends') {
         for (let i = totalPage - 6; i <= totalPage; i++) {
           dataPage = i;
           if (i == page) {
-            paginationMurkup += `<button type="button" class="pagination_button pagination_button-active" data-page="${dataPage}" data-status="${status}">${dataPage}</button>`;
+            paginationMurkup += `<button type="button" class="pagination_button pagination_button-active">${dataPage}</button>`;
             continue;
           }
-          paginationMurkup += `<button type="button" class="pagination_button" data-page="${dataPage}" data-status="${status}">${dataPage}</button>`;
+          paginationMurkup += `<button type="button" class="pagination_button" data-page="${dataPage}">${dataPage}</button>`;
         }
         paginationMurkup += arrowBtnRight;
       }
@@ -82,10 +85,10 @@ export function createPagination(page = 1, totalPage = 1, status = 'trends') {
         for (let i = page - 2; i <= page + 2; i++) {
           dataPage = i;
           if (i == page) {
-            paginationMurkup += `<button type="button" class="pagination_button pagination_button-active" data-page="${dataPage}" data-status="${status}">${dataPage}</button>`;
+            paginationMurkup += `<button type="button" class="pagination_button pagination_button-active">${dataPage}</button>`;
             continue;
           }
-          paginationMurkup += `<button type="button" class="pagination_button" data-page="${dataPage}" data-status="${status}">${dataPage}</button>`;
+          paginationMurkup += `<button type="button" class="pagination_button" data-page="${dataPage}">${dataPage}</button>`;
         }
         paginationMurkup += dotsBtn + lastBtn + arrowBtnRight;
       }
