@@ -6,6 +6,7 @@ import fallbackImageDesktop from '../images/desktop/poster-modal-plug-desktop.jp
 import { dynRefs } from './constants/dynamicRefs';
 import { btnWtcActivity, checkStorege } from './addWatched';
 import { btnQueActivity } from './addQueue';
+import './helpers';
 
 const modal = document.querySelector('[data-backdrop]');
 
@@ -71,8 +72,3 @@ function onEscKeyPressExit(event) {
     onCloseModalCard();
   }
 }
-
-//для окруклення індексу Popularity в modal-card.hbs
-Handlebars.registerHelper('numberFixed', function (number) {
-  return number.toFixed(1);
-});
