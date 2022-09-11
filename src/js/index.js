@@ -4,6 +4,7 @@ import './api/moviedb/searchMovies';
 import openModalCard from './modalCard';
 import './modalAbout';
 import './upToTop';
+import './slider-trends';
 
 import { getTrending } from './api/moviedb/getTrending';
 import { genres } from './api/moviedb/getGenres';
