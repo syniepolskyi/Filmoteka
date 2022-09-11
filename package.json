@@ -22,7 +22,8 @@
     "handlebars-helpers": "^0.9.8",
     "modern-normalize": "^1.1.0",
     "notiflix": "^3.2.5",
-    "parcel-plugin-handlebars-json": "^1.3.0"
+    "parcel-plugin-handlebars-json": "^1.3.0",
+    "swiper": "^8.3.2"
   },
   "devDependencies": {
     "@parcel/transformer-sass": "2.7.0",
