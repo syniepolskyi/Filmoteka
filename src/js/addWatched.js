@@ -19,8 +19,8 @@ const queBtn = dynRefs().addToQueueBtn;
 
 export function btnWtcActivity(e) {
   const idHolder = document
-    .querySelector('.modal-card__img')
-    .getAttribute('data-id');
+    .querySelector('.film-list__item')
+    .getAttribute('data-action');
 
   let btnCond = e.target.getAttribute('data-btn');
 
