@@ -2,7 +2,7 @@
     position: fixed;
     top: 65%;
     right: 22%;
-    color: blue;
+    color: #545454;
     background-color: transparent;
     opacity: 1;
     transition: all .4s;
@@ -20,9 +20,10 @@
 }
 #up-btn:hover {
     transform: scale(1.5);
+    color: #ff6b08
 }
 .up-btn-images {
-    height: 40px;
-    width: 60px;
+    height:100%;
+    width: 100%;
 }
 
