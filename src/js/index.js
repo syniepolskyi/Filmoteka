@@ -1,124 +1,27 @@
 import './constants/refs';
 import './api/moviedb/getTrending';
 import './api/moviedb/searchMovies';
-import openModalCard from './modalCard';
 import './modalAbout';
-import './upToTop';
+import './features/upToTop/upToTop';
+import './features/trend-slider/slider-trends';
+import './features/auth/auth';
 
-import { getTrending } from './api/moviedb/getTrending';
-import { genres } from './api/moviedb/getGenres';
-import { changeGenresIdtoName } from './api/moviedb/changeGenresIdtoName';
-import { searchMovies } from './api/moviedb/searchMovies';
-import createMarkUp from '../templates/film-cards.hbs';
 import { refs } from './constants/refs';
-import Notiflix from 'notiflix';
-import { createPagination } from './createPagination';
 
-import {
-  singUp,
-  singIn,
-  logOut,
-  getData,
-  postData,
-  authObserver,
-} from './api/firebase/api';
+import Handlebars from 'handlebars';
 
-const email = document.getElementById('email_singUp');
-const password = document.getElementById('password_singUp');
+import { renderTrendingMoviesSetup } from './renderMovieList';
+import { onSearchFormSubmit } from './onSearchFormSubmit';
+import { onPaginationBtnClick } from './pagination/onPaginationBtnClick';
 
-const btnSingUp = document.getElementById('btn_singUp');
-const btnSingIn = document.getElementById('btn_singIn');
-const btnLogOut = document.getElementById('btn_logout');
+renderTrendingMoviesSetup();
+refs.paginationBox.addEventListener('click', onPaginationBtnClick);
 
-const btnToPost = document.getElementById('btnToPost');
-const btnToRequest = document.getElementById('btnToRequest');
-
-authObserver();
-
-btnSingUp.addEventListener('click', async e => {
-  e.preventDefault();
-  singUp(email.value, password.value);
+// фіксять рік там рейтинг на картках фільмів
+Handlebars.registerHelper('yearFixed', function (movieDate) {
+  let today = new Date(movieDate);
+  let year = today.getFullYear();
+  return year;
 });
 
-btnSingIn.addEventListener('click', e => {
-  e.preventDefault();
-  singIn(email.value, password.value);
-});
-
-btnLogOut.addEventListener('click', () => {
-  logOut();
-});
-
-btnToPost.addEventListener('click', async () => {
-  postData(usersFilms);
-});
-
-btnToRequest.addEventListener('click', async () => {
-  a = await getData();
-  console.log(a);
-});
-
-import openModalCard from './modalCard';
-import { getMoviesDetails } from './api/moviedb/getMoviesDetails';
-
-let page = 1;
-let nameForSrc = '';
-
-async function renderTrendingMovies(page) {
-  try {
-    const listOfMovies = await getTrending(page);
-
-    await changeGenresIdtoName(listOfMovies.results);
-
-    refs.mainList.innerHTML = createMarkUp(listOfMovies.results);
-    createPagination(1, 9);
-    document
-      .querySelectorAll('[data-modal-open]')
-      .forEach(card => card.addEventListener('click', onFilmCardClick));
-  } catch (error) {
-    Notiflix.Notify.failure(error);
-  }
-}
-
-renderTrendingMovies();
-
-refs.headerForm.addEventListener('submit', renderKeywordSearchMovies);
-
-async function renderKeywordSearchMovies(name) {
-  try {
-    name.preventDefault();
-    clearPage();
-    nameForSrc = name.target.serch_film.value.trim();
-
-    if (!nameForSrc) {
-      Notiflix.Notify.warning(
-        'Searching starts after providing data to search.'
-      );
-    } else {
-      const resultOfSearching = await searchMovies(nameForSrc, page);
-      console.log(resultOfSearching);
-
-      if (resultOfSearching.results.length === 0) {
-        Notiflix.Notify.warning(
-          'Sorry, there is no result. Please try another keyword'
-        );
-      } else {
-        await changeGenresIdtoName(resultOfSearching.results);
-        refs.mainList.innerHTML = createMarkUp(resultOfSearching.results);
-      }
-    }
-  } catch (error) {
-    // Повідомлення для користувача не виведено (помилка тільки в консолі), бо якщо не завантажується постер, а лише заглушка - спливають по черзі повідомлення error
-    console.log(error.message);
-  }
-}
-
-function onFilmCardClick() {
-  const id = this.dataset.action;
-  getMoviesDetails(id).then(movie => openModalCard(movie));
-}
-
-function clearPage() {
-  page = 1;
-  refs.mainList.innerHTML = '';
-}
+refs.headerForm.addEventListener('submit', onSearchFormSubmit);

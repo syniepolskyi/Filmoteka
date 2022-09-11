@@ -3,6 +3,9 @@ import modalInputTpl from '../templates/modal-card.hbs';
 import Handlebars from 'handlebars';
 import closeSvg from '../images/sprite.svg';
 import fallbackImageDesktop from '../images/desktop/poster-modal-plug-desktop.jpg';
+import { dynRefs } from './constants/dynamicRefs';
+import { btnWtcActivity, checkStorege } from './addWatched';
+import { btnQueActivity } from './addQueue';
 
 const modal = document.querySelector('[data-backdrop]');
 
@@ -11,31 +14,50 @@ export default function openModalCard(movie, customHtml = '') {
 
   //   console.log('Show Modal', this);
 
-  if(movie && !customHtml){
+  if (movie && !customHtml) {
     movie.closeSvg = closeSvg;
     movie.fallbackImageDesktop = fallbackImageDesktop;
     const html = modalInputTpl(movie);
     modal.innerHTML = html;
+    document.body.style.overflow = 'hidden';
   }
-  
-  if(customHtml){
+
+  if (customHtml) {
     modal.innerHTML = customHtml;
   }
 
   const closeModalBtnEl = document.querySelector('[data-modal-close]');
   const backdropEl = document.querySelector('[data-backdrop]');
 
-  if(closeModalBtnEl){
-  closeModalBtnEl.addEventListener('click', onCloseModalCard);
+  // додає до local storege id фільмів
+
+  const wtchBtn = dynRefs().addToWatchedBtn;
+  const queBtn = dynRefs().addToQueueBtn;
+  checkStorege(movie.id);
+  wtchBtn.addEventListener('click', btnWtcActivity);
+  queBtn.addEventListener('click', btnQueActivity);
+
+  /////////
+
+  if (closeModalBtnEl) {
+    closeModalBtnEl.addEventListener('click', onCloseModalCard);
   }
   backdropEl.addEventListener('click', onBackdropClick);
 
-  window.addEventListener('keydown', onEscKyePressExit);
+  window.addEventListener('keydown', onEscKeyPressExit);
 }
 
 function onCloseModalCard() {
+  const closeModalBtnEl = document.querySelector('[data-modal-close]');
+  const backdropEl = document.querySelector('[data-backdrop]');
+  // додає в session storege копію localstorege
+  document.body.style.overflow = null;
   document.body.classList.remove('show-modal-card');
-  window.addEventListener('keydown', onEscKyePressExit);
+  window.addEventListener('keydown', onEscKeyPressExit);
+
+  backdropEl.removeEventListener('click', onBackdropClick);
+  closeModalBtnEl.removeEventListener('click', onCloseModalCard);
+  window.removeEventListener('keydown', onEscKeyPressExit);
 }
 
 function onBackdropClick(event) {
@@ -44,7 +66,7 @@ function onBackdropClick(event) {
   }
 }
 
-function onEscKyePressExit(event) {
+function onEscKeyPressExit(event) {
   if (event.code === 'Escape') {
     onCloseModalCard();
   }
