@@ -15,10 +15,12 @@
     <div class='thumb-right__row'>
       <div class='thumb-right__text'>Vote / Votes</div>
       <div class='thumb-right__details'><span
-          class='thumb-right__details--accent'
+          class='thumb-right__details--vote-accent'
         >{{numberFixed vote_average}}</span>
         /
-        {{vote_count}}</div>
+        <span
+          class='thumb-right__details--votes-accent'
+        >{{vote_count}}</span></div>
     </div>
     <div class='thumb-right__row'>
       <div class='thumb-right__text'>Popularity</div>
@@ -26,7 +28,9 @@
     </div>
     <div class='thumb-right__row'>
       <div class='thumb-right__text'>Original Title</div>
-      <div class='thumb-right__details'>{{original_title}}</div>
+      <div
+        class='thumb-right__details thumb-right__text--accent'
+      >{{original_title}}</div>
     </div>
     <div class='thumb-right__row'>
       <div class='thumb-right__text'>Genre</div>

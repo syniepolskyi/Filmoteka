@@ -42,12 +42,15 @@ export default function openModalCard(movie, customHtml = '') {
 }
 
 function onCloseModalCard() {
+  const closeModalBtnEl = document.querySelector('[data-modal-close]');
+  const backdropEl = document.querySelector('[data-backdrop]');
   // додає в session storege копію localstorege
   document.body.style.overflow = null;
   document.body.classList.remove('show-modal-card');
   window.addEventListener('keydown', onEscKeyPressExit);
 
   backdropEl.removeEventListener('click', onBackdropClick);
+  closeModalBtnEl.removeEventListener('click', onCloseModalCard);
   window.removeEventListener('keydown', onEscKeyPressExit);
 }
 
