@@ -7,4 +7,5 @@ export const refs = {
   headerWatchedBtn: document.querySelector('.js-watched'),
   headerQueueBtn: document.querySelector('.js-queue'),
   paginationBox: document.querySelector('.pagination_box'),
+  errorMessage: document.getElementById('header__error-message'),
 };
