@@ -12,18 +12,23 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./sass/library.scss" />
+    <link rel="stylesheet" title= "theme" href="/src/sass/dark-theme.css" disabled  />
+
     <script type="module" src="./js/library.js"></script>
   </head>
   <body>
     <include src="./partials/library-header.html"></include>
     <main>
       <div class="container">
+        <include src="./partials/theme-switcher.html"></include>
+
         <section class="films-section">
           <include src="./partials/main.html"></include>
           <include src="./partials/pagination.html"></include>
         </section>
       </div>
     </main>
+
     <include src="./partials/footer.html"></include>
     <include src="./partials/up-btn.html"></include>
     <include src="./partials/about-modal.html"></include>
