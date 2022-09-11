@@ -2,7 +2,8 @@
 .change_theme {
     border: 1px solid white;
     border-radius: 5px;
-    box-shadow: 1px 4px 6px 0px rgb(0 0 0 / 16%);
+    box-shadow: 1px 4px 6px 0px rgb(255 255 255 / 16%);
+    fill: white;
   }
   
   .change_theme[data-theme="onLight"] {
@@ -11,8 +12,15 @@
   
   .change_theme[data-theme="onDark"] {
     display: none;
+    
   }
   
   body{
       background-color: #222222;
+      color: white;
+
+  }
+
+  .film-card__discription{
+    color:rgba(255, 107, 8, 1);
   }
