@@ -1,6 +1,6 @@
 import './constants/refs';
 import './queue';
-import './watched';
+import './library-main';
 import './modalCard';
 import './modalAbout';
 import './upToTop';

@@ -1,14 +1,95 @@
 import { refs } from './constants/refs';
 
-export function createPagination(page = 1, totalPage = 1) {
+export function createPagination(page = 1, totalPage = 1, status = 'trends') {
   if (totalPage === 1) return;
   let paginationMurkup = '';
-  const pageWidth = document.documentElement.scrollWidth;
-  const arrowBtnLeft = `<button type="button" class="pagination_button pagination_button-arrow_left" data-arrow="-1"></button>`;
-  const arrowBtnRight = `<button type="button" class="pagination_button pagination_button-arrow_right" data-arrow="1"></button>`;
-  const firstBtn = `<button type="button" class="pagination_button" data-page="1">1</button>`;
-  const lastBtn = `<button type="button" class="pagination_button" data-page="${totalPage}">${totalPage}</button>`;
-  const dotsBtn = `<button type="button" class="pagination_button pagination_button-dots">...</button>`;
-  paginationMurkup = arrowBtnLeft + firstBtn + lastBtn + arrowBtnRight;
+  let pageWidth = document.documentElement.scrollWidth;
+  let dataPage = '';
+  let arrowBtnLeft =
+    page != 1
+      ? `<button type="button" class="pagination_button pagination_button-arrow_left" data-page="${
+          page - 1
+        }" data-status="${status}""></button>`
+      : '';
+  let arrowBtnRight =
+    page != totalPage
+      ? `<button type="button" class="pagination_button pagination_button-arrow_right" data-page="${
+          page + 1
+        }" data-status="${status}"></button>`
+      : '';
+  let firstBtn = `<button type="button" class="pagination_button" data-page="1" data-status="${status}">1</button>`;
+  let lastBtn = `<button type="button" class="pagination_button" data-page="${totalPage}" data-status="${status}">${totalPage}</button>`;
+  let dotsBtn = `<button type="button" class="pagination_button pagination_button-dots">...</button>`;
+
+  if (pageWidth < 768) {
+    paginationMurkup += arrowBtnLeft;
+
+    for (let i = page - 2; i <= page + 2; i++) {
+      dataPage = i;
+      if (i == page) {
+        paginationMurkup += `<button type="button" class="pagination_button pagination_button-active" data-page="${dataPage}" data-status="${status}">${dataPage}</button>`;
+        continue;
+      }
+      if (i <= totalPage && i > 0)
+        paginationMurkup += `<button type="button" class="pagination_button" data-page="${dataPage}" data-status="${status}">${dataPage}</button>`;
+    }
+    paginationMurkup += arrowBtnRight;
+  }
+
+  if (pageWidth > 768) {
+    if (totalPage <= 9) {
+      paginationMurkup += arrowBtnLeft;
+      for (let i = 1; i <= totalPage; i++) {
+        dataPage = i;
+        if (i == page) {
+          paginationMurkup += `<button type="button" class="pagination_button pagination_button-active" data-page="${dataPage}" data-status="${status}">${dataPage}</button>`;
+          continue;
+        }
+        paginationMurkup += `<button type="button" class="pagination_button" data-page="${dataPage}" data-status="${status}">${dataPage}</button>`;
+      }
+      paginationMurkup += arrowBtnRight;
+    }
+
+    if (totalPage >= 10) {
+      if (page <= 5) {
+        paginationMurkup += arrowBtnLeft;
+        for (let i = 1; i <= 7; i++) {
+          dataPage = i;
+          if (i == page) {
+            paginationMurkup += `<button type="button" class="pagination_button pagination_button-active" data-page="${dataPage}" data-status="${status}">${dataPage}</button>`;
+            continue;
+          }
+          paginationMurkup += `<button type="button" class="pagination_button" data-page="${dataPage}" data-status="${status}">${dataPage}</button>`;
+        }
+        paginationMurkup += dotsBtn + lastBtn + arrowBtnRight;
+      }
+
+      if (page > totalPage - 5) {
+        paginationMurkup += arrowBtnLeft + firstBtn + dotsBtn;
+        for (let i = totalPage - 6; i <= totalPage; i++) {
+          dataPage = i;
+          if (i == page) {
+            paginationMurkup += `<button type="button" class="pagination_button pagination_button-active" data-page="${dataPage}" data-status="${status}">${dataPage}</button>`;
+            continue;
+          }
+          paginationMurkup += `<button type="button" class="pagination_button" data-page="${dataPage}" data-status="${status}">${dataPage}</button>`;
+        }
+        paginationMurkup += arrowBtnRight;
+      }
+
+      if (page > 5 && page <= totalPage - 5) {
+        paginationMurkup += arrowBtnLeft + firstBtn + dotsBtn;
+        for (let i = page - 2; i <= page + 2; i++) {
+          dataPage = i;
+          if (i == page) {
+            paginationMurkup += `<button type="button" class="pagination_button pagination_button-active" data-page="${dataPage}" data-status="${status}">${dataPage}</button>`;
+            continue;
+          }
+          paginationMurkup += `<button type="button" class="pagination_button" data-page="${dataPage}" data-status="${status}">${dataPage}</button>`;
+        }
+        paginationMurkup += dotsBtn + lastBtn + arrowBtnRight;
+      }
+    }
+  }
   refs.paginationBox.innerHTML = paginationMurkup;
 }

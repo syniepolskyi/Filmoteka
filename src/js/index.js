@@ -7,13 +7,15 @@ import './upToTop';
 import './slider-trends';
 
 import { getTrending } from './api/moviedb/getTrending';
-import { genres } from './api/moviedb/getGenres';
+
 import { changeGenresIdtoName } from './api/moviedb/changeGenresIdtoName';
 import { searchMovies } from './api/moviedb/searchMovies';
 import createMarkUp from '../templates/film-cards.hbs';
 import { refs } from './constants/refs';
 import Notiflix from 'notiflix';
 import { createPagination } from './createPagination';
+import Handlebars from 'handlebars';
+
 
 import {
   singUp,
@@ -23,6 +25,8 @@ import {
   postData,
   authObserver,
 } from './api/firebase/api';
+
+
 
 const email = document.getElementById('email_singUp');
 const password = document.getElementById('password_singUp');
@@ -51,28 +55,32 @@ btnLogOut.addEventListener('click', () => {
 });
 
 btnToPost.addEventListener('click', async () => {
-  postData(usersFilms);
+  postData({
+    watched: ['test'],
+    queue: ['test'],
+  });
 });
 
 btnToRequest.addEventListener('click', async () => {
-  a = await getData();
+  const a = await getData();
   console.log(a);
 });
 
 import openModalCard from './modalCard';
 import { getMoviesDetails } from './api/moviedb/getMoviesDetails';
+import { async } from '@firebase/util';
 
-let page = 1;
 let nameForSrc = '';
 
-async function renderTrendingMovies(page) {
+async function renderTrendingMovies(page = 1) {
+  const status = 'trends';
   try {
     const listOfMovies = await getTrending(page);
 
     await changeGenresIdtoName(listOfMovies.results);
 
     refs.mainList.innerHTML = createMarkUp(listOfMovies.results);
-    createPagination(1, 9);
+    createPagination(page, listOfMovies.total_pages, status);
     document
       .querySelectorAll('[data-modal-open]')
       .forEach(card => card.addEventListener('click', onFilmCardClick));
@@ -82,36 +90,48 @@ async function renderTrendingMovies(page) {
 }
 
 renderTrendingMovies();
+refs.paginationBox.addEventListener('click', onPaginationBtnClick);
+
+// фіксять рік там рейтинг на картках фільмів
+Handlebars.registerHelper('yearFixed', function (number) {
+  let today = new Date('2000-07-06');
+  let year = today.getFullYear();
+  return year;
+});
+
+Handlebars.registerHelper('numberFixed', function (number) {
+  return number.toFixed(1);
+});
 
 refs.headerForm.addEventListener('submit', renderKeywordSearchMovies);
 
 async function renderKeywordSearchMovies(name) {
-  try {
-    name.preventDefault();
-    clearPage();
-    nameForSrc = name.target.serch_film.value.trim();
+  name.preventDefault();
 
-    if (!nameForSrc) {
-      Notiflix.Notify.warning(
-        'Searching starts after providing data to search.'
-      );
-    } else {
-      const resultOfSearching = await searchMovies(nameForSrc, page);
-      console.log(resultOfSearching);
-
-      if (resultOfSearching.results.length === 0) {
-        Notiflix.Notify.warning(
-          'Sorry, there is no result. Please try another keyword'
-        );
-      } else {
-        await changeGenresIdtoName(resultOfSearching.results);
-        refs.mainList.innerHTML = createMarkUp(resultOfSearching.results);
-      }
-    }
-  } catch (error) {
-    // Повідомлення для користувача не виведено (помилка тільки в консолі), бо якщо не завантажується постер, а лише заглушка - спливають по черзі повідомлення error
-    console.log(error.message);
+  nameForSrc = name.target.serch_film.value.trim();
+  if (!nameForSrc) {
+    Notiflix.Notify.warning('Searching starts after providing data to search.');
+    return;
   }
+
+  renderSearchList(nameForSrc);
+}
+
+async function renderSearchList(nameForSrc, page = 1) {
+  const status = 'search';
+  const resultOfSearching = await searchMovies(nameForSrc, page);
+
+  console.log(resultOfSearching.data);
+
+  if (!resultOfSearching.data.results.length) {
+    Notiflix.Notify.warning(
+      'Sorry, there is no result. Please try another keyword'
+    );
+    return;
+  }
+  await changeGenresIdtoName(resultOfSearching.data.results);
+  refs.mainList.innerHTML = createMarkUp(resultOfSearching.data.results);
+  createPagination(page, resultOfSearching.data.total_pages, status);
 }
 
 function onFilmCardClick() {
@@ -119,7 +139,14 @@ function onFilmCardClick() {
   getMoviesDetails(id).then(movie => openModalCard(movie));
 }
 
-function clearPage() {
-  page = 1;
-  refs.mainList.innerHTML = '';
+function onPaginationBtnClick(e) {
+  if (!e.target.dataset.page) return;
+  window.scrollTo({
+    top: 0,
+    left: 0,
+  });
+  if (e.target.dataset.status == 'trends')
+    renderTrendingMovies(Number(e.target.dataset.page));
+  if (e.target.dataset.status == 'search')
+    renderSearchList(nameForSrc, Number(e.target.dataset.page));
 }
