@@ -1,6 +1,7 @@
 import Swiper, { Pagination, Autoplay } from 'swiper';
 import 'swiper/swiper.scss';
 import 'swiper/modules/pagination/pagination.scss';
+
 import { getTrending } from './api/moviedb/getTrending';
 import sliderContent from '../templates/slider-content.hbs';
 
@@ -11,8 +12,6 @@ renderSwiper();
 const swiper = new Swiper('.swiper', {
   modules: [Pagination, Autoplay],
   loop: true,
-  slidesPerView: 1,
-  spaceBetween: 10,
   grabCursor: true,
 
   breakpoints: {
