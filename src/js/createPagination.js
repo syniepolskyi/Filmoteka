@@ -1,7 +1,10 @@
 import { refs } from './constants/refs';
 
 export function createPagination(page = 1, totalPage = 1) {
-  if (totalPage === 1) return;
+  if (totalPage === 1) {
+    refs.paginationBox.innerHTML = '';
+    return;
+  }
   let paginationMurkup = '';
   let pageWidth = document.documentElement.scrollWidth;
   let dataPage = '';
