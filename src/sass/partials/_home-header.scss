@@ -82,6 +82,7 @@
   stroke: $white-text;
   fill: none;
   display: block;
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .site-nav {
@@ -206,7 +207,7 @@
   content: '';
   position: absolute;
   left: 50%;
-  bottom: -1px;
+  bottom: -4px;
   transform: translate(-50%, 0%);
   background-color: $error-text;
   width: 100%;
