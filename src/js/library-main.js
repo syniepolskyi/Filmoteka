@@ -14,7 +14,7 @@ import {
 const { headerWatchedBtn, headerQueueBtn, mainList } = refs;
 
 // variables
-const ACCENT_BTN_CLASS = "button--accent";
+const ACCENT_BTN_CLASS = 'button--accent';
 const perPage = choisePerPage(document.body.clientWidth);
 let libraryQuery = ANON_WATCHED;
 
@@ -42,9 +42,8 @@ headerQueueBtn.addEventListener('click', onClickQueue);
 // event listeners functions
 function onClickWatched() {
   accentWatchedBtn();
-  
-  libraryQuery = ANON_WATCHED;
 
+  libraryQuery = ANON_WATCHED;
 
   renderLibraryMainContent(1);
 
@@ -54,7 +53,6 @@ function onClickWatched() {
   if (headerWatchedBtn.classList.contains('button--accent')) {
     headerWatchedBtn.classList.remove('button--accent');
   }
-
 }
 
 function onClickQueue() {
@@ -68,9 +66,9 @@ function onClickQueue() {
 // functions helpers
 function renderLibraryMainContent(page) {
   if (localStorageAPI.load(STORAGE)) {
-    renderLibraryCards(page)
+    renderLibraryCards(page);
   } else {
-    renderEmptyLibrary()
+    renderEmptyLibrary();
 
     if (!headerWatchedBtn.classList.contains('button--accent')) {
       headerWatchedBtn.classList.add('button--accent');
@@ -92,7 +90,7 @@ async function renderLibraryCards(page) {
 
   if (markup) {
     mainList.innerHTML = markup;
-    // place for pagination function 
+    // place for pagination function
     const arr = localStorageAPI.load(STORAGE)[libraryQuery];
     const totalPages = arr.length;
     // <== renderPagination(page, totalPages) ==>
@@ -103,12 +101,12 @@ async function renderLibraryCards(page) {
 
 function renderEmptyLibrary() {
   if (libraryQuery === ANON_WATCHED) {
-    mainList.innerHTML = "Nothing wathed yet";
-    return
+    mainList.innerHTML = 'Nothing wathed yet';
+    return;
   }
   if (libraryQuery === ANON_QUEUE) {
-    mainList.innerHTML = "Nothing in queue yet";
-    return
+    mainList.innerHTML = 'Nothing in queue yet';
+    return;
   }
 }
 
@@ -156,20 +154,19 @@ function choisePerPage(screenWidth) {
   return 8;
 }
 
-
 function accentWatchedBtn() {
-  if ( !headerWatchedBtn.classList.contains(ACCENT_BTN_CLASS)) {
+  if (!headerWatchedBtn.classList.contains(ACCENT_BTN_CLASS)) {
     headerWatchedBtn.classList.add(ACCENT_BTN_CLASS);
     headerQueueBtn.classList.remove(ACCENT_BTN_CLASS);
   }
 }
 
 function accentQueueBtn() {
-  if ( !headerQueueBtn.classList.contains(ACCENT_BTN_CLASS)) {
+  if (!headerQueueBtn.classList.contains(ACCENT_BTN_CLASS)) {
     headerQueueBtn.classList.add(ACCENT_BTN_CLASS);
     headerWatchedBtn.classList.remove(ACCENT_BTN_CLASS);
   }
 }
 
 // exports
-export {renderLibraryMainContent};
+export { renderLibraryMainContent };

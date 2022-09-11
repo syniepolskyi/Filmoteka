@@ -6,12 +6,9 @@ import './features/upToTop/upToTop';
 import './features/trend-slider/slider-trends';
 import './features/auth/auth';
 
-
 import { refs } from './constants/refs';
 
 import Handlebars from 'handlebars';
-
-
 
 import { renderTrendingMoviesSetup } from './renderMovieList';
 import { onSearchFormSubmit } from './onSearchFormSubmit';
