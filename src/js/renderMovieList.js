@@ -12,14 +12,14 @@ export async function renderMovieList(page = 1) {
   search.params.params.page = page;
   const listOfMovies = await searchMovies(search.params);
   if (!listOfMovies?.data?.results?.length) {
-    errorMessage.classList.add('header__error-visible');
+    refs.errorMessage.classList.add('header__error-visible');
     
     Notiflix.Notify.warning(
       'Sorry, there is no result. Please try another keyword'
     );
     
     setTimeout(function () {
-      errorMessage.classList.remove('header__error-visible')
+      refs.errorMessage.classList.remove('header__error-visible')
     }, 5000);
 
     return;
