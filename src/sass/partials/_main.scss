@@ -5,48 +5,8 @@
   @media screen and (min-width: 768px) {
     padding-top: 60px;
     padding-bottom: 60px;
-  }
-}
-
-// .film-list {
-//   margin-bottom: 40px;
-
-//   @media screen and (min-width: 768px) {
-//     margin-top: -32px;
-//     margin-bottom: 60px;
-//     margin-left: -32px;
-
-//     display: flex;
-//     flex-wrap: wrap;
-//   }
-
-//   @media screen and (min-width: 1280px) {
-//     margin-left: -16px;
-//   }
-// }
-
-// .film-list__item {
-//   @media screen and (min-width: 768px) {
-//     margin-top: 32px;
-//     margin-left: 32px;
-
-//     flex-basis: calc((100% - 64px) / 2);
-//   }
-  
-//   @media screen and (min-width: 1280px) {
-//     margin-left: 16px;
-
-//     flex-basis: calc((100% - 48px) / 3);
-//   }
-// }
-
-// .film-list__item:not(:last-child) {
-//   margin-bottom: 20px;
-
-//   @media screen and (min-width: 768px) {
-//     margin-bottom: 20px;
-//   }
-// }
+  };
+};
 
 .film-list{
   margin-bottom: 40px;
@@ -54,24 +14,21 @@
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 60px;
-  }
-}
+    gap: 32px;
+  };
+    @media screen and (min-width: 1280px){
+    gap: 15px;
+    };
+};
 
 
 .film-card {
   margin-bottom: 20px;
   width: 280px;  
-    @media screen and (min-width: 768px){
-      flex-basis: calc(50% - 32px);
-      margin-left: 32px;
-
-      margin-bottom: 32px;
+    @media screen and (min-width: 768px){    
       width: 336px;      
     };
-    @media screen and (min-width: 1280px){
-      flex-basis: calc(33.3333333333% - 16px);
-      margin-left: 16px;
-
+    @media screen and (min-width: 1280px){      
       width: 395px;      
     };
 };
@@ -83,8 +40,8 @@
   }
   @media screen and (min-width: 1280px){
     height: 574px;
-  }
-}
+  };
+};
 
 .film-card__title{
     font-family: 'Roboto';
@@ -151,4 +108,4 @@
   display: block;
   flex-grow: 1;
   padding-top: 8px; 
-}
+};
