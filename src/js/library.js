@@ -21,3 +21,5 @@ refs.paginationBox.addEventListener('click', e => {
   });
   renderLibraryMainContent(+e.target.dataset.page);
 });
+
+import './features/theme-switcher/theme-switcher';
