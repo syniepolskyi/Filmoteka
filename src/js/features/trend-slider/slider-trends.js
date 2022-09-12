@@ -9,7 +9,6 @@ import { onFilmCardClick } from '../../onFilmCardClick';
 const swiperWrapper = document.querySelector('.swiper-wrapper');
 const swiperRef = document.querySelector('#trends-swiper');
 
-swiperWrapper.addEventListener('click', () => console.log('work'));
 renderSwiper();
 
 const swiper = new Swiper(swiperRef, {
@@ -46,7 +45,9 @@ const swiper = new Swiper(swiperRef, {
 
 async function renderSwiper() {
   const { results } = await getTrending();
-
   swiperWrapper.innerHTML = sliderContent(results);
   swiper.update();
+  document
+    .querySelectorAll('[data-open-modal]')
+    .forEach(card => card.addEventListener('click', onFilmCardClick));
 }
