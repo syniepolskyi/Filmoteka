@@ -4,7 +4,7 @@ import './api/moviedb/searchMovies';
 import './modalAbout';
 import './features/upToTop/upToTop';
 import './features/trend-slider/slider-trends';
-import './features/auth/auth';
+import './features/auth/authModalWindowContent';
 import './helpers';
 
 import { refs } from './constants/refs';
@@ -17,9 +17,9 @@ import { authObserver } from './api/firebase/api';
 import {
   showAuthorisedFields,
   showUnauthorisedFields,
-} from './features/auth/auth';
+} from './features/auth/authModalWindowContent';
 
-authObserver(showAuthorisedFields, showUnauthorisedFields);
+authObserver([showAuthorisedFields], [showUnauthorisedFields]);
 
 renderTrendingMoviesSetup();
 refs.paginationBox.addEventListener('click', onPaginationBtnClick);
