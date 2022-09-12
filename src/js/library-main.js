@@ -1,14 +1,8 @@
 // imports
-import { getMoviesDetails } from './api/moviedb/getMoviesDetails';
+import { getMoviesDetails } from "./api/moviedb/getMoviesDetails";
 import createMarkUp from '../templates/film-cards.hbs';
-import { refs } from './constants/refs';
-import {
-  storage,
-  STORAGE,
-  ANON_WATCHED,
-  ANON_QUEUE,
-  localStorageAPI,
-} from './constants/storage';
+import { refs } from "./constants/refs";
+import { storage, STORAGE, ANON_WATCHED, ANON_QUEUE, localStorageAPI } from "./constants/storage";
 import { createPagination } from './pagination/createPagination';
 import { onFilmCardClick } from './onFilmCardClick';
 
@@ -16,42 +10,29 @@ import { onFilmCardClick } from './onFilmCardClick';
 const { headerWatchedBtn, headerQueueBtn, mainList } = refs;
 
 // variables
-const ACCENT_BTN_CLASS = 'button--accent';
+const ACCENT_BTN_CLASS = "button--accent";
 const perPage = choisePerPage(document.body.clientWidth);
 let libraryQuery = ANON_WATCHED;
 
 // preorders
-// storage[ANON_WATCHED] = [
-//   '154',
-//   '584',
-//   '1254',
-//   '154',
-//   '584',
-//   '1254',
-//   '154',
-//   '584',
-//   '1254',
-//   '154',
-//   '584',
-//   '1254',
-// ];
-// localStorageAPI.save(STORAGE, storage);
+renderLibraryMainContent(1);
 
 // event listeners
 headerWatchedBtn.addEventListener('click', onClickWatched);
 headerQueueBtn.addEventListener('click', onClickQueue);
 
+
 // event listeners functions
 function onClickWatched() {
-  accentBtnToggle();
-
+  accentWatchedBtn();
+  
   libraryQuery = ANON_WATCHED;
 
   renderLibraryMainContent(1);
 }
 
 function onClickQueue() {
-  accentBtnToggle(true);
+  accentQueueBtn();
 
   libraryQuery = ANON_QUEUE;
 
@@ -61,26 +42,9 @@ function onClickQueue() {
 // functions helpers
 function renderLibraryMainContent(page) {
   if (localStorageAPI.load(STORAGE)) {
-    renderLibraryCards(page);
+    renderLibraryCards(page)
   } else {
-    renderEmptyLibrary();
-
-    headerWatchedBtn.classList.toggle('button--accent');
-
-    /*
-    if (!headerWatchedBtn.classList.contains('button--accent')) {
-      headerWatchedBtn.classList.add('button--accent');
-    }
-    if (headerQueueBtn.classList.contains('button--accent')) {
-      headerQueueBtn.classList.remove('button--accent');
-    }
-    */
-
-    if (localStorageAPI.load(STORAGE)) {
-      renderWatchedMarkup(watchedPage);
-    } else {
-      renderEmptyWatched();
-    }
+    renderEmptyLibrary()
   }
 }
 
@@ -89,12 +53,12 @@ async function renderLibraryCards(page) {
 
   if (markup) {
     mainList.innerHTML = markup;
-    // place for pagination function
-    
+    // place for pagination function and add event listeners to film's cards
+    // pagination
     const arr = localStorageAPI.load(STORAGE)[libraryQuery];
-    const totalPages = arr.length;
-    // <== renderPagination(page, totalPages) ==>
-    createPagination(page, Math.ceil(arr.length / perPage));
+    const totalPages = Math.ceil(arr.length / perPage);
+    createPagination(page, totalPages);
+    // event listeners
     document
       .querySelectorAll('[data-modal-open]')
       .forEach(card => card.addEventListener('click', onFilmCardClick));
@@ -105,17 +69,13 @@ async function renderLibraryCards(page) {
 
 function renderEmptyLibrary() {
   if (libraryQuery === ANON_WATCHED) {
-    mainList.innerHTML = 'Nothing wathed yet';
-    return;
+    mainList.innerHTML = "Nothing wathed yet";
+    return
   }
   if (libraryQuery === ANON_QUEUE) {
-    mainList.innerHTML = 'Nothing in queue yet';
-    return;
+    mainList.innerHTML = "Nothing in queue yet";
+    return
   }
-}
-
-function renderEmptyWatched() {
-  mainList.innerHTML = 'Nothing wathed yet';
 }
 
 async function createLibraryCardsdMarkup(page) {
@@ -128,7 +88,7 @@ async function createLibraryCardsdMarkup(page) {
   const moviePromises = filteredCardsArr.map(el => {
     const movie = getMoviesDetails(el);
     return movie;
-  });
+  })
 
   try {
     const movies = await Promise.all(moviePromises);
@@ -145,7 +105,7 @@ function filterCardsdArr(page) {
     if (index >= perPage * (page - 1) && index < perPage * page) {
       return value;
     }
-  });
+  })
 }
 
 function choisePerPage(screenWidth) {
@@ -158,10 +118,19 @@ function choisePerPage(screenWidth) {
   return 8;
 }
 
-function accentBtnToggle(p = false) {
-  headerWatchedBtn.classList.toggle(ACCENT_BTN_CLASS, !p);
-  headerQueueBtn.classList.toggle(ACCENT_BTN_CLASS,p);
+function accentWatchedBtn() {
+  if ( !headerWatchedBtn.classList.contains(ACCENT_BTN_CLASS)) {
+    headerWatchedBtn.classList.add(ACCENT_BTN_CLASS);
+    headerQueueBtn.classList.remove(ACCENT_BTN_CLASS);
+  }
+}
+
+function accentQueueBtn() {
+  if ( !headerQueueBtn.classList.contains(ACCENT_BTN_CLASS)) {
+    headerQueueBtn.classList.add(ACCENT_BTN_CLASS);
+    headerWatchedBtn.classList.remove(ACCENT_BTN_CLASS);
+  }
 }
 
 // exports
-export { renderLibraryMainContent };
+export {renderLibraryMainContent};
