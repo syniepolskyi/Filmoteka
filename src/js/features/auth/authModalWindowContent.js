@@ -1,49 +1,55 @@
-import { async } from '@firebase/util';
-import {
-  singUp,
-  singIn,
-  logOut,
-  getData,
-  postData,
-  authObserver,
-} from '../../api/firebase/api';
-
-import {dynRefs} from '../../constants/dynamicRefs';
+import { singUp, singIn, logOut, auth } from '../../api/firebase/api';
+import { dynRefs } from '../../constants/dynamicRefs';
 import { refs } from '../../constants/refs';
 import modalAuthTpl from '../../../templates/auth-modal.hbs';
 import closeSvg from '../../../images/sprite.svg';
 
+export function showAuthorisedFields() {
+  const { LoggedIn, notLoggedIn, userEmail } = dynRefs();
+  if (notLoggedIn) {
+    notLoggedIn.style.display = 'none';
+    LoggedIn.style.display = 'block';
+    userEmail.innerHTML = auth.currentUser.email;
+  }
+}
 
-authObserver();
+export function showUnauthorisedFields() {
+  const { LoggedIn, notLoggedIn, userEmail } = dynRefs();
+  if (notLoggedIn) {
+    notLoggedIn.style.display = 'block';
+    LoggedIn.style.display = 'none';
+    userEmail.innerHTML = '';
+  }
+}
 
 const modal = document.querySelector('[data-backdrop]');
 
 refs.authBtn.addEventListener('click', e => {
   e.preventDefault();
   document.body.classList.add('show-modal-card');
-  const html = modalAuthTpl({closeSvg: closeSvg});
+  const html = modalAuthTpl({ closeSvg: closeSvg });
   modal.innerHTML = html;
+
   const {
-    emailSignUp,
-    passwordSignUp,
-    emailSignIn,
-    passwordSignIn,
-    btnSingUp,
-    btnSingIn,
+    // emailSignUp,
+    // passwordSignUp,
+    // emailSignIn,
+    // passwordSignIn,
+    // btnSingUp,
+    // btnSingIn,
+    switchSignUpBtn,
+    switchSignInBtn,
+    authContainer,
     btnLogOut,
-    LoggedIn,
-    notLoggedIn,
-    userEmail
+    formLogIn,
+    formSignUp,
   } = dynRefs();
 
-  if(e.currentTarget.dataset.email){
-    notLoggedIn.style.display = 'none';
-    LoggedIn.style.display = 'block';
-    userEmail.innerHTML = e.currentTarget.dataset.email;
+  if (auth.currentUser) {
+    // from /api/firebase/api
+    showAuthorisedFields();
   } else {
-    notLoggedIn.style.display = 'block';
-    LoggedIn.style.display = 'none';
-    userEmail.innerHTML = '';
+    showUnauthorisedFields();
   }
 
   document.body.style.overflow = 'hidden';
@@ -55,14 +61,24 @@ refs.authBtn.addEventListener('click', e => {
   backdropEl.addEventListener('click', onBackdropClick);
   window.addEventListener('keydown', onEscKeyPressExitAuth);
 
-  btnSingUp.addEventListener('click', async e => {
-    e.preventDefault();
-    singUp(emailSignUp.value, passwordSignUp.value);
+  switchSignUpBtn.addEventListener('click', () => {
+    authContainer.classList.add('right-panel-active');
   });
 
-  btnSingIn.addEventListener('click', e => {
+  switchSignInBtn.addEventListener('click', () => {
+    authContainer.classList.remove('right-panel-active');
+  });
+
+  formSignUp.addEventListener('submit', async e => {
     e.preventDefault();
-    singIn(emailSignIn.value, passwordSignIn.value);
+    const { email, password } = e.currentTarget.elements;
+    singUp(email.value, password.value);
+  });
+
+  formLogIn.addEventListener('submit', async e => {
+    e.preventDefault();
+    const { email, password } = e.currentTarget.elements;
+    singIn(email.value, password.value);
   });
 
   btnLogOut.addEventListener('click', () => {
