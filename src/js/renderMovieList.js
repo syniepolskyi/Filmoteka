@@ -7,19 +7,25 @@ import { createPagination } from './pagination/createPagination';
 import { onFilmCardClick } from './onFilmCardClick';
 import { trendsSearchParams, movieSearchParams } from './searchMoviesParam';
 
+
 export async function renderMovieList(page = 1) {
   search.params.params.page = page;
   const listOfMovies = await searchMovies(search.params);
-
   if (!listOfMovies?.data?.results?.length) {
+    refs.errorMessage.classList.add('header__error-visible');
+    
     Notiflix.Notify.warning(
       'Sorry, there is no result. Please try another keyword'
     );
+    
+    setTimeout(function () {
+      refs.errorMessage.classList.remove('header__error-visible')
+    }, 5000);
+
     return;
   }
-
+  
   await changeGenresIdtoName(listOfMovies.data.results);
-
   refs.mainList.innerHTML = createMarkUp(listOfMovies.data.results);
   createPagination(page, listOfMovies.data.total_pages);
   document

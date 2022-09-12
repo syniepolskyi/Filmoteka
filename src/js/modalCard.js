@@ -1,11 +1,12 @@
 import './api/moviedb/getMoviesDetails';
 import modalInputTpl from '../templates/modal-card.hbs';
-import Handlebars from 'handlebars';
 import closeSvg from '../images/sprite.svg';
 import fallbackImageDesktop from '../images/desktop/poster-modal-plug-desktop.jpg';
 import { dynRefs } from './constants/dynamicRefs';
-import { btnWtcActivity, checkStorege } from './addWatched';
-import { btnQueActivity } from './addQueue';
+import { addWatched } from './addWatched';
+import { addQueue } from './addQueue';
+import { localStorageAPI, STORAGE } from './constants/storage';
+import './helpers';
 
 const modal = document.querySelector('[data-backdrop]');
 
@@ -30,12 +31,11 @@ export default function openModalCard(movie, customHtml = '') {
   const backdropEl = document.querySelector('[data-backdrop]');
 
   // додає до local storege id фільмів
+  checkStorage(movie.id);
+  const { addToWatchedBtn, addToQueueBtn } = dynRefs();
 
-  const wtchBtn = dynRefs().addToWatchedBtn;
-  const queBtn = dynRefs().addToQueueBtn;
-  checkStorege(movie.id);
-  wtchBtn.addEventListener('click', btnWtcActivity);
-  queBtn.addEventListener('click', btnQueActivity);
+  addToWatchedBtn.addEventListener('click', addWatched);
+  addToQueueBtn.addEventListener('click', addQueue);
 
   /////////
 
@@ -50,7 +50,6 @@ export default function openModalCard(movie, customHtml = '') {
 function onCloseModalCard() {
   const closeModalBtnEl = document.querySelector('[data-modal-close]');
   const backdropEl = document.querySelector('[data-backdrop]');
-  // додає в session storege копію localstorege
   document.body.style.overflow = null;
   document.body.classList.remove('show-modal-card');
   window.addEventListener('keydown', onEscKeyPressExit);
@@ -72,7 +71,29 @@ function onEscKeyPressExit(event) {
   }
 }
 
-//для окруклення індексу Popularity в modal-card.hbs
-Handlebars.registerHelper('numberFixed', function (number) {
-  return number.toFixed(1);
-});
+// Перевіряє стан локал стореджа і встановлює на кнопки віповідний текст і data атребут
+function checkStorage(id) {
+  const buttonLabelWatchedRemove = 'Remove from watched';
+  const buttonLabelQueueRemove = 'Remove from queue';
+  const loadStorage = localStorageAPI.load(STORAGE);
+  const { addToWatchedBtn, addToQueueBtn } = dynRefs();
+
+  if (!loadStorage) {
+    return;
+  }
+
+  const { watched, queue } = loadStorage;
+
+  const indexOfWarchedMovie = watched.indexOf(id.toString());
+  const indexOfQueueMovie = queue.indexOf(id.toString());
+
+  if (indexOfWarchedMovie > -1) {
+    addToWatchedBtn.setAttribute('data-btn', 'remove');
+    addToWatchedBtn.textContent = buttonLabelWatchedRemove;
+  }
+
+  if (indexOfQueueMovie > -1) {
+    addToQueueBtn.setAttribute('data-btn', 'remove');
+    addToQueueBtn.textContent = buttonLabelQueueRemove;
+  }
+}

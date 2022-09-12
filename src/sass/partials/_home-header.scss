@@ -191,14 +191,15 @@
 }
 
 .header__error {
-  margin-top: 16px;
-  color: $error-text;
+  
   opacity: 0;
 
   visibility: hidden;
 }
 
-.header__error.visible {
+.header__error-visible {
+  margin-top: 16px;
+  color: $error-text;
   opacity: 100%;
   visibility: visible;
 }
