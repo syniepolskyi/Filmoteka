@@ -16,6 +16,9 @@ import {
   collection,
 } from 'firebase/firestore';
 
+import {dynRefs} from '../../constants/dynamicRefs';
+import {refs} from '../../constants/refs';
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -35,11 +38,26 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth();
 // // // // // // // // // // // // //
+/*
 const btn_logOut = document.getElementById('btn_logout');
 const notLoggedIn = document.getElementById('not-logged-in');
 const LoggedIn = document.getElementById('logged-in');
 
 const userEmail = document.getElementById('user_email');
+*/
+
+const {
+  emailSignUp,
+  passwordSignUp,
+  emailSignIn,
+  passwordSignIn,
+  btnSingUp,
+  btnSingIn,
+  btnLogOut,
+  notLoggedIn,
+  LoggedIn,
+  userEmail
+} = dynRefs();
 
 let usersFilms = {
   watched: [],
@@ -75,7 +93,7 @@ export function singIn(email, password) {
     .then(userCredential => {
       // Signed in
       const user = userCredential.user;
-      userEmail.innerHTML = user.email;
+      //userEmail.innerHTML = user.email;
     })
     .catch(error => {
       const errorCode = error.code;
@@ -132,18 +150,20 @@ export function authObserver(/*loggedIn, notLoggedIn*/) {
       });
 
       // loggedIn;
-      notLoggedIn.style.display = 'none';
-      LoggedIn.style.display = 'block';
-      userEmail.innerHTML = user.email;
+      //notLoggedIn.style.display = 'none';
+      //LoggedIn.style.display = 'block';
+      //userEmail.innerHTML = user.email;
+      refs.authBtn.setAttribute("data-email", user.email)
     } else {
       // User is signed out
       localStorage.removeItem('dataFromDB');
       // notLoggedIn;
 
       usersFilms = localStorage.getItem('usersFilms');
-      notLoggedIn.style.display = 'block';
-      LoggedIn.style.display = 'none';
+      //notLoggedIn.style.display = 'block';
+      //LoggedIn.style.display = 'none';
       // console.log(usersFilms);
+      refs.authBtn.removeAttribute("data-email")
     }
   });
 }

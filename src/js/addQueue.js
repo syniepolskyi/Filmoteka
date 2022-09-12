@@ -7,21 +7,52 @@ import {
   localStorageAPI,
 } from './constants/storage';
 
-export function addQueue(movie) {
-  let queBtn = dynRefs().addToQueueBtn;
+const buttonLabelQueueAdd = 'Add to queue';
+const buttonLabelQueueRemove = 'Remove from queue';
+const buttonLabelWatchedAdd = 'Add to watched';
 
-  queBtn.addEventListener('click', () => {
-    setLocalStorege(movie);
-  });
-}
+const wtchBtn = dynRefs().addToWatchedBtn;
+const queBtn = dynRefs().addToQueueBtn;
 
-function setLocalStorege(movie) {
-  const loadStore = localStorageAPI.load(STORAGE);
-  if (!loadStore) {
-    storage[ANON_QUEUE].push(movie.id);
-    localStorageAPI.save(STORAGE, storage);
+export function btnQueActivity(e) {
+  const idHolder = e.currentTarget.dataset.id;
+
+  let btnCond = e.target.getAttribute('data-btn');
+
+  if (btnCond === 'remove') {
+    removeFromStorage(idHolder);
+    e.target.setAttribute('data-btn', 'add');
+    e.target.textContent = buttonLabelQueueAdd;
+
     return;
   }
-  loadStore[ANON_QUEUE].push(movie.id);
-  localStorageAPI.save(STORAGE, loadStore);
+  addQueue(idHolder);
+  e.target.setAttribute('data-btn', 'remove');
+
+  e.target.textContent = buttonLabelQueueRemove;
+}
+
+function addQueue(id) {
+  //loadStorage = storage;
+  const loadStorage = localStorageAPI.load(STORAGE);
+  loadStorage[ANON_QUEUE].push(id);
+  const wtchBtn = dynRefs().addToWatchedBtn;
+  const watchedArr = loadStorage[ANON_WATCHED];
+  const indexOfMovie = watchedArr.indexOf(id).toString();
+  if(indexOfMovie >= 0){
+    watchedArr.splice(indexOfMovie, 1);
+  }
+  wtchBtn.setAttribute('data-btn', 'add');
+  wtchBtn.textContent = buttonLabelWatchedAdd;
+
+  localStorageAPI.save(STORAGE, loadStorage);
+}
+
+function removeFromStorage(id) {
+  const loadStorage = localStorageAPI.load(STORAGE);
+  const queueArr = loadStorage[ANON_QUEUE];
+  const indexOfMovie = queueArr.indexOf(id).toString();
+  queueArr.splice(indexOfMovie, 1);
+
+  localStorageAPI.save(STORAGE, loadStorage);
 }

@@ -1,4 +1,4 @@
-import { refs } from './constants/refs';
+import { refs } from '../constants/refs';
 
 export function createPagination(page = 1, totalPage = 1) {
   if (totalPage === 1) {
