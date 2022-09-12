@@ -1,25 +1,16 @@
-import { API_KEY, BASE_URL } from '../../constants/moviedb';
-import axios from 'axios';
+import { moviedbApi } from './moviedbapi';
 
 // Використовуеться для функції changeGenresIdtoName
 
 const END_POINT_MOVIE = 'genre/movie/list';
 const END_POINT_TV = 'genre/tv/list';
 async function getMovieGenres() {
-  const response = await axios.get(BASE_URL + END_POINT_MOVIE, {
-    params: {
-      api_key: API_KEY,
-    },
-  });
+  const response = await moviedbApi.get(END_POINT_MOVIE);
 
   return response.data.genres;
 }
 async function getTvGenres() {
-  const response = await axios.get(BASE_URL + END_POINT_TV, {
-    params: {
-      api_key: API_KEY,
-    },
-  });
+  const response = await moviedbApi.get(END_POINT_TV);
 
   return response.data.genres;
 }
