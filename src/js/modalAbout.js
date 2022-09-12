@@ -1,4 +1,5 @@
-import { doc } from 'firebase/firestore';
+import 'swiper/swiper.scss';
+import 'swiper/modules/pagination/pagination.scss';
 import Swiper, { Navigation, Pagination } from 'swiper';
 const aboutModal = document.querySelector('.js-about-modal');
 const body = document.querySelector('body');
