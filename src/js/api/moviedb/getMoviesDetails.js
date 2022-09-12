@@ -1,13 +1,9 @@
 import { API_KEY, BASE_URL } from '../../constants/moviedb';
-import axios from 'axios';
+import { moviedbApi } from './moviedbapi';
 
-const END_POINT = 'movie/';
+const END_POINT_MOVIE_BY_ID = 'movie/';
 export async function getMoviesDetails(id) {
-  const response = await axios.get(BASE_URL + END_POINT + id, {
-    params: {
-      api_key: API_KEY,
-    },
-  });
+  const response = await moviedbApi.get(END_POINT_MOVIE_BY_ID + id);
 
   return response.data;
 }

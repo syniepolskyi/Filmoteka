@@ -1,6 +1,3 @@
-import './constants/refs';
-import './api/moviedb/getTrending';
-import './api/moviedb/searchMovies';
 import './modalAbout';
 import './features/upToTop/upToTop';
 import './features/theme-switcher/theme-switcher';

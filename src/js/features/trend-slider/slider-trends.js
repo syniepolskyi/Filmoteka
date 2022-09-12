@@ -2,10 +2,11 @@ import Swiper, { Pagination, Autoplay } from 'swiper';
 import 'swiper/swiper.scss';
 import 'swiper/modules/pagination/pagination.scss';
 
-import { getTrending } from '../../api/moviedb/getTrending';
 import sliderContent from '../../../templates/slider-content.hbs';
 import { onFilmCardClick } from '../../onFilmCardClick';
+import { moviedbApi } from '../../api/moviedb/moviedbapi';
 
+const TRENDING_END_POINT = 'trending/movie/day';
 const swiperWrapper = document.querySelector('.swiper-wrapper');
 const swiperRef = document.querySelector('#trends-swiper');
 
@@ -44,8 +45,8 @@ const swiper = new Swiper(swiperRef, {
 });
 
 async function renderSwiper() {
-  const { results } = await getTrending();
-  swiperWrapper.innerHTML = sliderContent(results);
+  const results = await moviedbApi.get(TRENDING_END_POINT);
+  swiperWrapper.innerHTML = sliderContent(results.data.results);
   swiper.update();
   document
     .querySelectorAll('[data-open-modal]')
