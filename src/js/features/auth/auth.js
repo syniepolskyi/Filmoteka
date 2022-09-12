@@ -1,27 +1,29 @@
-import { async } from '@firebase/util';
-import {
-  singUp,
-  singIn,
-  logOut,
-  getData,
-  postData,
-  authObserver,
-} from '../../api/firebase/api';
-
-import {dynRefs} from '../../constants/dynamicRefs';
+import { singUp, singIn, logOut, auth } from '../../api/firebase/api';
+import { dynRefs } from '../../constants/dynamicRefs';
 import { refs } from '../../constants/refs';
 import modalAuthTpl from '../../../templates/auth-modal.hbs';
 import closeSvg from '../../../images/sprite.svg';
 
+export function showAuthorisedFields() {
+  const { LoggedIn, notLoggedIn, userEmail } = dynRefs();
+  notLoggedIn.style.display = 'none';
+  LoggedIn.style.display = 'block';
+  userEmail.innerHTML = auth.currentUser.email;
+}
 
-authObserver();
+export function showUnauthorisedFields() {
+  const { LoggedIn, notLoggedIn, userEmail } = dynRefs();
+  notLoggedIn.style.display = 'block';
+  LoggedIn.style.display = 'none';
+  userEmail.innerHTML = '';
+}
 
 const modal = document.querySelector('[data-backdrop]');
 
 refs.authBtn.addEventListener('click', e => {
   e.preventDefault();
   document.body.classList.add('show-modal-card');
-  const html = modalAuthTpl({closeSvg: closeSvg});
+  const html = modalAuthTpl({ closeSvg: closeSvg });
   modal.innerHTML = html;
   const {
     emailSignUp,
@@ -31,19 +33,12 @@ refs.authBtn.addEventListener('click', e => {
     btnSingUp,
     btnSingIn,
     btnLogOut,
-    LoggedIn,
-    notLoggedIn,
-    userEmail
   } = dynRefs();
 
-  if(e.currentTarget.dataset.email){
-    notLoggedIn.style.display = 'none';
-    LoggedIn.style.display = 'block';
-    userEmail.innerHTML = e.currentTarget.dataset.email;
+  if (auth.currentUser) {
+    showAuthorisedFields();
   } else {
-    notLoggedIn.style.display = 'block';
-    LoggedIn.style.display = 'none';
-    userEmail.innerHTML = '';
+    showUnauthorisedFields();
   }
 
   document.body.style.overflow = 'hidden';

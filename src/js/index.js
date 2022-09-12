@@ -13,6 +13,14 @@ import { renderTrendingMoviesSetup } from './renderMovieList';
 import { onSearchFormSubmit } from './onSearchFormSubmit';
 import { onPaginationBtnClick } from './pagination/onPaginationBtnClick';
 
+import { authObserver } from './api/firebase/api';
+import {
+  showAuthorisedFields,
+  showUnauthorisedFields,
+} from './features/auth/auth';
+
+authObserver(showAuthorisedFields, showUnauthorisedFields);
+
 renderTrendingMoviesSetup();
 refs.paginationBox.addEventListener('click', onPaginationBtnClick);
 refs.headerForm.addEventListener('submit', onSearchFormSubmit);

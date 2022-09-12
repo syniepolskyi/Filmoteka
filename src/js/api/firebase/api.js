@@ -16,8 +16,8 @@ import {
   collection,
 } from 'firebase/firestore';
 
-import {dynRefs} from '../../constants/dynamicRefs';
-import {refs} from '../../constants/refs';
+import { dynRefs } from '../../constants/dynamicRefs';
+import { refs } from '../../constants/refs';
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -36,7 +36,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-const auth = getAuth();
+export const auth = getAuth();
 // // // // // // // // // // // // //
 /*
 const btn_logOut = document.getElementById('btn_logout');
@@ -45,24 +45,6 @@ const LoggedIn = document.getElementById('logged-in');
 
 const userEmail = document.getElementById('user_email');
 */
-
-const {
-  emailSignUp,
-  passwordSignUp,
-  emailSignIn,
-  passwordSignIn,
-  btnSingUp,
-  btnSingIn,
-  btnLogOut,
-  notLoggedIn,
-  LoggedIn,
-  userEmail
-} = dynRefs();
-
-let usersFilms = {
-  watched: [],
-  queue: [],
-};
 
 export function singUp(email, password) {
   createUserWithEmailAndPassword(auth, email, password)
@@ -88,10 +70,11 @@ export function singUp(email, password) {
     });
 }
 
+// console.log();
+
 export function singIn(email, password) {
   signInWithEmailAndPassword(auth, email, password)
     .then(userCredential => {
-      // Signed in
       const user = userCredential.user;
       //userEmail.innerHTML = user.email;
     })
@@ -140,30 +123,46 @@ export async function postData(usersFilmsObj, uid = auth.currentUser.uid) {
   }
 }
 
-export function authObserver(/*loggedIn, notLoggedIn*/) {
+export function authObserver(fncLogIn, fncNotLog) {
   onAuthStateChanged(auth, user => {
     if (user) {
+      const { notLoggedIn, LoggedIn, userEmail } = dynRefs();
+
+      if (fncLogIn) {
+        fncLogIn();
+      }
+      console.log('observer run. user exist');
+      // console.log(user);
+
       // User is signed in, see docs for a list of available properties
       // https://firebase.google.com/docs/reference/js/firebase.User
       getData().then(e => {
         localStorage.dataFromDB = JSON.stringify(e);
       });
 
-      // loggedIn;
-      //notLoggedIn.style.display = 'none';
-      //LoggedIn.style.display = 'block';
-      //userEmail.innerHTML = user.email;
-      refs.authBtn.setAttribute("data-email", user.email)
+      // if (notLoggedIn) {
+      //   const email = user.email;
+      //   notLoggedIn.style.display = 'none';
+      //   LoggedIn.style.display = 'block';
+      //   userEmail.innerHTML = email;
+      // }
+      // refs.authBtn.setAttribute('data-email', user.email);
     } else {
+      const { notLoggedIn, LoggedIn } = dynRefs();
+      if (fncNotLog) {
+        fncNotLog();
+      }
       // User is signed out
       localStorage.removeItem('dataFromDB');
-      // notLoggedIn;
+      console.log('observer run. no user');
+      // if (notLoggedIn) {
+      //   notLoggedIn.style.display = 'block';
+      //   LoggedIn.style.display = 'none';
+      // }
 
       usersFilms = localStorage.getItem('usersFilms');
-      //notLoggedIn.style.display = 'block';
-      //LoggedIn.style.display = 'none';
-      // console.log(usersFilms);
-      refs.authBtn.removeAttribute("data-email")
+
+      // refs.authBtn.removeAttribute('data-email');
     }
   });
 }
