@@ -1,8 +1,10 @@
+import { doc } from 'firebase/firestore';
 import Swiper, { Navigation, Pagination } from 'swiper';
 const aboutModal = document.querySelector('.js-about-modal');
 const body = document.querySelector('body');
 const btnOpenAboutModal = document.querySelector('.js-open-modal');
 const btnCloseAboutModal = document.querySelector('.js-close-about-modal');
+const swiperModal = document.querySelector('#swiper-modal')
 
 btnOpenAboutModal.addEventListener('click', openAboutModal);
 btnCloseAboutModal.addEventListener('click', closeAboutModal);
@@ -31,7 +33,7 @@ function closeAboutModal() {
     document.removeEventListener('keydown', onCloseEsc);
 }
 
-const swiper = new Swiper('.swiper', {
+const swipers = new Swiper(swiperModal, {
     modules: [Navigation, Pagination],
     navigation: {
       nextEl: '.swiper-button-next',
