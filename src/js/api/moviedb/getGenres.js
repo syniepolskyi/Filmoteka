@@ -1,9 +1,21 @@
 import { API_KEY, BASE_URL } from '../../constants/moviedb';
 import axios from 'axios';
 
-const END_POINT = 'genre/movie/list';
-export async function getGenres() {
-  const response = await axios.get(BASE_URL + END_POINT, {
+// Використовуеться для функції changeGenresIdtoName
+
+const END_POINT_MOVIE = 'genre/movie/list';
+const END_POINT_TV = 'genre/tv/list';
+async function getMovieGenres() {
+  const response = await axios.get(BASE_URL + END_POINT_MOVIE, {
+    params: {
+      api_key: API_KEY,
+    },
+  });
+
+  return response.data.genres;
+}
+async function getTvGenres() {
+  const response = await axios.get(BASE_URL + END_POINT_TV, {
     params: {
       api_key: API_KEY,
     },
@@ -12,4 +24,10 @@ export async function getGenres() {
   return response.data.genres;
 }
 
-// getGenres().then(data => console.log((arr = data.genres)));
+export async function genres() {
+  const genresMovie = await getMovieGenres();
+  const genresTv = await getTvGenres();
+  const genres = genresTv.concat(genresMovie);
+
+  return genres;
+}

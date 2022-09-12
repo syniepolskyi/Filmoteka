@@ -1,15 +1,16 @@
-import { API_KEY, BASE_URL } from '../../constants/moviedb';
+import { BASE_URL } from '../../constants/moviedb';
 import axios from 'axios';
+import { Notify } from 'notiflix';
 
-const END_POINT = 'search/movie';
-export async function searchMovies(query, page) {
-  const response = await axios.get(BASE_URL + END_POINT, {
-    params: {
-      api_key: API_KEY,
-      query,
-      page,
-    },
-  });
-
-  return response.data;
+export async function searchMovies(searchParams) {
+  try {
+    return await axios.get(BASE_URL + searchParams.END_POINT, {
+      params: searchParams.params,
+    });
+  } catch (error) {
+    Notify.failure('Something went wrong');
+    return;
+  }
 }
+
+export const search = { params: null };

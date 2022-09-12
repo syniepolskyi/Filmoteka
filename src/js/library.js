@@ -1,6 +1,13 @@
-import './constants/refs'
-import './queue'
-import './watched'
-import './modalCard'
-import './modalAbout'
-import './upToTop'
+import {refs} from './constants/refs';
+import {renderLibraryMainContent} from './library-main';
+import './modalCard';
+import './modalAbout';
+import './features/upToTop/upToTop';
+import './features/auth/auth';
+
+renderLibraryMainContent(1);
+
+refs.paginationBox.addEventListener('click', (e) => {
+    if (!e.target.dataset.page) return;
+    renderLibraryMainContent(+e.target.dataset.page);
+});

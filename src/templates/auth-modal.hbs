@@ -1,0 +1,36 @@
+<div class='modal-card'>
+    <div style="display: none" id="not-logged-in">
+        <div class="auth-switch-container">
+            
+            <button type="button" class="switch-to-sign-in">Sign In</button>
+            
+            <button type="button" class="switch-to-sign-up">Sign Up</button>
+        </div>
+        <form id="sign-in-form">
+          <input type="email" id="email_signIn" placeholder="email" />
+          <input type="password" id="password_signIn" placeholder="password" />
+          <div>
+            <button id="btn_singIn" name="btn_singIn">Sign In</button>
+          </div>
+        </form>
+        <form id="sign-up-form">
+            <input type="email" id="email_signUp" placeholder="email" />
+            <input type="password" id="password_signUp" placeholder="password" />
+            <div>
+              <button id="btn_singUp" name="btn_singUp">Sign Up</button>
+            </div>
+          </form>
+    </div>
+    <div style="display: none" id="logged-in">
+        <h3>Logged in now with <span id="user_email"></span></h3>
+  
+        <!-- button id="btnToPost">Post</button>
+        <button id="btnToRequest">Request</button -->
+        <button id="btn_logout">Log out</button>
+    </div>
+    <button class='modal-card__close-btn' data-modal-close>
+      <svg class='card-btn-close' width='30' height='30'>
+        <use href='{{closeSvg}}#card-btn-close'></use>
+      </svg>
+    </button>
+</div>
