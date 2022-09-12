@@ -93,13 +93,12 @@
   }
 }
 
-.header__logo {
-  stroke: $white-text;
-  fill: none;
-}
 
 .header__icon {
   display: block;
+  stroke: $white-text;
+  fill: none;
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .header__logo-text {
@@ -167,7 +166,7 @@
   content: '';
   position: absolute;
   left: 50%;
-  bottom: -1px;
+  bottom: -4px;
   transform: translate(-50%, 0%);
   background-color: $error-text;
   width: 100%;

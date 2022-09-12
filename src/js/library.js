@@ -17,3 +17,5 @@ refs.paginationBox.addEventListener('click', e => {
   if (!e.target.dataset.page) return;
   renderLibraryMainContent(+e.target.dataset.page);
 });
+
+import './features/theme-switcher/theme-switcher';

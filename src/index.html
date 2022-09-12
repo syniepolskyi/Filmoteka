@@ -12,12 +12,17 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./sass/index.scss" />
+<!-- Change theme -->
+    <link rel="stylesheet" title= "theme" href="/src/sass/dark-theme.css" disabled  />
+
     <script type="module" src="./js/index.js"></script>
   </head>
   <body>
     <include src="./partials/home-header.html"></include>
     <main>
       <div class="container">
+        <include src="./partials/theme-switcher.html"></include>
+
         <include src="./partials/slider-trends.html"></include>
         <section class="films-section">
           <include src="./partials/main.html"></include>
