@@ -7,10 +7,12 @@ import sliderContent from '../../../templates/slider-content.hbs';
 import { onFilmCardClick } from '../../onFilmCardClick';
 
 const swiperWrapper = document.querySelector('.swiper-wrapper');
+const swiperRef = document.querySelector('#trends-swiper');
+
 swiperWrapper.addEventListener('click', () => console.log('work'));
 renderSwiper();
 
-const swiper = new Swiper('.swiper', {
+const swiper = new Swiper(swiperRef, {
   modules: [Pagination, Autoplay],
   loop: true,
   grabCursor: true,
@@ -44,7 +46,7 @@ const swiper = new Swiper('.swiper', {
 
 async function renderSwiper() {
   const { results } = await getTrending();
-  console.log(results);
+
   swiperWrapper.innerHTML = sliderContent(results);
   swiper.update();
 }
