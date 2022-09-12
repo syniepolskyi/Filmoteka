@@ -16,8 +16,8 @@ import {
   collection,
 } from 'firebase/firestore';
 
-import {dynRefs} from '../../constants/dynamicRefs';
-import {refs} from '../../constants/refs';
+import { dynRefs } from '../../constants/dynamicRefs';
+import { refs } from '../../constants/refs';
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -56,7 +56,7 @@ const {
   btnLogOut,
   notLoggedIn,
   LoggedIn,
-  userEmail
+  userEmail,
 } = dynRefs();
 
 let usersFilms = {
@@ -153,7 +153,7 @@ export function authObserver(/*loggedIn, notLoggedIn*/) {
       //notLoggedIn.style.display = 'none';
       //LoggedIn.style.display = 'block';
       //userEmail.innerHTML = user.email;
-      refs.authBtn.setAttribute("data-email", user.email)
+      refs.authBtn.setAttribute('data-email', user.email);
     } else {
       // User is signed out
       localStorage.removeItem('dataFromDB');
@@ -163,7 +163,7 @@ export function authObserver(/*loggedIn, notLoggedIn*/) {
       //notLoggedIn.style.display = 'block';
       //LoggedIn.style.display = 'none';
       // console.log(usersFilms);
-      refs.authBtn.removeAttribute("data-email")
+      refs.authBtn.removeAttribute('data-email');
     }
   });
 }

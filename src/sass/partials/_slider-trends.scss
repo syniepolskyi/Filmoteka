@@ -1,15 +1,3 @@
-.swiper {
-  width: 100%;
-  height: 300px;
-}
-.swiper-slide {
-  border-radius: 10px;
-  overflow: hidden;
-}
-.swiper-slide__poster {
-  min-height: 100%;
-  min-width: 100%;
-}
 .swiper-title {
   text-align: center;
   margin-bottom: 15px;
@@ -21,4 +9,49 @@
   line-height: 24px;
   text-decoration: underline;
   text-transform: uppercase;
+}
+.swiper {
+  width: 100%;
+  height: 330px;
+}
+
+.swiper-slide {
+  border-radius: 10px;
+  overflow: hidden;
+  @media screen and (min-width: 1280px) {
+    box-shadow: 21px 17px 20px -9px rgba(0, 0, 0, 0.1);
+  }
+}
+.slide-thumb {
+  height: 50px;
+  padding: 10px 3px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  // border: 1px solid grey;
+  text-align: center;
+  background-color: rgb(245, 244, 244);
+}
+.card__vote_average {
+  position: absolute;
+  top: 10;
+  right: 10;
+}
+.film-title {
+  font-size: 13px;
+}
+
+.swiper-pagination-bullet {
+  background: rgb(231, 125, 3) !important;
+  opacity: 0.9 !important;
+}
+.swiper-pagination-bullet-active {
+  opacity: 1;
+  background: rgb(16, 100, 226) !important;
+}
+.swiper-pagination {
+  position: static !important;
+  padding: 10px;
+}
+.swiper-wrapper {
+  height: 315px !important;
 }
