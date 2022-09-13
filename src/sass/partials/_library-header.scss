@@ -1,4 +1,4 @@
-.header {
+.lib-header {
   min-height: 230px;
   background-repeat: no-repeat;
   background-position: center;
@@ -12,7 +12,7 @@
   (-webkit-min-device-pixel-ratio: 2),
   (min-resolution: 192dpi),
   (min-resolution: 2dppx) {
-  .header {
+  .lib-header {
     background-image: linear-gradient($header-bgc, $header-bgc),
       url(/src/images/mobile/library-background-mobile@2x.jpg);
   }
@@ -21,7 +21,7 @@
 @media screen and (min-device-pixel-ratio: 3),
   screen and (min-resolution: 288dpi),
   screen and (min-resolution: 3dppx) {
-  .header {
+  .lib-header {
     background-image: linear-gradient($header-bgc, $header-bgc),
       url(/src/images/mobile/library-background-mobile@3x.jpg);
   }
@@ -43,7 +43,7 @@
 
 /*Tablet фон*/
 @media screen and (min-width: 768px) {
-  .header {
+  .lib-header {
     background-image: linear-gradient($header-bgc, $header-bgc),
       url(/src/images/tablet/library-background-tablet.jpg);
   }
@@ -52,7 +52,7 @@
     (-webkit-min-device-pixel-ratio: 2),
     (min-resolution: 192dpi),
     (min-resolution: 2dppx) {
-    .header {
+    .lib-header {
       background-image: linear-gradient($header-bgc, $header-bgc),
         url(/src/images/tablet/library-background-tablet@2x.jpg);
     }
@@ -60,7 +60,7 @@
   @media screen and (min-device-pixel-ratio: 3),
     screen and (min-resolution: 288dpi),
     screen and (min-resolution: 3dppx) {
-    .header {
+    .lib-header {
       background-image: linear-gradient($header-bgc, $header-bgc),
         url(/src/images/tablet/library-background-tablet@3x.jpg);
     }
@@ -69,7 +69,7 @@
 
 /*Desctop фон*/
 @media screen and (min-width: 1280px) {
-  .header {
+  .lib-header {
     background-image: linear-gradient($header-bgc, $header-bgc),
       url(/src/images/desktop/library-background-desktop.jpg);
   }
@@ -78,7 +78,7 @@
     (-webkit-min-device-pixel-ratio: 2),
     (min-resolution: 192dpi),
     (min-resolution: 2dppx) {
-    .header {
+    .lib-header {
       background-image: linear-gradient($header-bgc, $header-bgc),
         url(/src/images/desktop/library-background-desktop@2x.jpg);
     }
@@ -86,7 +86,7 @@
   @media screen and (min-device-pixel-ratio: 3),
     screen and (min-resolution: 288dpi),
     screen and (min-resolution: 3dppx) {
-    .header {
+    .lib-header {
       background-image: linear-gradient($header-bgc, $header-bgc),
         url(/src/images/desktop/library-background-desktop@3x.jpg);
     }

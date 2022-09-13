@@ -22,7 +22,7 @@ export function showUnauthorisedFields() {
   }
 }
 
-const modal = document.querySelector('[data-backdrop]');
+const modal = refs.dataBackdrop;
 
 refs.authBtn.addEventListener('click', e => {
   e.preventDefault();
@@ -43,6 +43,7 @@ refs.authBtn.addEventListener('click', e => {
     btnLogOut,
     formLogIn,
     formSignUp,
+    closeModalBtnEl
   } = dynRefs();
 
   if (auth.currentUser) {
@@ -53,8 +54,7 @@ refs.authBtn.addEventListener('click', e => {
   }
 
   document.body.style.overflow = 'hidden';
-  const closeModalBtnEl = document.querySelector('[data-modal-close]');
-  const backdropEl = document.querySelector('[data-backdrop]');
+  const backdropEl = refs.dataBackdrop;
   if (closeModalBtnEl) {
     closeModalBtnEl.addEventListener('click', onCloseModalAuth);
   }
@@ -87,8 +87,7 @@ refs.authBtn.addEventListener('click', e => {
 });
 
 function onCloseModalAuth() {
-  const closeModalBtnEl = document.querySelector('[data-modal-close]');
-  const backdropEl = document.querySelector('[data-backdrop]');
+  const { closeModalBtnEl, backdropEl } = dynRefs();
   // додає в session storege копію localstorege
   document.body.style.overflow = null;
   document.body.classList.remove('show-modal-card');
@@ -110,14 +109,3 @@ function onEscKeyPressExitAuth(event) {
     onCloseModalAuth();
   }
 }
-
-/*
-  btnToPost.addEventListener('click', async () => {
-    postData(usersFilms);
-  });
-  
-  btnToRequest.addEventListener('click', async () => {
-    a = await getData();
-    console.log(a);
-  });
-  */

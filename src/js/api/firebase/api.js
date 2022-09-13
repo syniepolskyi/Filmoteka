@@ -94,12 +94,12 @@ export function authObserver(fncLogIn, fncNotLog) {
   onAuthStateChanged(auth, user => {
     if (user) {
       console.log('observer run. user exist');
-      if (fncLogIn) {
-        fncLogIn.forEach(element => element());
-      }
 
       getData().then(e => {
         localStorage.dataFromDB = JSON.stringify(e);
+        if (fncLogIn) {
+          fncLogIn.forEach(element => element());
+        }
       });
     } else {
       const { notLoggedIn, LoggedIn } = dynRefs();

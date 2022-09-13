@@ -3,12 +3,15 @@ import modalInputTpl from '../templates/modal-card.hbs';
 import closeSvg from '../images/sprite.svg';
 import fallbackImageDesktop from '../images/desktop/poster-modal-plug-desktop.jpg';
 import { dynRefs } from './constants/dynamicRefs';
+import { refs } from './constants/refs';
 import { addWatched } from './addWatched';
 import { addQueue } from './addQueue';
-import { localStorageAPI, STORAGE } from './constants/storage';
+import { STORAGE, DB_STORAGE } from './constants/storage';
 import './helpers';
+import { localStorageAPI } from './localStorageAPI';
+import { auth } from './api/firebase/api';
 
-const modal = document.querySelector('[data-backdrop]');
+const modal = refs.modal;
 
 export default function openModalCard(movie, customHtml = '') {
   document.body.classList.add('show-modal-card');
@@ -27,12 +30,13 @@ export default function openModalCard(movie, customHtml = '') {
     modal.innerHTML = customHtml;
   }
 
-  const closeModalBtnEl = document.querySelector('[data-modal-close]');
-  const backdropEl = document.querySelector('[data-backdrop]');
+
+
+  
 
   // додає до local storege id фільмів
   checkStorage(movie.id);
-  const { addToWatchedBtn, addToQueueBtn } = dynRefs();
+  const { addToWatchedBtn, addToQueueBtn, closeModalBtnEl, backdropEl  } = dynRefs();
 
   addToWatchedBtn.addEventListener('click', addWatched);
   addToQueueBtn.addEventListener('click', addQueue);
@@ -48,8 +52,7 @@ export default function openModalCard(movie, customHtml = '') {
 }
 
 function onCloseModalCard() {
-  const closeModalBtnEl = document.querySelector('[data-modal-close]');
-  const backdropEl = document.querySelector('[data-backdrop]');
+  const {closeModalBtnEl, backdropEl } = dynRefs();
   document.body.style.overflow = null;
   document.body.classList.remove('show-modal-card');
   window.addEventListener('keydown', onEscKeyPressExit);
@@ -75,7 +78,15 @@ function onEscKeyPressExit(event) {
 function checkStorage(id) {
   const buttonLabelWatchedRemove = 'Remove from watched';
   const buttonLabelQueueRemove = 'Remove from queue';
-  const loadStorage = localStorageAPI.load(STORAGE);
+  let userStorage = '', loadStorage= '';
+  //const loadStorage = localStorageAPI.load(STORAGE);
+  if (auth.currentUser) {
+    userStorage = DB_STORAGE;
+    loadStorage = localStorageAPI.load(DB_STORAGE);
+  } else {
+    userStorage = STORAGE;
+    loadStorage = localStorageAPI.load(STORAGE);
+  }
   const { addToWatchedBtn, addToQueueBtn } = dynRefs();
 
   if (!loadStorage) {

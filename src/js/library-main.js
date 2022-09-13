@@ -2,10 +2,11 @@
 import { getMoviesDetails } from "./api/moviedb/getMoviesDetails";
 import createMarkUp from '../templates/film-cards.hbs';
 import { refs } from "./constants/refs";
-import { storage, STORAGE, ANON_WATCHED, ANON_QUEUE, localStorageAPI } from "./constants/storage";
+import { STORAGE, ANON_WATCHED, ANON_QUEUE, DB_STORAGE } from "./constants/storage";
 import { createPagination } from './pagination/createPagination';
 import { onFilmCardClick } from './onFilmCardClick';
-import { getData, authObserver } from './api/firebase/api';
+import { localStorageAPI } from './localStorageAPI';
+import { auth } from './api/firebase/api';
 
 // references
 const { headerWatchedBtn, headerQueueBtn, mainList, dataNotFoundEl, paginationBox } = refs;
@@ -38,8 +39,12 @@ function onClickQueue() {
 }
 
 // functions helpers
-function renderLibraryMainContent(page) {
-  if (localStorageAPI.load(STORAGE)) {
+function renderLibraryMainContent(page = 1) {
+  let data = localStorageAPI.load(STORAGE);
+  if(auth.currentUser && localStorageAPI.load(DB_STORAGE)){
+    data = localStorageAPI.load(DB_STORAGE);
+  }
+  if (data) {
     renderLibraryCards(page);
   } else {
     renderEmptyLibrary();
@@ -101,7 +106,7 @@ async function createLibraryCardsdMarkup(page) {
 }
 
 function filterCardsdArr(page) {
-  const cardsArr = [];
+  const cardsArr = getLocalStorageFilms();
 
   return cardsArr.filter((value, index) => {
     if (index >= perPage * (page - 1) && index < perPage * page) {
@@ -111,16 +116,10 @@ function filterCardsdArr(page) {
 }
 
 function getLocalStorageFilms() {
-  return localStorageAPI.load(STORAGE)[libraryQuery];
-}
-
-async function getUsersFilms() {
-  const arr = await getData();
-  console.log(arr);
-  if (!arr) {
-    return [];
+  if(auth.currentUser && localStorageAPI.load(DB_STORAGE)){
+    return localStorageAPI.load(DB_STORAGE)[libraryQuery];
   }
-  return arr;
+  return localStorageAPI.load(STORAGE)[libraryQuery];
 }
 
 function choisePerPage(screenWidth) {
@@ -162,4 +161,4 @@ function clearLibraryCards() {
 // exports
 export { renderLibraryMainContent };
 
-console.log(authObserver(getUsersFilms, getLocalStorageFilms));
+//authObserver(getUsersFilms, getLocalStorageFilms);

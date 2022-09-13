@@ -10,8 +10,10 @@ import {
   showUnauthorisedFields,
 } from './features/auth/authModalWindowContent';
 
-authObserver([showAuthorisedFields], [showUnauthorisedFields]);
-renderLibraryMainContent(1);
+authObserver(
+  [showAuthorisedFields, renderLibraryMainContent], 
+  [showUnauthorisedFields, renderLibraryMainContent]);
+
 
 refs.paginationBox.addEventListener('click', e => {
   if (!e.target.dataset.page) return;

@@ -5,10 +5,11 @@ import 'swiper/modules/pagination/pagination.scss';
 import sliderContent from '../../../templates/slider-content.hbs';
 import { onFilmCardClick } from '../../onFilmCardClick';
 import { moviedbApi } from '../../api/moviedb/moviedbapi';
+import { refs } from '../../constants/refs';
 
 const TRENDING_END_POINT = 'trending/movie/day';
-const swiperWrapper = document.querySelector('.swiper-wrapper');
-const swiperRef = document.querySelector('#trends-swiper');
+const swiperWrapper = refs.swiperWrapper;
+const swiperRef = refs.swiperRef;
 
 renderSwiper();
 

@@ -1,8 +1,10 @@
-const upBtn = document.querySelector('#up-btn');
+import { refs } from '../../constants/refs';
+
+const upBtn = refs.btnToTop;
 window.addEventListener("scroll", scrollFunction);
 
 function scrollFunction () {
-    if(window.scrollY > 300) {
+    if(window.scrollY > 300 && !refs.body.classList.contains('modal-open')) {
         upBtn.style.display = "block";
     } else {
         upBtn.style.display = "none";

@@ -1,19 +1,21 @@
 import 'swiper/swiper.scss';
 import 'swiper/modules/pagination/pagination.scss';
 import Swiper, { Navigation, Pagination } from 'swiper';
-const aboutModal = document.querySelector('.js-about-modal');
-const body = document.querySelector('body');
-const btnOpenAboutModal = document.querySelector('.js-open-modal');
-const btnCloseAboutModal = document.querySelector('.js-close-about-modal');
-const swiperModal = document.querySelector('#swiper-modal')
+import { refs } from './constants/refs';
+
+const aboutModal = refs.aboutModal;
+const body = refs.body;
+const btnOpenAboutModal = refs.btnOpenAboutModal;
+const btnCloseAboutModal = refs.btnCloseAboutModal;
+const swiperModal = refs.swiperModal;
 
 btnOpenAboutModal.addEventListener('click', openAboutModal);
 btnCloseAboutModal.addEventListener('click', closeAboutModal);
 
 function openAboutModal() {
-    aboutModal.classList.add('is-shown')
+    aboutModal.classList.add('is-shown');
     body.classList.add('modal-open');
-
+    refs.btnToTop.style.display = "none";
     document.addEventListener('keydown', onCloseEsc);
     document.addEventListener('click', function onCloseClick(e) {
         if (e.target === aboutModal) {
@@ -32,6 +34,7 @@ function closeAboutModal() {
     aboutModal.classList.remove('is-shown');
     body.classList.remove('modal-open');
     document.removeEventListener('keydown', onCloseEsc);
+    refs.btnToTop.style.display = "block";
 }
 
 const swipers = new Swiper(swiperModal, {

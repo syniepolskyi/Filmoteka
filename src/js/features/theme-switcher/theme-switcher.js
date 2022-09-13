@@ -1,5 +1,8 @@
-const themeSwither = document.querySelectorAll(`.change_theme`);
-const changeThemeCssLink = document.querySelector(`[title= "theme"]`);
+import { refs } from '../../constants/refs';
+
+
+const themeSwither = refs.changeTheme;
+const changeThemeCssLink = refs.changeThemeCssLink;
 
 themeSwither.forEach(swither => swither.addEventListener(`click`, changeTheme));
 

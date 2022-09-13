@@ -13,6 +13,7 @@ body {
 
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
 }
 
 h1,
@@ -26,6 +27,10 @@ ul,
 input {
   margin: 0;
   padding: 0;
+}
+
+button, a {
+  cursor: pointer;
 }
 
 ul {

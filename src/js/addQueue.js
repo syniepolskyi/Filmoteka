@@ -1,9 +1,10 @@
 import { dynRefs } from './constants/dynamicRefs';
-import { STORAGE, localStorageAPI } from './constants/storage';
+import { STORAGE } from './constants/storage';
 import { getMoviesDetails } from './api/moviedb/getMoviesDetails';
 import createMarkUp from '../templates/film-cards.hbs';
 import { refs } from './constants/refs';
 import { onFilmCardClick } from './onFilmCardClick';
+import { localStorageAPI } from './localStorageAPI';
 
 import { postData, auth } from './api/firebase/api';
 
@@ -45,7 +46,7 @@ export async function addQueue(e) {
     localStorageAPI.save(userStorage, loadStorage);
 
     if (
-      document.querySelector('.library__btns') &&
+      refs.libBtn &&
       headerQueueBtn.classList.contains('button--accent')
     ) {
       removeFromLibraryList(id);
@@ -59,7 +60,7 @@ export async function addQueue(e) {
   queue.push(id);
 
   if (
-    document.querySelector('.library__btns') &&
+    refs.libBtn &&
     headerQueueBtn.classList.contains('button--accent')
   ) {
     try {
@@ -76,7 +77,7 @@ export async function addQueue(e) {
     addToWatchedBtn.textContent = buttonLabelWatchedAdd;
 
     if (
-      document.querySelector('.library__btns') &&
+      refs.libBtn &&
       !headerQueueBtn.classList.contains('button--accent')
     ) {
       removeFromLibraryList(id);
@@ -96,7 +97,7 @@ export async function addQueue(e) {
   e.target.textContent = buttonLabelQueuedRemove;
 }
 function removeFromLibraryList(id) {
-  const activeFilm = document.querySelector(`[data-action='${id}']`);
+  const activeFilm = dynRefs(id).activeFilm;
   activeFilm.remove();
 }
 async function addToLibrary(id) {

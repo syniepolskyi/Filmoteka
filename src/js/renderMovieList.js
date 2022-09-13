@@ -44,4 +44,5 @@ export async function renderSearchListSetup(nameForSrc, page = 1) {
   search.params.params.query = nameForSrc;
 
   renderMovieList(page);
+  refs.trendingSection.style.display = "none";
 }

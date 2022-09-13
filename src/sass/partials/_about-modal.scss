@@ -19,15 +19,18 @@
 
 .about-modal {
   position: absolute;
-  width: 90vw;
+  width: 100%;
+  max-width: 280px;
   overflow: hidden;
+  z-index:999;
 
   @media screen and (min-width: 768px) {
-    width: 570px;
+    max-width: initial;
+    width: 740px;
   }
 
   @media screen and (min-width: 1024px) {
-    width: 840px;
+    width: 1000px;
   }
 
   top: 50%;
@@ -59,7 +62,7 @@
   padding: 0;
   background-color: $white-text;
   fill: #000000;
-  border: 1px solid purple;
+  border: none;
   transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
     &:hover,
     &:focus {
@@ -86,20 +89,14 @@
 .about-modal__item {
   display: flex;
   flex-direction: column;
-  flex-basis: calc((100% - 2 * 20px) / 2);
+  max-width: 220px;
   height: auto;
   overflow: hidden;
   margin: 10px;
   border: 1px solid $black-text;
   border-radius: 30px;
   background-color: $footer-bgc;
-
-  @media screen and (min-width: 768px) {
-    flex-basis: calc((100% - 3 * 20px) / 3);
-  };
-  @media screen and (min-width: 1024px) {
-    flex-basis: calc((100% - 4 * 20px) / 4);
-  };
+  
 }
 
 .about-modal__img {
@@ -109,9 +106,8 @@
 
 .about-modal__img img {
   height: 100%;
+  width: 100%;
   object-fit: cover;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .about-modal__text {
@@ -149,4 +145,5 @@
 }
 .swiper-pagination {
   position: relative;
+  margin: 0 auto;
 }

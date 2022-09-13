@@ -39,7 +39,7 @@ export function createPagination(page = 1, totalPage = 1) {
     paginationMurkup += arrowBtnRight;
   }
 
-  if (pageWidth > 768) {
+  if (pageWidth >= 768) {
     if (totalPage <= 9) {
       paginationMurkup += arrowBtnLeft;
       for (let i = 1; i <= totalPage; i++) {

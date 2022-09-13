@@ -199,10 +199,16 @@ body.show-modal-card .backdrop__modal-card {
   padding: 0;
   background-color: transparent;
   border: none;
+  cursor: pointer;
 }
 
 .card-btn-close {
-  stroke: black;
+  stroke: $black-text;
+}
+
+.modal-card__close-btn:hover .card-btn-close, 
+.modal-card__close-btn:focus .card-btn-close {
+    stroke: $orange-btn;
 }
 
 .modal-card__flex-btn-wrap {
