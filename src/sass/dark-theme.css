@@ -34,6 +34,10 @@ body {
   color: black;
 }
 
+.pagination_button-dots:hover {
+  color: #fff;
+}
+
 .pagination_button-active:hover {
   background-color: #ff6b01;
   color: #fff;
