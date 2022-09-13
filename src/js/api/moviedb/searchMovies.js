@@ -1,7 +1,9 @@
 import { Notify } from 'notiflix';
 import { moviedbApi } from './moviedbapi';
+import loader from '../../loader';
 
 export async function searchMovies(searchParams) {
+  loader();
   try {
     const res = await moviedbApi.get(searchParams.END_POINT, {
       params: searchParams.params,
@@ -10,6 +12,11 @@ export async function searchMovies(searchParams) {
   } catch (error) {
     Notify.failure('Something went wrong');
     return;
+  } finally {
+    setTimeout(() => {
+      loader();
+    }, 100);
+    
   }
 }
 
