@@ -114,10 +114,12 @@ function getLocalStorageFilms() {
   return localStorageAPI.load(STORAGE)[libraryQuery];
 }
 
-function getUsersFilms() {
-  const arr = getData();
+async function getUsersFilms() {
+  const arr = await getData();
   console.log(arr);
 }
+
+getUsersFilms();
 
 function choisePerPage(screenWidth) {
   if (screenWidth >= 1280) {

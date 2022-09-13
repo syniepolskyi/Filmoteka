@@ -5,7 +5,18 @@
 *::before,
 *::after {
   -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex-grow: 1;
 }
 
 h1,
@@ -35,17 +46,6 @@ a {
   text-decoration: none;
 }
 
-body {
-  min-height: 100vh;
-
-  display: flex;
-  flex-direction: column;
-}
-
-main {
-  flex-grow: 1;
-}
-
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -55,7 +55,7 @@ main {
   padding: 0;
   white-space: nowrap;
   -webkit-clip-path: inset(100%);
-          clip-path: inset(100%);
+  clip-path: inset(100%);
   clip: rect(0 0 0 0);
   overflow: hidden;
 }
@@ -92,4 +92,53 @@ main {
   .container {
     width: 1280px;
   }
+}
+
+/* Стиль кнопки (перемикача)*/
+.change_theme {
+  margin-top: 15px;
+  cursor: pointer;
+
+  text-align: center;
+  background: none;
+  border: 1px solid white;
+  border-radius: 5px;
+  box-shadow: 1px 4px 6px 0px rgb(0 0 0 / 16%);
+}
+
+.change_theme[data-theme='onLight'] {
+  display: none;
+}
+
+.change_theme[data-theme='onDark'] {
+  display: block;
+}
+
+//  Стилі свайпера для світлої теми
+.swiper-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  display: flex;
+  transition-property: transform;
+  box-sizing: content-box;
+}
+.swiper-slide {
+  flex-shrink: 0;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition-property: transform;
+}
+
+.swiper {
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  overflow: hidden;
+  list-style: none;
+  padding: 0;
+  /* Fix of Webkit flickering */
+  z-index: 1;
 }
