@@ -75,12 +75,10 @@ async function renderLibraryCards(page) {
 function renderEmptyLibrary() {
   if (libraryQuery === ANON_WATCHED) {
     mainList.innerHTML = 'Nothing wathed yet';
-    refs.paginationBox.innerHTML = '';
     return;
   }
   if (libraryQuery === ANON_QUEUE) {
     mainList.innerHTML = 'Nothing in queue yet';
-    refs.paginationBox.innerHTML = '';
     return;
   }
 }
