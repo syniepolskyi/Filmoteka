@@ -1,36 +1,29 @@
 // imports
-import { getMoviesDetails } from './api/moviedb/getMoviesDetails';
+import { getMoviesDetails } from "./api/moviedb/getMoviesDetails";
 import createMarkUp from '../templates/film-cards.hbs';
-import { refs } from './constants/refs';
-import {
-  storage,
-  STORAGE,
-  ANON_WATCHED,
-  ANON_QUEUE,
-  localStorageAPI,
-} from './constants/storage';
+import { refs } from "./constants/refs";
+import { storage, STORAGE, ANON_WATCHED, ANON_QUEUE, localStorageAPI } from "./constants/storage";
 import { createPagination } from './pagination/createPagination';
 import { onFilmCardClick } from './onFilmCardClick';
+import { getData, authObserver } from './api/firebase/api';
 
 // references
-const { headerWatchedBtn, headerQueueBtn, mainList } = refs;
+const { headerWatchedBtn, headerQueueBtn, mainList, dataNotFoundEl, paginationBox } = refs;
 
 // variables
-const ACCENT_BTN_CLASS = 'button--accent';
+const ACCENT_BTN_CLASS = "button--accent";
 const perPage = choisePerPage(document.body.clientWidth);
 let libraryQuery = ANON_WATCHED;
-
-// preorders
-renderLibraryMainContent(1);
 
 // event listeners
 headerWatchedBtn.addEventListener('click', onClickWatched);
 headerQueueBtn.addEventListener('click', onClickQueue);
 
+
 // event listeners functions
 function onClickWatched() {
   accentWatchedBtn();
-
+  
   libraryQuery = ANON_WATCHED;
 
   renderLibraryMainContent(1);
@@ -57,12 +50,14 @@ async function renderLibraryCards(page) {
   const markup = await createLibraryCardsdMarkup(page);
 
   if (markup) {
+    clearDataNotFoundEl();
     mainList.innerHTML = markup;
-    // place for pagination function and add event listeners to film's cards
+
     // pagination
     const arr = localStorageAPI.load(STORAGE)[libraryQuery];
     const totalPages = Math.ceil(arr.length / perPage);
     createPagination(page, totalPages);
+
     // event listeners
     document
       .querySelectorAll('[data-modal-open]')
@@ -73,13 +68,15 @@ async function renderLibraryCards(page) {
 }
 
 function renderEmptyLibrary() {
+  clearLibraryCards();
+  clearPagination();
   if (libraryQuery === ANON_WATCHED) {
-    mainList.innerHTML = 'Nothing wathed yet';
-    return;
+    dataNotFoundEl.innerHTML = `<p class="not-film-card">Nothing watched yet</p>`;
+    return
   }
   if (libraryQuery === ANON_QUEUE) {
-    mainList.innerHTML = 'Nothing in queue yet';
-    return;
+    dataNotFoundEl.innerHTML = `<p class="not-film-card">Nothing in queue yet</p>`;
+    return
   }
 }
 
@@ -93,7 +90,7 @@ async function createLibraryCardsdMarkup(page) {
   const moviePromises = filteredCardsArr.map(el => {
     const movie = getMoviesDetails(el);
     return movie;
-  });
+  })
 
   try {
     const movies = await Promise.all(moviePromises);
@@ -104,13 +101,26 @@ async function createLibraryCardsdMarkup(page) {
 }
 
 function filterCardsdArr(page) {
-  const cardsArr = localStorageAPI.load(STORAGE)[libraryQuery];
+  const cardsArr = [];
 
   return cardsArr.filter((value, index) => {
     if (index >= perPage * (page - 1) && index < perPage * page) {
       return value;
     }
-  });
+  })
+}
+
+function getLocalStorageFilms() {
+  return localStorageAPI.load(STORAGE)[libraryQuery];
+}
+
+async function getUsersFilms() {
+  const arr = await getData();
+  console.log(arr);
+  if (!arr) {
+    return [];
+  }
+  return arr;
 }
 
 function choisePerPage(screenWidth) {
@@ -124,18 +134,32 @@ function choisePerPage(screenWidth) {
 }
 
 function accentWatchedBtn() {
-  if (!headerWatchedBtn.classList.contains(ACCENT_BTN_CLASS)) {
+  if ( !headerWatchedBtn.classList.contains(ACCENT_BTN_CLASS)) {
     headerWatchedBtn.classList.add(ACCENT_BTN_CLASS);
     headerQueueBtn.classList.remove(ACCENT_BTN_CLASS);
   }
 }
 
 function accentQueueBtn() {
-  if (!headerQueueBtn.classList.contains(ACCENT_BTN_CLASS)) {
+  if ( !headerQueueBtn.classList.contains(ACCENT_BTN_CLASS)) {
     headerQueueBtn.classList.add(ACCENT_BTN_CLASS);
     headerWatchedBtn.classList.remove(ACCENT_BTN_CLASS);
   }
 }
 
+function clearPagination() {
+  paginationBox.innerHTML = '';
+}
+
+function clearDataNotFoundEl() {
+  dataNotFoundEl.innerHTML = '';
+}
+
+function clearLibraryCards() {
+  mainList.innerHTML = '';
+}
+
 // exports
 export { renderLibraryMainContent };
+
+console.log(authObserver(getUsersFilms, getLocalStorageFilms));

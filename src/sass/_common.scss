@@ -8,6 +8,13 @@
   box-sizing: border-box;
 }
 
+body {
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+}
+
 h1,
 h2,
 h3,
@@ -54,12 +61,6 @@ a {
   letter-spacing: 0.03em;
   color: #757575;
   background-color: #ffffff;
-}
-
-body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
 }
 
 /*Контейнер*/
