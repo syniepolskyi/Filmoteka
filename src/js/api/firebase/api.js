@@ -109,7 +109,7 @@ export function authObserver(fncLogIn, fncNotLog) {
       }
 
       localStorage.removeItem('dataFromDB');
-      usersFilms = localStorage.getItem('usersFilms');
+      //usersFilms = localStorage.getItem('usersFilms');
     }
   });
 }

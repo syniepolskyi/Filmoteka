@@ -5,7 +5,7 @@
 *::before,
 *::after {
   -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 h1,
@@ -44,7 +44,7 @@ a {
   padding: 0;
   white-space: nowrap;
   -webkit-clip-path: inset(100%);
-          clip-path: inset(100%);
+  clip-path: inset(100%);
   clip: rect(0 0 0 0);
   overflow: hidden;
 }
@@ -54,6 +54,12 @@ a {
   letter-spacing: 0.03em;
   color: #757575;
   background-color: #ffffff;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 /*Контейнер*/
@@ -83,54 +89,51 @@ a {
   }
 }
 
-
 /* Стиль кнопки (перемикача)*/
 .change_theme {
-    margin-top: 15px;
-    cursor: pointer;
-  
-    text-align: center;
-    background: none;
-    border: 1px solid white;
-    border-radius: 5px;
-    box-shadow: 1px 4px 6px 0px rgb(0 0 0 / 16%);
-  }
-  
-  .change_theme[data-theme="onLight"] {
-    display: none;
-  }
-  
-  .change_theme[data-theme="onDark"] {
-    display: block;
-  }
-  
-  
-//  Стилі свайпера для світлої теми 
+  margin-top: 15px;
+  cursor: pointer;
+
+  text-align: center;
+  background: none;
+  border: 1px solid white;
+  border-radius: 5px;
+  box-shadow: 1px 4px 6px 0px rgb(0 0 0 / 16%);
+}
+
+.change_theme[data-theme='onLight'] {
+  display: none;
+}
+
+.change_theme[data-theme='onDark'] {
+  display: block;
+}
+
+//  Стилі свайпера для світлої теми
 .swiper-wrapper {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    display: flex;
-    transition-property: transform;
-    box-sizing: content-box;
-  }
-  .swiper-slide {
-    flex-shrink: 0;
-    width: 100%;
-    height: 100%;
-    position: relative;
-    transition-property: transform;
-  }
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  display: flex;
+  transition-property: transform;
+  box-sizing: content-box;
+}
+.swiper-slide {
+  flex-shrink: 0;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition-property: transform;
+}
 
-  .swiper {
-    margin-left: auto;
-    margin-right: auto;
-    position: relative;
-    overflow: hidden;
-    list-style: none;
-    padding: 0;
-    /* Fix of Webkit flickering */
-    z-index: 1;
-  }
-
+.swiper {
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  overflow: hidden;
+  list-style: none;
+  padding: 0;
+  /* Fix of Webkit flickering */
+  z-index: 1;
+}
