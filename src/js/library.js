@@ -1,8 +1,8 @@
 import { refs } from './constants/refs';
-import { 
-  renderLibraryMainContent, 
+import {
+  renderLibraryMainContent,
   onClickWatched,
-  onClickQueue
+  onClickQueue,
 } from './helpers/library-main';
 import './modalCard';
 import './modalAbout';
@@ -13,19 +13,16 @@ import {
   showAuthorisedFields,
   showUnauthorisedFields,
 } from './features/auth/authModalWindowContent';
+import { onPaginationBtnClick } from './pagination/onPaginationBtnClick';
+onPaginationBtnClick;
 
 authObserver(
-  [showAuthorisedFields, renderLibraryMainContent], 
-  [showUnauthorisedFields, renderLibraryMainContent]);
-
+  [showAuthorisedFields, renderLibraryMainContent],
+  [showUnauthorisedFields, renderLibraryMainContent]
+);
 
 refs.paginationBox.addEventListener('click', e => {
-  if (!e.target.dataset.page) return;
-  window.scrollTo({
-    top: 0,
-    left: 0,
-  });
-  renderLibraryMainContent(+e.target.dataset.page);
+  onPaginationBtnClick(e.target, renderLibraryMainContent);
 });
 
 // event listeners

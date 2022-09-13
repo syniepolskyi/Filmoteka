@@ -4,8 +4,7 @@ import './features/theme-switcher/theme-switcher';
 import './features/trend-slider/slider-trends';
 import './features/auth/authModalWindowContent';
 import './helpers/helpers';
-
-
+import { renderMovieList } from './renderMovieList';
 
 import { refs } from './constants/refs';
 
@@ -22,5 +21,7 @@ import {
 authObserver([showAuthorisedFields], [showUnauthorisedFields]);
 
 renderTrendingMoviesSetup();
-refs.paginationBox.addEventListener('click', onPaginationBtnClick);
+refs.paginationBox.addEventListener('click', e => {
+  onPaginationBtnClick(e.target, renderMovieList);
+});
 refs.headerForm.addEventListener('submit', onSearchFormSubmit);
