@@ -101,7 +101,7 @@ async function createLibraryCardsdMarkup(page) {
 }
 
 function filterCardsdArr(page) {
-  const cardsArr = getLocalStorageFilms();
+  const cardsArr = [];
 
   return cardsArr.filter((value, index) => {
     if (index >= perPage * (page - 1) && index < perPage * page) {
@@ -117,9 +117,11 @@ function getLocalStorageFilms() {
 async function getUsersFilms() {
   const arr = await getData();
   console.log(arr);
+  if (!arr) {
+    return [];
+  }
+  return arr;
 }
-
-getUsersFilms();
 
 function choisePerPage(screenWidth) {
   if (screenWidth >= 1280) {
@@ -158,4 +160,6 @@ function clearLibraryCards() {
 }
 
 // exports
-export {renderLibraryMainContent};
+export { renderLibraryMainContent };
+
+console.log(authObserver(getUsersFilms, getLocalStorageFilms));

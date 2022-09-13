@@ -1,7 +1,12 @@
 import { getMoviesDetails } from './api/moviedb/getMoviesDetails';
 import openModalCard from './modalCard';
+import loader from './loader';
 
 export function onFilmCardClick() {
   const id = this.dataset.action;
-  getMoviesDetails(id).then(movie => openModalCard(movie));
+  loader()
+  getMoviesDetails(id).then(movie => openModalCard(movie))
+  .finally(() => {
+    loader();
+  });
 }

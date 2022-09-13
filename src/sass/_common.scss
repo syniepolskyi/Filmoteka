@@ -15,10 +15,6 @@ body {
   flex-direction: column;
 }
 
-main {
-  flex-grow: 1;
-}
-
 h1,
 h2,
 h3,
@@ -140,5 +136,5 @@ a {
   list-style: none;
   padding: 0;
   /* Fix of Webkit flickering */
-  z-index: 1;
+  z-index: 0;
 }
