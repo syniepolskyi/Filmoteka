@@ -11,7 +11,7 @@ btnOpenAboutModal.addEventListener('click', openAboutModal);
 btnCloseAboutModal.addEventListener('click', closeAboutModal);
 
 function openAboutModal() {
-    aboutModal.classList.remove('is-hidden')
+    aboutModal.classList.add('is-shown')
     body.classList.add('modal-open');
 
     document.addEventListener('keydown', onCloseEsc);
@@ -29,7 +29,7 @@ function onCloseEsc(e) {
 }
 
 function closeAboutModal() {
-    aboutModal.classList.add('is-hidden');
+    aboutModal.classList.remove('is-shown');
     body.classList.remove('modal-open');
     document.removeEventListener('keydown', onCloseEsc);
 }

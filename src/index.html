@@ -13,7 +13,7 @@
     />
     <link rel="stylesheet" href="./sass/index.scss" />
 <!-- Change theme -->
-    <link rel="stylesheet" title= "theme" href="/src/sass/dark-theme.css" disabled  />
+    <link rel="stylesheet" title= "theme" href="./sass/dark-theme.scss" disabled  />
 
     <script type="module" src="./js/index.js"></script>
   </head>
@@ -31,9 +31,11 @@
       </div>
     </main>
     <include src="./partials/footer.html"></include>
-    <include src="./partials/up-btn.html"></include>
     <include src="./partials/about-modal.html"></include>
     <include src="./partials/modal-card.html"></include>
     <include src="./partials/loader.html"></include>
+    <div class="container relative-container">
+      <include src="./partials/up-btn.html"></include>
+    </div>
   </body>
 </html>

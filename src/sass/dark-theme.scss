@@ -6,11 +6,11 @@
   fill: white;
 }
 
-.change_theme[data-theme='onLight'] {
+button.change_theme[data-theme='onLight'] {
   display: block;
 }
 
-.change_theme[data-theme='onDark'] {
+button.change_theme[data-theme='onDark'] {
   display: none;
 }
 
@@ -46,4 +46,16 @@ body {
 .pagination_button-arrow_left,
 .pagination_button-arrow_right {
   background-color: #333;
+}
+
+h2.swiper-title {
+  color: #FFFFFF;
+}
+
+.film-list.js-main-film-list {
+  color: #FFFFFF;
+}
+
+section.films-section h2.film-card__title {
+  color: #FFFFFF;
 }
