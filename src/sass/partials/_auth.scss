@@ -1,9 +1,24 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
-
-* {
-  box-sizing: border-box;
-}
 .innerSide {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  .innerSide-text {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  #user_email {
+    margin: 20px 0;
+    @media screen and (max-width: 767px) {
+      text-align: center;
+      overflow-wrap: anywhere;
+
+      padding: 0px 10px;
+    }
+  }
 }
 .auth {
   background-color: transparent;
@@ -60,8 +75,15 @@
   }
 
   .button.ghost {
-    background-color: transparent;
-    border-color: #ffffff;
+    @media screen and (max-width: 767px) {
+      padding: 5px 15px;
+      margin-bottom: 10px;
+      border-radius: 10px;
+    }
+    @media screen and (min-width: 768px) {
+      background-color: transparent;
+      border-color: #ffffff;
+    }
   }
 
   form {
@@ -92,9 +114,16 @@
     width: 768px;
     max-width: 100%;
     min-height: 480px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .form-container {
+    @media screen and (max-width: 767px) {
+      width: 100%;
+    }
+    width: 50%;
     position: absolute;
     top: 0;
     height: 100%;
@@ -103,7 +132,7 @@
 
   .sign-in-container {
     left: 0;
-    width: 50%;
+
     z-index: 2;
   }
 
@@ -113,12 +142,17 @@
 
   .sign-up-container {
     left: 0;
-    width: 50%;
+    @media screen and (max-width: 767px) {
+      transform: translateX(-100%);
+    }
     opacity: 0;
     z-index: 1;
   }
 
   .auth-container.right-panel-active .sign-up-container {
+    @media screen and (max-width: 767px) {
+      transform: translateX(0%);
+    }
     transform: translateX(100%);
     opacity: 1;
     z-index: 5;
@@ -155,6 +189,13 @@
   }
 
   .overlay {
+    @media screen and (max-width: 767px) {
+      background: transparent;
+      h1,
+      p {
+        display: none;
+      }
+    }
     background: #ff416c;
     background: -webkit-linear-gradient(to right, #ff4b2b, #ff416c);
     background: linear-gradient(to right, #ff4b2b, #ff416c);
@@ -175,6 +216,9 @@
   }
 
   .overlay-panel {
+    @media screen and (max-width: 767px) {
+      justify-content: flex-end;
+    }
     position: absolute;
     display: flex;
     align-items: center;
