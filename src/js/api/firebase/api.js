@@ -8,7 +8,6 @@ import {
   signOut,
 } from 'firebase/auth';
 
-
 import { getDoc, doc, setDoc, getFirestore } from 'firebase/firestore';
 
 import { firebaseConfig } from './firebaseConfig';
