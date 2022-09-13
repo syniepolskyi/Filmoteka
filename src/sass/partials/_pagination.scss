@@ -14,7 +14,7 @@
   margin: 0;
   padding: 0;
 
-  background-color: $main-bgc;
+  background-color: inherit;
   border: 0;
   border-radius: 5px;
 
@@ -32,6 +32,7 @@
   &-active {
     background-color: $orange-btn;
     cursor: default;
+    color: #fff;
     &:hover {
       background-color: $orange-btn;
     }
@@ -60,7 +61,7 @@
   &-dots {
     cursor: default;
     &:hover {
-      background-color: $main-bgc;
+      background-color: inherit;
     }
   }
 }
