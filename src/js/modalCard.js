@@ -7,7 +7,7 @@ import { refs } from './constants/refs';
 import { addWatched } from './addWatched';
 import { addQueue } from './addQueue';
 import { STORAGE, DB_STORAGE } from './constants/storage';
-import './helpers';
+import './helpers/helpers';
 import { localStorageAPI } from './localStorageAPI';
 import { auth } from './api/firebase/api';
 

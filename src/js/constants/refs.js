@@ -23,5 +23,6 @@ export const refs = {
   changeTheme: document.querySelectorAll(`.change_theme`),
   changeThemeCssLink: document.querySelector(`[title= "theme"]`),
   swiperWrapper: document.querySelector('.swiper-wrapper'),
-  swiperRef: document.querySelector('#trends-swiper')
+  swiperRef: document.querySelector('#trends-swiper'),
+  autorizationChecked: document.getElementById('icon-autorization-checked')
 };

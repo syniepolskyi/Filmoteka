@@ -14,6 +14,6 @@ export const dynRefs = (id = 0) => {
     activeFilm: document.querySelector(`[data-action='${id}']`),
     closeModalBtnEl: document.querySelector('[data-modal-close]'),
     backdropEl: document.querySelector('[data-backdrop]'),
-    closeBtnAuth: document.querySelector('modal-card__close-btn')
+    movieElements: document.querySelectorAll('[data-modal-open]')
   };
 };

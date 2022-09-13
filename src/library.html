@@ -1,41 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GoIT Filmoteka 2022 - Library</title>
-    <link rel="icon" href="./images/film.svg" type="image/svg+xml" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="./sass/library.scss" />
-    <link rel="stylesheet" title= "theme" href="./sass/dark-theme.scss" disabled  />
 
-    <script type="module" src="./js/library.js"></script>
-  </head>
-  <body>
-    <include src="./partials/library-header.html"></include>
-    <main>
-      <div class="container">
-        <include src="./partials/theme-switcher.html"></include>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GoIT Filmoteka 2022 - Library</title>
+  <link rel="icon" href="./images/film.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./sass/library.scss" />
+  <link rel="stylesheet" title="theme" href="./sass/dark-theme.scss" disabled />
 
-        <section class="films-section">
-          <div class="js-not-film-card"></div>
-          <include src="./partials/main.html"></include>
-          <include src="./partials/pagination.html"></include>
-        </section>
-      </div>
-    </main>
+  <script type="module" src="./js/library.js"></script>
+</head>
 
-    <include src="./partials/footer.html"></include>
-    <include src="./partials/about-modal.html"></include>
-    <include src="./partials/loader.html"></include>
-    <include src="./partials/modal-card.html"></include>
-    <div class="container relative-container">
-      <include src="./partials/up-btn.html"></include>
+<body>
+  <include src="./components/library-header.html"></include>
+  <main>
+    <div class="container">
+      <include src="./components/theme-switcher.html"></include>
+
+      <section class="films-section">
+        <div class="js-not-film-card"></div>
+        <ul class="film-list js-main-film-list"></ul>
+        <div class="pagination_box"></div>
+      </section>
     </div>
-  </body>
+  </main>
+
+  <include src="./components/footer.html"></include>
+  <include src="./components/about-modal.html"></include>
+  <div class="backdrop backdrop__is-hidden js-page-loader">
+    <div class="loader is-active" id="js-page-loader">🍿</div>
+  </div>
+  <div class="backdrop__modal-card" data-backdrop></div>
+  <div class="container relative-container">
+    <include src="./components/up-btn.html"></include>
+  </div>
+</body>
+
 </html>

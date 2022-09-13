@@ -1,5 +1,9 @@
 import { refs } from './constants/refs';
-import { renderLibraryMainContent } from './library-main';
+import { 
+  renderLibraryMainContent, 
+  onClickWatched,
+  onClickQueue
+} from './helpers/library-main';
 import './modalCard';
 import './modalAbout';
 import './features/upToTop/upToTop';
@@ -23,5 +27,9 @@ refs.paginationBox.addEventListener('click', e => {
   });
   renderLibraryMainContent(+e.target.dataset.page);
 });
+
+// event listeners
+refs.headerWatchedBtn.addEventListener('click', onClickWatched);
+refs.headerQueueBtn.addEventListener('click', onClickQueue);
 
 import './features/theme-switcher/theme-switcher';

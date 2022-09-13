@@ -3,7 +3,7 @@ import './features/upToTop/upToTop';
 import './features/theme-switcher/theme-switcher';
 import './features/trend-slider/slider-trends';
 import './features/auth/authModalWindowContent';
-import './helpers';
+import './helpers/helpers';
 
 
 

@@ -73,10 +73,15 @@ main {
   @media screen and (min-width: 1280px) {
     width: 395px;
   }
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  &:hover {
+    transform: scale(1.05);
+  }
 }
 
 .film-card__img {
   height: 398px;
+  border-radius: $main-border-radius;
   @media screen and (min-width: 768px) {
     height: 455px;
   }
@@ -149,4 +154,12 @@ main {
   display: block;
   flex-grow: 1;
   padding-top: 8px;
+}
+
+.film-card__discription {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  color: $orange-text;
 }

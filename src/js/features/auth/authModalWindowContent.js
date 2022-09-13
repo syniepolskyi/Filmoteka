@@ -5,15 +5,18 @@ import modalAuthTpl from '../../../templates/auth-modal.hbs';
 import closeSvg from '../../../images/sprite.svg';
 
 export function showAuthorisedFields() {
+  refs.autorizationChecked.style.display = 'block';
   const { LoggedIn, notLoggedIn, userEmail } = dynRefs();
   if (notLoggedIn) {
     notLoggedIn.style.display = 'none';
     LoggedIn.style.display = 'block';
+
     userEmail.innerHTML = auth.currentUser.email;
   }
 }
 
 export function showUnauthorisedFields() {
+  refs.autorizationChecked.style.display = 'none';
   const { LoggedIn, notLoggedIn, userEmail } = dynRefs();
   if (notLoggedIn) {
     notLoggedIn.style.display = 'block';
@@ -31,12 +34,6 @@ refs.authBtn.addEventListener('click', e => {
   modal.innerHTML = html;
 
   const {
-    // emailSignUp,
-    // passwordSignUp,
-    // emailSignIn,
-    // passwordSignIn,
-    // btnSingUp,
-    // btnSingIn,
     switchSignUpBtn,
     switchSignInBtn,
     authContainer,

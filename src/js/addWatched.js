@@ -1,14 +1,13 @@
 import { dynRefs } from './constants/dynamicRefs';
 import { STORAGE } from './constants/storage';
-import { getMoviesDetails } from './api/moviedb/getMoviesDetails';
-import createMarkUp from '../templates/film-cards.hbs';
 import { refs } from './constants/refs';
 import { onFilmCardClick } from './onFilmCardClick';
 import { localStorageAPI } from './localStorageAPI';
 
 import { postData, auth } from './api/firebase/api';
+import { removeFromLibraryList, addToLibrary } from './helpers/library-main';
 
-const { headerWatchedBtn, headerQueueBtn, mainList } = refs;
+const { headerWatchedBtn, mainList } = refs;
 
 const buttonLabelWatchedAdd = 'Add to watched';
 const buttonLabelWatchedRemove = 'Remove from watched';
@@ -94,18 +93,4 @@ export async function addWatched(e) {
 
   e.target.setAttribute('data-btn', 'remove');
   e.target.textContent = buttonLabelWatchedRemove;
-}
-
-function removeFromLibraryList(id) {
-  const activeFilm = dynRefs(id).activeFilm;
-  activeFilm.remove();
-}
-async function addToLibrary(id) {
-  try {
-    let movieTopush = [];
-    const movie = await getMoviesDetails(id);
-    movieTopush.push(movie);
-    mainList.insertAdjacentHTML('afterbegin', createMarkUp(movieTopush));
-    return;
-  } catch (error) {}
 }
