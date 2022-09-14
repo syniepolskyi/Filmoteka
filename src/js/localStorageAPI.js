@@ -1,3 +1,6 @@
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import "notiflix/dist/notiflix-3.2.5.min.css";
+
 export const localStorageAPI = {
     save,
     load,
@@ -8,7 +11,7 @@ export const localStorageAPI = {
       const serializedState = JSON.stringify(value);
       localStorage.setItem(key, serializedState);
     } catch (error) {
-      console.error('Set state error: ', error.message);
+      Notify.failure("Local storage error");
     }
   }
   
@@ -17,6 +20,6 @@ export const localStorageAPI = {
       const serializedState = localStorage.getItem(key);
       return serializedState === null ? {watched: [], queue: []} : JSON.parse(serializedState);
     } catch (error) {
-      console.error('Get state error: ', error.message);
+      Notify.failure("Local storage error");
     }
   }
