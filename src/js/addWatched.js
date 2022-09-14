@@ -11,7 +11,8 @@ import { refs } from './constants/refs';
 import { onFilmCardClick } from './onFilmCardClick';
 import { localStorageAPI } from './localStorageAPI';
 
-import { postData, auth } from './api/firebase/api';
+import { auth } from './api/firebase/firebaseConfig';
+import { postData } from './api/firebase/api';
 import { removeFromLibraryList, addToLibrary } from './helpers/library-main';
 
 const { headerWatchedBtn, mainList } = refs;

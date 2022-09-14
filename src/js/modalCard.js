@@ -14,7 +14,7 @@ import {
 } from './constants/app_const';
 import './helpers/helpers';
 import { localStorageAPI } from './localStorageAPI';
-import { auth } from './api/firebase/api';
+import { auth } from './api/firebase/firebaseConfig';
 
 const modal = refs.modal;
 
