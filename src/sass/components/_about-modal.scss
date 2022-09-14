@@ -18,19 +18,20 @@
 }
 
 .about-modal {
-  position: absolute;
-  width: 100%;
-  max-width: 280px;
+  padding-bottom: 10px;
   overflow: hidden;
+  position: absolute;
+  width: 260px;
   z-index:999;
 
   @media screen and (min-width: 768px) {
+    
     max-width: initial;
     width: 740px;
   }
 
-  @media screen and (min-width: 1024px) {
-    width: 1000px;
+  @media screen and (min-width: 1280px) {
+    width: 1220px;
   }
 
   top: 50%;
@@ -84,7 +85,7 @@
 
 .about-modal__list {
   box-sizing: border-box;
-  padding: 10px;
+  padding-bottom: 10px;
 }
 .about-modal__item {
   display: flex;
@@ -146,4 +147,9 @@
 .swiper-pagination {
   position: relative;
   margin: 0 auto;
+}
+
+.swiper-wrapper-overflow {
+  padding-left: 10px;
+  padding-right: 10px;
 }

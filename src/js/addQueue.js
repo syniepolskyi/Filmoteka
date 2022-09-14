@@ -1,17 +1,23 @@
 import { dynRefs } from './constants/dynamicRefs';
-import { STORAGE } from './constants/storage';
+import { 
+  STORAGE, 
+  DB_STORAGE, 
+  BUTTON_LABEL_QUEUE_ADD, 
+  BUTTON_LABEL_QUEUE_REMOVE, 
+  BUTTON_LABEL_WATCHED_ADD 
+} from './constants/app_const';
 import { refs } from './constants/refs';
 import { onFilmCardClick } from './onFilmCardClick';
 import { localStorageAPI } from './localStorageAPI';
 
-import { postData, auth } from './api/firebase/api';
+import { auth } from './api/firebase/firebaseConfig';
+import { postData } from './api/firebase/api';
 import { removeFromLibraryList, addToLibrary } from './helpers/library-main';
 
 const { headerQueueBtn } = refs;
 
-const buttonLabelQueuedAdd = 'Add to queue';
-const buttonLabelQueuedRemove = 'Remove from queue';
-const buttonLabelWatchedAdd = 'Add to watched';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import "notiflix/dist/notiflix-3.2.5.min.css";
 
 // Додає або видаляє фільм з localStorage в залежності від стану кнопки
 
@@ -19,8 +25,8 @@ export async function addQueue(e) {
   let loadStorage;
   let userStorage;
   if (auth.currentUser) {
-    userStorage = 'dataFromDB';
-    loadStorage = JSON.parse(localStorage.getItem('dataFromDB'));
+    userStorage = DB_STORAGE;
+    loadStorage = localStorageAPI.load(DB_STORAGE);
   } else {
     userStorage = STORAGE;
     loadStorage = localStorageAPI.load(STORAGE);
@@ -39,7 +45,7 @@ export async function addQueue(e) {
       try {
         await postData(loadStorage);
       } catch (error) {
-        console.log(error);
+        Notify.failure("Something went wrong");
       }
     }
     localStorageAPI.save(userStorage, loadStorage);
@@ -52,7 +58,7 @@ export async function addQueue(e) {
     }
 
     e.target.setAttribute('data-btn', 'add');
-    e.target.textContent = buttonLabelQueuedAdd;
+    e.target.textContent = BUTTON_LABEL_QUEUE_ADD;
     return;
   }
 
@@ -73,7 +79,7 @@ export async function addQueue(e) {
   if (indexOfWatchedMovie > -1) {
     watched.splice(indexOfWatchedMovie, 1);
     addToWatchedBtn.setAttribute('data-btn', 'add');
-    addToWatchedBtn.textContent = buttonLabelWatchedAdd;
+    addToWatchedBtn.textContent = BUTTON_LABEL_WATCHED_ADD;
 
     if (
       refs.libBtn &&
@@ -84,15 +90,11 @@ export async function addQueue(e) {
   }
 
   if (auth.currentUser) {
-    try {
-      await postData(loadStorage);
-    } catch (error) {
-      console.log(error);
-    }
+    await postData(loadStorage);
   }
   localStorageAPI.save(userStorage, loadStorage);
 
   e.target.setAttribute('data-btn', 'remove');
-  e.target.textContent = buttonLabelQueuedRemove;
+  e.target.textContent = BUTTON_LABEL_QUEUE_REMOVE;
 }
 

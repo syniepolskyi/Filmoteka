@@ -2,19 +2,26 @@
 import { getMoviesDetails } from "../api/moviedb/getMoviesDetails";
 import createMarkUp from '../../templates/film-cards.hbs';
 import { refs } from "../constants/refs";
-import { STORAGE, ANON_WATCHED, ANON_QUEUE, DB_STORAGE } from "../constants/storage";
+import { 
+  STORAGE, 
+  ANON_WATCHED, 
+  ANON_QUEUE,
+  DB_STORAGE, 
+  ACCENT_BTN_CLASS 
+} from "../constants/app_const";
 import { createPagination } from '../pagination/createPagination';
 import { onFilmCardClick } from '../onFilmCardClick';
 import { localStorageAPI } from '../localStorageAPI';
-import { auth } from '../api/firebase/api';
+import { auth } from '../api/firebase/firebaseConfig';
 import { dynRefs } from '../constants/dynamicRefs';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import "notiflix/dist/notiflix-3.2.5.min.css";
 
 
 // references
 const { headerWatchedBtn, headerQueueBtn, mainList, dataNotFoundEl, paginationBox } = refs;
 
 // variables
-const ACCENT_BTN_CLASS = "button--accent";
 const perPage = choisePerPage(document.body.clientWidth);
 let libraryQuery = ANON_WATCHED;
 
@@ -22,7 +29,7 @@ let libraryQuery = ANON_WATCHED;
 
 
 // event listeners functions
-export function onClickWatched() {
+function onClickWatched() {
   accentWatchedBtn();
   
   libraryQuery = ANON_WATCHED;
@@ -30,7 +37,7 @@ export function onClickWatched() {
   renderLibraryMainContent(1);
 }
 
-export function onClickQueue() {
+function onClickQueue() {
   accentQueueBtn();
 
   libraryQuery = ANON_QUEUE;
@@ -64,7 +71,6 @@ async function renderLibraryCards(page) {
       arr = localStorageAPI.load(DB_STORAGE)[libraryQuery];
     }
     const totalPages = Math.ceil(arr.length / perPage);
-    console.log(arr.length,perPage,totalPages)
     createPagination(page, totalPages);
 
     // event listeners
@@ -89,7 +95,7 @@ function renderEmptyLibrary() {
 }
 
 async function createLibraryCardsdMarkup(page) {
-  const filteredCardsArr = filterCardsdArr(page);
+  const filteredCardsArr = filterCardsArr(page);
 
   if (filteredCardsArr.length === 0) {
     return null;
@@ -104,11 +110,11 @@ async function createLibraryCardsdMarkup(page) {
     const movies = await Promise.all(moviePromises);
     return createMarkUp(movies);
   } catch (e) {
-    console.log(e.message);
+    Notify.failure("Something went wrong");
   }
 }
 
-function filterCardsdArr(page) {
+function filterCardsArr(page) {
   const cardsArr = getLocalStorageFilms();
 
   return cardsArr.filter((value, index) => {
@@ -161,16 +167,14 @@ function clearLibraryCards() {
   mainList.innerHTML = '';
 }
 
-// exports
-export { renderLibraryMainContent };
 
 //authObserver(getUsersFilms, getLocalStorageFilms);
 
-export function removeFromLibraryList(id) {
+function removeFromLibraryList(id) {
   const activeFilm = dynRefs(id).activeFilm;
   activeFilm.remove();
 }
-export async function addToLibrary(id) {
+async function addToLibrary(id) {
   try {
     let movieTopush = [];
     const movie = await getMoviesDetails(id);
@@ -178,5 +182,16 @@ export async function addToLibrary(id) {
     mainList.insertAdjacentHTML('afterbegin', createMarkUp(movieTopush));
 
     return;
-  } catch (error) {}
+  } catch (error) {
+    Notify.failure("Something went wrong");
+  }
 }
+
+// exports
+export { 
+  renderLibraryMainContent, 
+  removeFromLibraryList, 
+  addToLibrary,
+  onClickQueue,
+  onClickWatched
+};

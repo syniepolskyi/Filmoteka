@@ -30,7 +30,7 @@ npm start
 - `constants/dynamicRefs.js` - всі динамічні DOM об'єкти (по суті функція)
 - `constants/storage.js` - збережені ID для watched та queue
 - `constants/moviedb.js` - константи для роботи з API themoviedb.org, <-- API_KEY тут
-- `api/moviedb/changeGenresIdtoName.js` - перетворення ID жанрів в назву
+- `api/moviedb/changeGenresIdToName.js` - перетворення ID жанрів в назву
 - `api/moviedb/getGenres.js` - логіка для отримання жанрів фільмів
 - `api/moviedb/getMoviesDetails.js` - логіка для отримання інформації про фільм 
 - `api/moviedb/getTrending.js` - логіка для отримання списку фільмів у трендах
