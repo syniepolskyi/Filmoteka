@@ -2,7 +2,13 @@
 import { getMoviesDetails } from "../api/moviedb/getMoviesDetails";
 import createMarkUp from '../../templates/film-cards.hbs';
 import { refs } from "../constants/refs";
-import { STORAGE, ANON_WATCHED, ANON_QUEUE, DB_STORAGE, ACCENT_BTN_CLASS } from "../constants/app_const";
+import { 
+  STORAGE, 
+  ANON_WATCHED, 
+  ANON_QUEUE,
+  DB_STORAGE, 
+  ACCENT_BTN_CLASS 
+} from "../constants/app_const";
 import { createPagination } from '../pagination/createPagination';
 import { onFilmCardClick } from '../onFilmCardClick';
 import { localStorageAPI } from '../localStorageAPI';
@@ -23,7 +29,7 @@ let libraryQuery = ANON_WATCHED;
 
 
 // event listeners functions
-export function onClickWatched() {
+function onClickWatched() {
   accentWatchedBtn();
   
   libraryQuery = ANON_WATCHED;
@@ -31,7 +37,7 @@ export function onClickWatched() {
   renderLibraryMainContent(1);
 }
 
-export function onClickQueue() {
+function onClickQueue() {
   accentQueueBtn();
 
   libraryQuery = ANON_QUEUE;
@@ -89,7 +95,7 @@ function renderEmptyLibrary() {
 }
 
 async function createLibraryCardsdMarkup(page) {
-  const filteredCardsArr = filterCardsdArr(page);
+  const filteredCardsArr = filterCardsArr(page);
 
   if (filteredCardsArr.length === 0) {
     return null;
@@ -108,7 +114,7 @@ async function createLibraryCardsdMarkup(page) {
   }
 }
 
-function filterCardsdArr(page) {
+function filterCardsArr(page) {
   const cardsArr = getLocalStorageFilms();
 
   return cardsArr.filter((value, index) => {
@@ -161,16 +167,14 @@ function clearLibraryCards() {
   mainList.innerHTML = '';
 }
 
-// exports
-export { renderLibraryMainContent };
 
 //authObserver(getUsersFilms, getLocalStorageFilms);
 
-export function removeFromLibraryList(id) {
+function removeFromLibraryList(id) {
   const activeFilm = dynRefs(id).activeFilm;
   activeFilm.remove();
 }
-export async function addToLibrary(id) {
+async function addToLibrary(id) {
   try {
     let movieTopush = [];
     const movie = await getMoviesDetails(id);
@@ -182,3 +186,12 @@ export async function addToLibrary(id) {
     Notify.failure("Something went wrong");
   }
 }
+
+// exports
+export { 
+  renderLibraryMainContent, 
+  removeFromLibraryList, 
+  addToLibrary,
+  onClickQueue,
+  onClickWatched
+};

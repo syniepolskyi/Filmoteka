@@ -1,25 +1,31 @@
 import { refs } from '../../constants/refs';
+import { 
+  THEME_STORAGE, 
+  THEMES
+} from "../../constants/app_const";
+import { localStorageAPI } from '../../localStorageAPI';
 
 
 const themeSwither = refs.changeTheme;
 const changeThemeCssLink = refs.changeThemeCssLink;
+const {dark, light} = THEMES;
 
 themeSwither.forEach(swither => swither.addEventListener(`click`, changeTheme));
 
 function changeTheme() {
-  localStorage.setItem(`theme`, this.dataset.theme);
+  localStorageAPI.save(THEME_STORAGE, this.dataset.theme);
 
-  if (this.dataset.theme === `onDark`) {
+  if (this.dataset.theme === dark) {
     changeThemeCssLink.disabled = false;
   }
-  if (this.dataset.theme === `onLight`) {
+  if (this.dataset.theme === light) {
     changeThemeCssLink.disabled = true;
   }
 }
 
-let activeTheme = localStorage.getItem(`theme`);
+let activeTheme = localStorageAPI.load(THEME_STORAGE);
 
-if (activeTheme === null || activeTheme === `onLight`) {
+if (activeTheme === null || activeTheme === light) {
   changeThemeCssLink.disabled = true;
 } 
 else {

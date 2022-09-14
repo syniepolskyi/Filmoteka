@@ -1,19 +1,19 @@
-import { refs } from './constants/refs';
+import { refs } from './js/constants/refs';
 import {
   renderLibraryMainContent,
   onClickWatched,
   onClickQueue,
-} from './helpers/library-main';
-import './modalCard';
-import './modalAbout';
-import './features/upToTop/upToTop';
-import './features/auth/authModalWindowContent';
-import { authObserver } from './api/firebase/api';
+} from './js/helpers/library-main';
+import './js/modalCard';
+import './js/features/about-us/modalAbout';
+import './js/features/upToTop/upToTop';
+import './js/features/auth/authModalWindowContent';
+import { authObserver } from './js/api/firebase/api';
 import {
   showAuthorisedFields,
   showUnauthorisedFields,
-} from './features/auth/authModalWindowContent';
-import { onPaginationBtnClick } from './pagination/onPaginationBtnClick';
+} from './js/features/auth/authModalWindowContent';
+import { onPaginationBtnClick } from './js/pagination/onPaginationBtnClick';
 onPaginationBtnClick;
 
 authObserver(
@@ -29,4 +29,4 @@ refs.paginationBox.addEventListener('click', e => {
 refs.headerWatchedBtn.addEventListener('click', onClickWatched);
 refs.headerQueueBtn.addEventListener('click', onClickQueue);
 
-import './features/theme-switcher/theme-switcher';
+import './js/features/theme-switcher/theme-switcher';
