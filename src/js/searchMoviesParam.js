@@ -3,6 +3,7 @@ export const trendsSearchParams = {
   params: {
     page: 1,
   },
+  pagination: false,
 };
 
 export const movieSearchParams = {
@@ -11,4 +12,5 @@ export const movieSearchParams = {
     query: '',
     page: 1,
   },
+  pagination: false,
 };
