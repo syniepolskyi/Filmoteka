@@ -17,11 +17,13 @@ import {
   showAuthorisedFields,
   showUnauthorisedFields,
 } from './features/auth/authModalWindowContent';
+import { search } from './api/moviedb/searchMovies';
 
 authObserver([showAuthorisedFields], [showUnauthorisedFields]);
 
 renderTrendingMoviesSetup();
 refs.paginationBox.addEventListener('click', e => {
+  search.pagination = true;
   onPaginationBtnClick(e.target, renderMovieList);
 });
 refs.headerForm.addEventListener('submit', onSearchFormSubmit);
