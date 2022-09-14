@@ -2,7 +2,7 @@ import Notiflix from 'notiflix';
 import { refs } from './constants/refs';
 import { dynRefs } from './constants/dynamicRefs';
 import { searchMovies, search } from './api/moviedb/searchMovies';
-import { changeGenresIdtoName } from './helpers/changeGenresIdtoName';
+import { changeGenresIdToName } from './helpers/changeGenresIdToName';
 import createMarkUp from '../templates/film-cards.hbs';
 import { createPagination } from './pagination/createPagination';
 import { onFilmCardClick } from './onFilmCardClick';
@@ -25,7 +25,7 @@ export async function renderMovieList(page = 1) {
     return;
   }
 
-  await changeGenresIdtoName(listOfMovies.results);
+  await changeGenresIdToName(listOfMovies.results);
   refs.mainList.innerHTML = createMarkUp(listOfMovies.results);
   createPagination(page, listOfMovies.total_pages);
   dynRefs().movieElements.forEach(card => card.addEventListener('click', onFilmCardClick));

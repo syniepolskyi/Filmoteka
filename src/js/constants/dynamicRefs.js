@@ -9,7 +9,7 @@ export const dynRefs = (id = 0) => {
     formSignUp: document.getElementById('sign-up-form'),
     btnLogOut: document.getElementById('btn_logout'),
     notLoggedIn: document.getElementById('not-logged-in'),
-    LoggedIn: document.getElementById('logged-in'),
+    loggedIn: document.getElementById('logged-in'),
     userEmail: document.getElementById('user_email'),
     activeFilm: document.querySelector(`[data-action='${id}']`),
     closeModalBtnEl: document.querySelector('[data-modal-close]'),

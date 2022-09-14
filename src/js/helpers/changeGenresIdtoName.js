@@ -3,7 +3,7 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import "notiflix/dist/notiflix-3.2.5.min.css";
 
 // Функцію треба визвати після запиту з бекенда і передати туди результат запиту для замінт id жанру на назву жанру
-export async function changeGenresIdtoName(movies) {
+export async function changeGenresIdToName(movies) {
   try {
     const genersList = await genres();
     movies.forEach(element => {

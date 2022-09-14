@@ -6,7 +6,7 @@ import { STORAGE, ANON_WATCHED, ANON_QUEUE, DB_STORAGE, ACCENT_BTN_CLASS } from 
 import { createPagination } from '../pagination/createPagination';
 import { onFilmCardClick } from '../onFilmCardClick';
 import { localStorageAPI } from '../localStorageAPI';
-import { auth } from '../api/firebase/api';
+import { auth } from '../api/firebase/firebaseConfig';
 import { dynRefs } from '../constants/dynamicRefs';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import "notiflix/dist/notiflix-3.2.5.min.css";

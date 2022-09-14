@@ -1,4 +1,5 @@
-import { singUp, singIn, logOut, auth } from '../../api/firebase/api';
+import { singUp, singIn, logOut } from '../../api/firebase/api';
+import { auth } from '../../api/firebase/firebaseConfig';
 import { dynRefs } from '../../constants/dynamicRefs';
 import { refs } from '../../constants/refs';
 import modalAuthTpl from '../../../templates/auth-modal.hbs';
@@ -6,10 +7,10 @@ import closeSvg from '../../../images/sprite.svg';
 
 export function showAuthorisedFields() {
   refs.autorizationChecked.style.display = 'block';
-  const { LoggedIn, notLoggedIn, userEmail } = dynRefs();
+  const { loggedIn, notLoggedIn, userEmail } = dynRefs();
   if (notLoggedIn) {
     notLoggedIn.style.display = 'none';
-    LoggedIn.style.display = 'block';
+    loggedIn.style.display = 'block';
 
     userEmail.innerHTML = auth.currentUser.email;
   }
@@ -17,10 +18,10 @@ export function showAuthorisedFields() {
 
 export function showUnauthorisedFields() {
   refs.autorizationChecked.style.display = 'none';
-  const { LoggedIn, notLoggedIn, userEmail } = dynRefs();
+  const { loggedIn, notLoggedIn, userEmail } = dynRefs();
   if (notLoggedIn) {
     notLoggedIn.style.display = 'block';
-    LoggedIn.style.display = 'none';
+    loggedIn.style.display = 'none';
     userEmail.innerHTML = '';
   }
 }

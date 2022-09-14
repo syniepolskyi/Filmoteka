@@ -2,7 +2,7 @@ import { moviedbApi } from './moviedbapi';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import "notiflix/dist/notiflix-3.2.5.min.css";
 
-// Використовуеться для функції changeGenresIdtoName
+// Використовуеться для функції changeGenresIdToName
 
 const END_POINT_MOVIE = 'genre/movie/list';
 const END_POINT_TV = 'genre/tv/list';

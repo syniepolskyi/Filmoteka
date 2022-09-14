@@ -1,25 +1,18 @@
-import { initializeApp } from 'firebase/app';
-
 import {
-  getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
 } from 'firebase/auth';
 
-import { getDoc, doc, setDoc, getFirestore } from 'firebase/firestore';
+import { getDoc, doc, setDoc } from 'firebase/firestore';
 
-import { firebaseConfig } from './firebaseConfig';
+import { db, auth } from './firebaseConfig';
 
 import { dynRefs } from '../../constants/dynamicRefs';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import "notiflix/dist/notiflix-3.2.5.min.css";
 
-// Initialize Firebase, Auth, Firestore
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-export const auth = getAuth();
 // // // // // // // // // // // // //
 
 export function singUp(email, password) {
@@ -103,7 +96,7 @@ export function authObserver(fncLogIn, fncNotLog) {
         }
       });
     } else {
-      const { notLoggedIn, LoggedIn } = dynRefs();
+      const { notLoggedIn, loggedIn } = dynRefs();
       if (fncNotLog) {
         fncNotLog.forEach(func => func());
       }
