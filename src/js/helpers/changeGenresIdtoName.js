@@ -1,4 +1,6 @@
 import { genres } from '../api/moviedb/getGenres ';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import "notiflix/dist/notiflix-3.2.5.min.css";
 
 // Функцію треба визвати після запиту з бекенда і передати туди результат запиту для замінт id жанру на назву жанру
 export async function changeGenresIdtoName(movies) {
@@ -18,6 +20,6 @@ export async function changeGenresIdtoName(movies) {
       element.genre_ids = newArr;
     });
   } catch (error) {
-    console.log(error);
+    Notify.failure("Something went wrong");
   }
 }

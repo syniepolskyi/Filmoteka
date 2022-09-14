@@ -1,5 +1,12 @@
 import { dynRefs } from './constants/dynamicRefs';
-import { STORAGE } from './constants/storage';
+import { STORAGE, DB_STORAGE } from './constants/app_const';
+import { 
+  STORAGE, 
+  DB_STORAGE, 
+  BUTTON_LABEL_QUEUE_ADD, 
+  BUTTON_LABEL_WATCHED_REMOVE, 
+  BUTTON_LABEL_WATCHED_ADD 
+} from './constants/app_const';
 import { refs } from './constants/refs';
 import { onFilmCardClick } from './onFilmCardClick';
 import { localStorageAPI } from './localStorageAPI';
@@ -9,18 +16,14 @@ import { removeFromLibraryList, addToLibrary } from './helpers/library-main';
 
 const { headerWatchedBtn, mainList } = refs;
 
-const buttonLabelWatchedAdd = 'Add to watched';
-const buttonLabelWatchedRemove = 'Remove from watched';
-const buttonLabelQueuedAdd = 'Add to queue';
-
 // Додає або видаляє фільм з localStorage в залежності від стану кнопки
 
 export async function addWatched(e) {
   let loadStorage;
   let userStorage;
   if (auth.currentUser) {
-    userStorage = 'dataFromDB';
-    loadStorage = JSON.parse(localStorage.getItem('dataFromDB'));
+    userStorage = DB_STORAGE;
+    loadStorage = localStorageAPI.load(DB_STORAGE);
   } else {
     userStorage = STORAGE;
     loadStorage = localStorageAPI.load(STORAGE);
@@ -39,7 +42,7 @@ export async function addWatched(e) {
       try {
         await postData(loadStorage);
       } catch (error) {
-        console.log(error);
+        Notify.failure("Something went wrong");
       }
     }
     localStorageAPI.save(userStorage, loadStorage);
@@ -52,7 +55,7 @@ export async function addWatched(e) {
     }
 
     e.target.setAttribute('data-btn', 'add');
-    e.target.textContent = buttonLabelWatchedAdd;
+    e.target.textContent = BUTTON_LABEL_WATCHED_ADD;
     return;
   }
 
@@ -73,7 +76,7 @@ export async function addWatched(e) {
   if (indexOfQueuedMovie > -1) {
     queue.splice(indexOfQueuedMovie, 1);
     addToQueueBtn.setAttribute('data-btn', 'add');
-    addToQueueBtn.textContent = buttonLabelQueuedAdd;
+    addToQueueBtn.textContent = BUTTON_LABEL_QUEUE_ADD;
 
     if (
       refs.libBtn &&
@@ -83,14 +86,10 @@ export async function addWatched(e) {
     }
   }
   if (auth.currentUser) {
-    try {
-      await postData(loadStorage);
-    } catch (error) {
-      console.log(error);
-    }
+    await postData(loadStorage);
   }
   localStorageAPI.save(userStorage, loadStorage);
 
   e.target.setAttribute('data-btn', 'remove');
-  e.target.textContent = buttonLabelWatchedRemove;
+  e.target.textContent = BUTTON_LABEL_WATCHED_REMOVE;
 }

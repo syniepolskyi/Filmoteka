@@ -7,7 +7,7 @@ import { onFilmCardClick } from '../../onFilmCardClick';
 import { moviedbApi } from '../../api/moviedb/moviedbapi';
 import { refs } from '../../constants/refs';
 
-const TRENDING_END_POINT = 'trending/movie/day';
+const TRENDING_END_POINT = 'trending/movie/week';
 const swiperWrapper = refs.swiperWrapper;
 const swiperRef = refs.swiperRef;
 

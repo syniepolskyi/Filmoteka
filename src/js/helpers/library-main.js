@@ -2,19 +2,20 @@
 import { getMoviesDetails } from "../api/moviedb/getMoviesDetails";
 import createMarkUp from '../../templates/film-cards.hbs';
 import { refs } from "../constants/refs";
-import { STORAGE, ANON_WATCHED, ANON_QUEUE, DB_STORAGE } from "../constants/storage";
+import { STORAGE, ANON_WATCHED, ANON_QUEUE, DB_STORAGE, ACCENT_BTN_CLASS } from "../constants/app_const";
 import { createPagination } from '../pagination/createPagination';
 import { onFilmCardClick } from '../onFilmCardClick';
 import { localStorageAPI } from '../localStorageAPI';
 import { auth } from '../api/firebase/api';
 import { dynRefs } from '../constants/dynamicRefs';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import "notiflix/dist/notiflix-3.2.5.min.css";
 
 
 // references
 const { headerWatchedBtn, headerQueueBtn, mainList, dataNotFoundEl, paginationBox } = refs;
 
 // variables
-const ACCENT_BTN_CLASS = "button--accent";
 const perPage = choisePerPage(document.body.clientWidth);
 let libraryQuery = ANON_WATCHED;
 
@@ -64,7 +65,6 @@ async function renderLibraryCards(page) {
       arr = localStorageAPI.load(DB_STORAGE)[libraryQuery];
     }
     const totalPages = Math.ceil(arr.length / perPage);
-    console.log(arr.length,perPage,totalPages)
     createPagination(page, totalPages);
 
     // event listeners
@@ -104,7 +104,7 @@ async function createLibraryCardsdMarkup(page) {
     const movies = await Promise.all(moviePromises);
     return createMarkUp(movies);
   } catch (e) {
-    console.log(e.message);
+    Notify.failure("Something went wrong");
   }
 }
 
@@ -178,5 +178,7 @@ export async function addToLibrary(id) {
     mainList.insertAdjacentHTML('afterbegin', createMarkUp(movieTopush));
 
     return;
-  } catch (error) {}
+  } catch (error) {
+    Notify.failure("Something went wrong");
+  }
 }
