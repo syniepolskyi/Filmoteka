@@ -13,6 +13,8 @@ import { getDoc, doc, setDoc, getFirestore } from 'firebase/firestore';
 import { firebaseConfig } from './firebaseConfig';
 
 import { dynRefs } from '../../constants/dynamicRefs';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import "notiflix/dist/notiflix-3.2.5.min.css";
 
 // Initialize Firebase, Auth, Firestore
 const app = initializeApp(firebaseConfig);
@@ -37,7 +39,7 @@ export function singUp(email, password) {
       const errorCode = error.code;
       const errorMessage = error.message;
 
-      alert(errorMessage);
+      Notify.failure(errorMessage);
       // ..
     });
 }
@@ -48,7 +50,7 @@ export function singIn(email, password) {
     .catch(error => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      alert(errorMessage);
+      Notify.failure(errorMessage);
     });
 }
 
@@ -58,7 +60,7 @@ export function logOut() {
       // Sign-out successful.
     })
     .catch(error => {
-      // An error happened.
+      Notify.failure("Something went wrong");
     });
 }
 
@@ -71,10 +73,10 @@ export async function getData() {
       localStorage.dataFromDB = JSON.stringify(docSnap.data());
       return docSnap.data();
     } else {
-      console.log('База фильмов пуста');
+      Notify.warning("Empty database");
     }
   } catch (e) {
-    console.error('Error receiving document: ', e);
+    Notify.failure("Something went wrong");
   }
 }
 
@@ -84,16 +86,15 @@ export async function postData(usersFilmsObj, uid = auth.currentUser.uid) {
 
     await setDoc(userData, usersFilmsObj, { merge: true });
 
-    console.log('Document written with ID: ', userData.id);
   } catch (e) {
     console.error('Error adding document: ', e);
+    Notify.failure("Something went wrong, data not saved");
   }
 }
 
 export function authObserver(fncLogIn, fncNotLog) {
   onAuthStateChanged(auth, user => {
     if (user) {
-      console.log('observer run. user exist');
 
       getData().then(e => {
         localStorage.dataFromDB = JSON.stringify(e);
@@ -103,7 +104,6 @@ export function authObserver(fncLogIn, fncNotLog) {
       });
     } else {
       const { notLoggedIn, LoggedIn } = dynRefs();
-      console.log('observer run. no user');
       if (fncNotLog) {
         fncNotLog.forEach(func => func());
       }

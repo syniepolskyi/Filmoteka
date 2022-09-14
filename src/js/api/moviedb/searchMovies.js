@@ -1,4 +1,5 @@
 import { Notify } from 'notiflix';
+import "notiflix/dist/notiflix-3.2.5.min.css";
 import { moviedbApi } from './moviedbapi';
 import loader from '../../loader';
 

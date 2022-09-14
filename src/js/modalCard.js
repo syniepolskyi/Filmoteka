@@ -6,7 +6,12 @@ import { dynRefs } from './constants/dynamicRefs';
 import { refs } from './constants/refs';
 import { addWatched } from './addWatched';
 import { addQueue } from './addQueue';
-import { STORAGE, DB_STORAGE } from './constants/storage';
+import { 
+  STORAGE, 
+  DB_STORAGE,
+  BUTTON_LABEL_WATCHED_REMOVE,
+  BUTTON_LABEL_QUEUE_REMOVE 
+} from './constants/app_const';
 import './helpers/helpers';
 import { localStorageAPI } from './localStorageAPI';
 import { auth } from './api/firebase/api';
@@ -15,8 +20,6 @@ const modal = refs.modal;
 
 export default function openModalCard(movie, customHtml = '') {
   document.body.classList.add('show-modal-card');
-
-  //   console.log('Show Modal', this);
 
   if (movie && !customHtml) {
     movie.closeSvg = closeSvg;
@@ -76,8 +79,6 @@ function onEscKeyPressExit(event) {
 
 // Перевіряє стан локал стореджа і встановлює на кнопки віповідний текст і data атребут
 function checkStorage(id) {
-  const buttonLabelWatchedRemove = 'Remove from watched';
-  const buttonLabelQueueRemove = 'Remove from queue';
   let userStorage = '', loadStorage= '';
   //const loadStorage = localStorageAPI.load(STORAGE);
   if (auth.currentUser) {
@@ -100,11 +101,11 @@ function checkStorage(id) {
 
   if (indexOfWarchedMovie > -1) {
     addToWatchedBtn.setAttribute('data-btn', 'remove');
-    addToWatchedBtn.textContent = buttonLabelWatchedRemove;
+    addToWatchedBtn.textContent = BUTTON_LABEL_WATCHED_REMOVE;
   }
 
   if (indexOfQueueMovie > -1) {
     addToQueueBtn.setAttribute('data-btn', 'remove');
-    addToQueueBtn.textContent = buttonLabelQueueRemove;
+    addToQueueBtn.textContent = BUTTON_LABEL_QUEUE_REMOVE;
   }
 }

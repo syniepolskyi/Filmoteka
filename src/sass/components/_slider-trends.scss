@@ -23,6 +23,7 @@ section.swiper-section {
   @media screen and (min-width: 1280px) {
     height: 350px;
   }
+
 }
 
 .swiper-slide {
@@ -30,11 +31,12 @@ section.swiper-section {
 
   overflow: hidden;
   transition: transform 200ms ease-in-out;
-  &:hover, &:focus {
-    transform: scale(1.03);
-  }
   @media screen and (min-width: 1280px) {
     box-shadow: 21px 17px 20px -9px rgba(0, 0, 0, 0.1);
+    &:hover, &:focus {
+      transform: scale(1.03);
+      cursor: pointer;
+    }
   }
 }
 .content-wrap {
@@ -69,19 +71,19 @@ section.swiper-section {
 }
 
 .swiper-pagination-bullet {
-  background: rgb(231, 125, 3) !important;
-  opacity: 0.9 !important;
+  background: rgb(231, 125, 3) ;
+  opacity: 0.9 ;
 }
 .swiper-pagination-bullet-active {
   opacity: 1;
-  background: rgb(16, 100, 226) !important;
+  background: rgb(16, 100, 226) ;
 }
 .swiper-pagination {
-  position: static !important;
+  position: static ;
   padding: 10px;
 }
-.swiper-wrapper {
+.swiper-trend {
   @media screen and (min-width: 1280px) {
-    height: 315px !important;
+    height: 315px ;
   }
 }
