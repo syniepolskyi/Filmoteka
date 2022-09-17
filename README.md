@@ -1,5 +1,14 @@
 # Filmoteka
-GoIT Project
+
+JavaScript проєкт "Filmoteka" 
+- перегляд інформації про популярні фільми;
+- пошук в базі даних фільмів;
+- збереження фільмів у бібліотеку: переглянутих і в черзі на перегляд.
+
+Для отримання інформації про фільми використовується [база даних творів кіномистецтва themoviedb](https://www.themoviedb.org/)
+Для реєстрації/авторизації користувача через e-mail та збереження даних використано [Firebase](https://firebase.google.com/), [Firestore Dev Console](https://console.firebase.google.com/u/0/project/filmoteka-fa3c9/firestore)
+![Firestore](https://user-images.githubusercontent.com/101953791/190874685-d71fd160-9aa6-458a-bcc7-f86e5e5a547b.png)
+
 
 ## Налаштування і використання
 
@@ -10,6 +19,7 @@ npm -v
 > 8.5.5
 npm i
 npm start
+> ... localhost:1234
 ```
 
 Потрібен веб-браузер з підтримкою ES6
