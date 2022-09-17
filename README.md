@@ -17,3 +17,7 @@ npm start
 ## Логічна структура
 
 <img width="1082" alt="Знімок екрана 2022-09-14 о 17 43 36" src="https://user-images.githubusercontent.com/101953791/190186668-67510ced-fb27-4327-b0b1-e61b481a7143.png">
+
+## Info
+- (https://www.figma.com/file/IOrJziFAjQD8Xb5V1fx0ib/Filmoteka-(Copy)-(Copy)?node-id=0%3A1)[Макет]
+- (https://docs.google.com/spreadsheets/d/1Z26Jc5WlgcoD8r_Xci6R5vcCHtKFfESoJFhZQ2eh77E/edit#gid=0)[Технічне завдання]
