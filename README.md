@@ -21,3 +21,9 @@ npm start
 ## Info
 - [Макет](https://www.figma.com/file/IOrJziFAjQD8Xb5V1fx0ib/Filmoteka-(Copy)-(Copy)?node-id=0%3A1)
 - [Технічне завдання](https://docs.google.com/spreadsheets/d/1Z26Jc5WlgcoD8r_Xci6R5vcCHtKFfESoJFhZQ2eh77E/edit#gid=0)
+
+## Video
+
+
+https://user-images.githubusercontent.com/101953791/190874017-d6fc12b2-e6d0-4b9b-bbe9-667457ca81b0.mp4
+
